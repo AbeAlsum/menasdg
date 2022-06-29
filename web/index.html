@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://d3js.org/d3.v4.js"></script>
+    <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+    <script src="https://d3js.org/d3-geo-projection.v2.min.js"></script>
+    <!--<script src="https://d3js.org/d3-request.v1.min.js"></script> -->
+    <title>Document</title>
+    <link rel="stylesheet" href="css/style.css">
+
+
+
+
+
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.1/css/bootstrap-select.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.1/js/bootstrap-select.js"></script>
+</head>
+
+<body>
+    <h1>
+        This is a text!
+    </h1>
+    <p>select a country
+    </p>
+
+    <select id='goalsSelector'>
+    </select>
+    <select id='targetsSelector'>
+        <option>targetsSelector</option>
+    </select>
+    <select id='indicatorsList'>
+        <option>indicatorsList</option>
+    </select>
+    <select id='seriesSelector'>
+        <option>seriesSelector</option>
+    </select>
+    <select id='countriesSelector' multiple data-live-search="true" data-live-search-style="startsWith" class="selectpicker">
+    <option>countriesSelector</option>
+    </select>
+    <input type="checkbox" id="switch" value="yes" /><label for="switch">Toggle</label>
+    <div id='main_grid'>
+        <div id="dimention_block"></div>
+        <div id="attribute_block"></div>
+        <div id='map_block'></div>
+        <div id='bar_block'> </div>
+        <div id='line_block'></div>
+        <div id="ridgeline_block"></div>
+    </div>
+    <div id='scatter_field'>
+        <div id="scatter_block"></div>
+    </div>
+
+    <!-- <script src="js/listOfCountries.js"></script> -->
+    <script src="js/listOfCountriesR2.js"></script>
+    <script src="js/listOfGoals.js"></script>
+    <script src="js/listOfTargets.js"></script>
+    <script src="js/listOfIndicators.js"></script>
+    <script src="js/listOfSeries.js"></script>
+    <script src="js/getGraphsR3.js"></script>
+    <script src="js/getMap.js"></script>
+    <script src="js/getBar.js"></script>
+    <script src="js/getScatter.js"></script>
+    <script src="js/getRidgeline.js"></script>
+    <!-- <script src="js/listOfDimentions.js"></script> -->
+
+    <script>
+    </script>
+
+    <script>
+        const cb = document.querySelector('#switch');
+        var main_grid = document.getElementById('main_grid')
+        var scatter = document.getElementById('scatter_field')
+        cb.addEventListener('click', (event) => {
+            console.log(cb.checked); // false 
+            if (cb.checked == true) {
+                main_grid.style.display = "None"
+                scatter.style.display = 'Block'
+            } else {
+                main_grid.style.display = "Grid"
+                scatter.style.display = 'None'
+            }
+        });
+    </script>
+    <script>
+        var select = document.getElementById('countriesSelector');
+
+        for (var i = 0, l = select.options.length, o; i < l; i++) {
+            o = select.options[i];
+            console.log(o)
+            if (optionsToSelect.indexOf(o.text) != -1) {
+                o.selected = true;
+            }
+        }
+    </script>
+</body>
+
+</html>

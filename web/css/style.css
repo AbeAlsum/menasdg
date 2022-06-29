@@ -1,0 +1,108 @@
+#switch {
+    height: 0;
+    width: 0;
+    visibility: hidden;
+}
+
+label {
+    cursor: pointer;
+    text-indent: -9999px;
+    width: 5vw;
+    height: 2vh;
+    background: grey;
+    display: block;
+    border-radius: 100px;
+    position: relative;
+}
+
+label:after {
+    content: '';
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    width: 3vw;
+    height: 1vh;
+    background: #fff;
+    border-radius: 90px;
+    transition: 0.3s;
+}
+
+input:checked+label {
+    background: #bada55;
+}
+
+input:checked+label:after {
+    left: calc(100% - 5px);
+    transform: translateX(-100%);
+}
+
+label:active:after {
+    width: 13px;
+}
+
+
+/*блок із скаттерплотом для порівняння різних параметрів*/
+
+#scatter_field {
+    display: None;
+}
+
+
+/* блок із графіком, картою та лайнчартом*/
+
+#dimention_block {
+    grid-row: 1;
+    grid-column: 1;
+}
+
+#attribute_block {
+    grid-row: 1;
+    grid-column: 2;
+}
+
+#main_grid {
+    display: grid;
+    grid-template-columns: 50vw 50vw;
+}
+
+#map_block {
+    grid-row: 2;
+    grid-column: 1;
+}
+
+#bar_block {
+    grid-row: 2;
+    grid-column: 2;
+}
+
+#line_block {
+    grid-row: 3;
+    grid-column-start: 1;
+    grid-column-end: -1;
+}
+
+#ridgeline_block {
+    grid-row: 4;
+    grid-column-start: 1;
+    grid-column-end: -1;
+}
+
+#goalsSelector {
+    width: 200px;
+}
+
+#targetsSelector {
+    width: 200px;
+}
+
+#indicatorsList {
+    width: 200px;
+}
+
+#seriesSelector {
+    width: 200px;
+}
+
+#countriesSelector {
+    width: 200px;
+}

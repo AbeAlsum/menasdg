@@ -1,0 +1,73 @@
+json.data.forEach(function(d) {
+                //console.log(d)
+                date = d3.timeParse("%Y")(d.timePeriodStart)
+                data.push({
+                        year: date,
+                        value: d.value,
+                        series: d.series,
+                        seriesDescription: d.seriesDescription
+                    })
+                    // для кожного запису в діменшенс кожного запису
+                for (const [key, value] of Object.entries(d.dimensions)) {
+                    console.log("запис із словника в таблиці даних: " + key)
+                    if (listOfKeys.includes(key)) {
+                        console.log('Словник listOfKeys вже містить ключ ' + key)
+                        console.log(listOfKeys)
+                    } else {
+                        listOfKeys.push(key)
+                        console.log(listOfKeys)
+                    }
+
+                    // якщо словник порожній - відразу додаємо до нього значення
+                    if (dimentionsDict.length == 0) {
+                        console.log("Перша умова довжина списку словників із даними: " + dimentionsDict.length)
+                        dimentionsDict.push({
+                            name: key,
+                            value: value
+                        })
+                        break
+                        // в іншому випадку проходимось по всіх записах фінального словника
+                    } else {
+                        console.log("довжина списку словників із даними: " + dimentionsDict.length)
+                            // якщо список ключів містить ключ - тобто і фінальний словник містить цей ключ - проходимось по фінальному словнику у пошуку ключа
+                        if (listOfKeys.includes(key)) {
+                            console.log('listOfKeys.includes(key)')
+                            dimentionsDict.forEach(function(dimention) {
+                                console.log(dimention)
+                                    // якщо dimention.name = ключу із таблиці із даними 
+                                if (dimention.name == key) {
+                                    console.log(dimention.name + " " + key)
+                                    var listOfThings = [] // створюємо порожній список
+                                        // якщо у dimention.value список - перебираємо його і додаємо до списку кожне значення, інакше додаємо одне значення
+                                    try {
+                                        dimention.value.forEach(function(singleValue) {
+                                            listOfThings.push(singleValue)
+                                        })
+                                    } catch {
+                                        listOfThings.push(dimention.value)
+                                    }
+                                    // якщо у списку значень вже є значення нічого не робиномо, інакше - записуємо нове значення
+                                    if (listOfThings.includes(value)) {
+
+                                    } else { listOfThings.push(value) }
+
+                                    dimentionsDict = dimentionsDict.filter((item) => typeof(item) === 'object' && item.name !== key); // отфильтровать массив, в котором подходить под условие будут только те объекты у которых поле value не равняется 'b' и не является строкой
+                                    dimentionsDict.push({
+                                        name: key,
+                                        value: listOfThings
+                                    })
+                                } else {}
+                            })
+                        } else {
+                            // в іншому випадку - відразу додаємо запис
+                            console.log('той випадок, коли ключа немає у фінальному словнику')
+                            dimentionsDict.push({
+                                name: key,
+                                value: value
+                            })
+                        }
+                    }
+
+
+                }
+            })
