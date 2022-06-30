@@ -11,17 +11,6 @@
     <!--<script src="https://d3js.org/d3-request.v1.min.js"></script> -->
     <title>Document</title>
     <link rel="stylesheet" href="css/style.css">
-
-
-
-
-
-
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.1/css/bootstrap-select.css" />
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.1/js/bootstrap-select.js"></script>
 </head>
 
 <body>
@@ -42,10 +31,11 @@
     <select id='seriesSelector'>
         <option>seriesSelector</option>
     </select>
-    <select id='countriesSelector' multiple data-live-search="true" data-live-search-style="startsWith" class="selectpicker">
+    <!-- <select id='countriesSelector' multiple>
     <option>countriesSelector</option>
-    </select>
-    <input type="checkbox" id="switch" value="yes" /><label for="switch">Toggle</label>
+    </select> -->
+    <div id='countriesSelector'></div>
+    <input type="checkbox" id="switch" value="yes" /><label for="switch" id='switch_label'>Toggle</label>
     <div id='main_grid'>
         <div id="dimention_block"></div>
         <div id="attribute_block"></div>
@@ -59,7 +49,7 @@
     </div>
 
     <!-- <script src="js/listOfCountries.js"></script> -->
-    <script src="js/listOfCountriesR2.js"></script>
+    <!-- <script src="js/listOfCountriesR2.js"></script> -->
     <script src="js/listOfGoals.js"></script>
     <script src="js/listOfTargets.js"></script>
     <script src="js/listOfIndicators.js"></script>
@@ -88,17 +78,6 @@
                 scatter.style.display = 'None'
             }
         });
-    </script>
-    <script>
-        var select = document.getElementById('countriesSelector');
-
-        for (var i = 0, l = select.options.length, o; i < l; i++) {
-            o = select.options[i];
-            console.log(o)
-            if (optionsToSelect.indexOf(o.text) != -1) {
-                o.selected = true;
-            }
-        }
     </script>
 </body>
 

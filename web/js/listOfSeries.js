@@ -4,7 +4,7 @@ function listOfSeries() {
 
     function update(option) {
         var url = 'https://unstats.un.org/SDGAPI/v1/sdg/Indicator/' + option + '/Series/List'
-            //console.log(url)
+        console.log(url)
         d3.json(url, function(error, json) {
             if (error) return console.warn(error);
             //console.log(json)
@@ -14,12 +14,16 @@ function listOfSeries() {
                     list.removeChild(list.lastChild);
                 }
             } catch {}
-            json[0].series.forEach(function(d) {
-                opt = document.createElement('option');
-                opt.innerHTML = d.description
-                opt.value = d.code
-                list.appendChild(opt)
-            })
+
+            try {
+                json[0].series.forEach(function(d) {
+                    opt = document.createElement('option');
+                    opt.innerHTML = d.description
+                    opt.value = d.code
+                    list.appendChild(opt)
+                })
+            } catch {}
+
 
         });
     }
