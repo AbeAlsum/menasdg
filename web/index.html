@@ -11,6 +11,9 @@
     <!--<script src="https://d3js.org/d3-request.v1.min.js"></script> -->
     <title>Document</title>
     <link rel="stylesheet" href="css/style.css">
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
 
 <body>
@@ -34,19 +37,26 @@
     <!-- <select id='countriesSelector' multiple>
     <option>countriesSelector</option>
     </select> -->
-    <div id='countriesSelector'></div>
-    <input type="checkbox" id="switch" value="yes" /><label for="switch" id='switch_label'>Toggle</label>
-    <div id='main_grid'>
-        <div id="dimention_block"></div>
+    <div class="dropdown">
+        <div class="dropdown__header" data-value="all">Select Country</div>
+        <div class="dropdown__body" id='countriesSelector'>
+        </div>
+    </div>
+    <div id="dimention_block"></div>
+    <!-- <input type="checkbox" id="switch" value="yes" /><label for="switch" id='switch_label'>Toggle</label> -->
+    <!-- <div id='main_grid'>
+        
         <div id="attribute_block"></div>
         <div id='map_block'></div>
         <div id='bar_block'> </div>
         <div id='line_block'></div>
         <div id="ridgeline_block"></div>
-    </div>
-    <div id='scatter_field'>
+    </div> -->
+
+    <div id='line_block'></div>
+    <!-- <div id='scatter_field'>
         <div id="scatter_block"></div>
-    </div>
+    </div> -->
 
     <!-- <script src="js/listOfCountries.js"></script> -->
     <!-- <script src="js/listOfCountriesR2.js"></script> -->
@@ -54,17 +64,19 @@
     <script src="js/listOfTargets.js"></script>
     <script src="js/listOfIndicators.js"></script>
     <script src="js/listOfSeries.js"></script>
-    <script src="js/getGraphsR4.js"></script>
-    <script src="js/getMap.js"></script>
+    <script src="js/getGraphsR5.js"></script>
+    <!-- <script src="js/lineChart.js"></script> -->
+    <!-- <script src="js/getMap.js"></script>
     <script src="js/getBar.js"></script>
     <script src="js/getScatter.js"></script>
-    <script src="js/getRidgeline.js"></script>
+    <script src="js/getRidgeline.js"></script> -->
+    <script src="js/downloadData.js"></script>
     <!-- <script src="js/listOfDimentions.js"></script> -->
 
     <script>
     </script>
 
-    <script>
+    <!-- <script>
         const cb = document.querySelector('#switch');
         var main_grid = document.getElementById('main_grid')
         var scatter = document.getElementById('scatter_field')
@@ -78,13 +90,26 @@
                 scatter.style.display = 'None'
             }
         });
-    </script>
+    </script> -->
 
     <!-- <script>
         d3.select("#seriesSelector").on("click.getGraphs", function(d) {
             getGraphs()
         })
     </script> -->
+    <script>
+        $('.dropdown__header').on('click', function() {
+            let dropdown = $(this).parents('.dropdown');
+            dropdown.toggleClass('open');
+        });
+        $('.dropdown__body > div').on('click', function() {
+            let dropdown = $(this).parents('.dropdown');
+            let name = $(this).data('name');
+            let text = $(this).text();
+            dropdown.children('.dropdown__header').data('value', name);
+            dropdown.children('.dropdown__header').text(text);
+        });
+    </script>
 </body>
 
 </html>

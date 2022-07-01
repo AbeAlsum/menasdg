@@ -16,6 +16,9 @@ function listOfSeries() {
             } catch {}
 
             try {
+                opt = document.createElement('option');
+                opt.innerHTML = "select series"
+                list.appendChild(opt)
                 json[0].series.forEach(function(d) {
                     opt = document.createElement('option');
                     opt.innerHTML = d.description
@@ -23,8 +26,6 @@ function listOfSeries() {
                     list.appendChild(opt)
                 })
             } catch {}
-
-
         });
     }
     d3.select("#indicatorsList").on("click.seriesList", function(d) {

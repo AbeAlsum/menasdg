@@ -15,6 +15,9 @@ function listOfIndicators() {
                     list.removeChild(list.lastChild);
                 }
             } catch {}
+            opt = document.createElement('option');
+            opt.innerHTML = "select indicator"
+            list.appendChild(opt)
             json.forEach(function(d) {
                 if (d.target === option) {
                     //console.log(d.target)

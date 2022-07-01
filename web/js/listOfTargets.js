@@ -13,6 +13,9 @@ function listOfTargets() {
                     list.removeChild(list.lastChild);
                 }
             } catch {}
+            opt = document.createElement('option');
+            opt.innerHTML = "select target"
+            list.appendChild(opt)
             json[0].targets.forEach(function(d) {
                 opt = document.createElement('option');
                 opt.innerHTML = d.description
