@@ -60,6 +60,8 @@ function downloadData() {
                     geoAreaCode: d.geoAreaCode
                 })
 
+                //console.log(data)
+
 
                 for (const [key, value] of Object.entries(d.dimensions)) {
                     if (dimentionsDict.length == 0) {
