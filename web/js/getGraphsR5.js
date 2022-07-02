@@ -227,135 +227,315 @@ function getLineChart(data, countryList, dimentionsDict) {
             });
 
 
-        // This allows to find the closest X index of the mouse:
-        var lineStroke = "2px"
+
+        var tooltip = d3.select("#line_block")
+            .append("div")
+            .data(dataFiltered)
+            .style("opacity", 0)
+            .attr("class", "tooltip")
+            .style("background-color", "white")
+            .style("border", "solid")
+            .style("border-width", "1px")
+            .style("border-radius", "5px")
+            .style("padding", "10px")
+
+        // .html(function() {
+        //     selection = document.getElementsByClassName(d3.select(this)._groups[0][0].classList[0])
+        //     text = []
+        //         // console.log(selection.length)
+        //     for (var i = 0; i < selection.length; i++) {
+        //         //console.log(selection[i])
+        //         // try {
+        //         //     console.log(selected._groups[0][i].nodeName)
+        //         if (selection[i].nodeName == "circle") {
+        //             if (selection[i].style.opacity == 1) {
+        //                 console.log(selection[i])
+        //             }
+        //             text.push({
+        //                 country: selected._groups[0][i].__data__.country,
+        //                 value: selected._groups[0][i].__data__.value,
+        //                 year: selected._groups[0][i].__data__.year.getFullYear()
+        //             })
+        //         } else {}
+        //         // } catch {}
+        //     }
+        //     return text
+        // })
+
+
+        var mouseover = function(d) {
+            selected = d3.selectAll(".cl" + d.year.getFullYear())
+                // console.log(d3.select(this)._groups[0][0].classList[0])
+            selection = document.getElementsByClassName(d3.select(this)._groups[0][0].classList[0])
+                // selected = d3.selectAll("." + d3.select(this)._groups[0][0].classList[0])
+                //     // console.log(selected._groups[0])
+                // text = []
+                //     // console.log(selection.length)
+                // for (var i = 0; i < selection.length; i++) {
+                //     //console.log(selection[i])
+                //     // try {
+                //     //     console.log(selected._groups[0][i].nodeName)
+                //     if (selection[i].nodeName == "circle") {
+                //         text.push({
+                //             country: selected._groups[0][i].__data__.country,
+                //             value: selected._groups[0][i].__data__.value,
+                //             year: selected._groups[0][i].__data__.year.getFullYear()
+                //         })
+                //     } else {}
+                //     // } catch {}
+                // }
+                // console.log(text)
+
+            selected
+                .style("opacity", 1)
+
+            tooltip
+                .style("opacity", 1)
+                // .html(
+                //     JSON.stringify(text)
+                // )
+
+        }
 
 
 
-        tooltip = d3.select("#chart").append("div")
-            .attr('id', 'tooltip')
-            .style('position', 'absolute')
-            .style("background-color", "#D3D3D3")
-            .style('padding', 6)
-            .style('display', 'none')
+        var mousemove = function(d) {
+            selected = d3.selectAll(".cl" + d.year.getFullYear())
 
-        mouseG = line_svg.append("g")
-            .attr("class", "mouse-over-effects");
+            // selection = document.getElementsByClassName(d3.select(this)._groups[0][0].classList[0])
+            //     // selected = d3.selectAll("." + d3.select(this)._groups[0][0].classList[0])
+            //     //     // console.log(selected._groups[0])
+            // text = []
+            //     // console.log(selection.length)
+            // for (var i = 0; i < selection.length; i++) {
+            //     //console.log(selection[i])
+            //     // try {
+            //     //     console.log(selected._groups[0][i].nodeName)
+            //     if (selection[i].nodeName == "circle") {
+            //         if (selection[i].style.opacity == 1) {
+            //             console.log(selection[i])
+            //         }
+            //         text.push({
+            //             country: selected._groups[0][i].__data__.country,
+            //             value: selected._groups[0][i].__data__.value,
+            //             year: selected._groups[0][i].__data__.year.getFullYear()
+            //         })
+            //     } else {}
+            //     // } catch {}
+            //}
 
-        mouseG.append("path") // create vertical line to follow mouse
-            .attr("class", "mouse-line")
-            .style("stroke", "#A9A9A9")
-            .style("stroke-width", lineStroke)
-            .style("opacity", "0");
+            selected
+                .attr("r", 10)
+                .style("fill", "red")
+                .style("stroke", "red")
+                .style("opacity", 1)
 
-        var lines = document.getElementsByClassName('line');
 
-        var mousePerLine = mouseG.selectAll('.mouse-per-line')
+            tooltip
+            // .html(JSON.stringify(text))
+                .style("opacity", 1)
+                //.html()
+                // d.value + " " + d.year.getFullYear())
+                .style("left", (d3.mouse(this)[0] + 90) + "px") // It is important to put the +90: other wise the tooltip is exactly where the point is an it creates a weird effect
+                .style("top", (d3.mouse(this)[1]) + "px")
+                .html(function() {
+                    selection = document.getElementsByClassName(d3.select(".cl" + d.year.getFullYear())._groups[0][0].classList[0])
+                    text = []
+                        // console.log(selection.length)
+                    for (var i = 0; i < selection.length; i++) {
+                        //console.log(selection[i])
+                        // try {
+                        //     console.log(selected._groups[0][i].nodeName)
+                        if (selection[i].nodeName == "circle") {
+                            if (selection[i].style.opacity == 1) {
+                                console.log(selection[i])
+                            }
+                            text.push({
+                                country: selected._groups[0][i].__data__.country,
+                                value: selected._groups[0][i].__data__.value,
+                                year: selected._groups[0][i].__data__.year.getFullYear()
+                            })
+                        } else {}
+                        // } catch {}
+                    }
+                    return JSON.stringify(text)
+                })
+        }
+
+
+
+        // A function that change this tooltip when the leaves a point: just need to set opacity to 0 again
+        var mouseleave = function(d) {
+            selected = d3.selectAll(".cl" + d.year.getFullYear())
+                .style("opacity", 0)
+
+            tooltip
+                .transition()
+                .duration(200)
+                .style("opacity", 0)
+        }
+
+        var circles = line_svg.append('g')
+            .selectAll("dot")
             .data(dataFiltered)
             .enter()
-            .append("g")
-            .attr("class", "mouse-per-line");
+            .append("circle")
+            .attr("class", function(d) { return "cl" + d.year.getFullYear().toString() })
+            .attr("cx", function(d) { return line_x(d.year); })
+            .attr("cy", function(d) { return line_y(d.value); })
+            .attr("r", 3)
+            .style("fill", "#69b3a2")
+            .style("opacity", 0)
+            .on("mouseover", mouseover)
+            .on("mousemove", mousemove)
+            .on("mouseleave", mouseleave)
 
-        mousePerLine.append("circle")
-            .attr("r", 4)
-            .style("stroke", function(d) {
-                return color(d.key)
+        var vLines = line_svg.append('g')
+            .selectAll("path")
+            .data(dataFiltered)
+            .enter()
+            .append("path")
+            .attr("class", function(d) { return "cl" + d.year.getFullYear().toString() })
+            .attr("d", function(d) {
+                var data = "M" + line_x(d.year) + "," + (line_height);
+                data += " " + line_x(d.year) + "," + 0;
+                return data; // line
             })
-            .style("fill", "none")
-            .style("stroke-width", lineStroke)
-            .style("opacity", "0");
+            .style("stroke", "red")
+            .style("opacity", 0)
+            .on("mouseover", mouseover)
+            .on("mousemove", mousemove)
+            .on("mouseleave", mouseleave)
 
-        mouseG.append('svg:rect') // append a rect to catch mouse movements on canvas
-            .attr('width', line_width)
-            .attr('height', line_height)
-            .attr('fill', 'none')
-            .attr('pointer-events', 'all')
-            .on('mouseout', function() { // on mouse out hide line, circles and text
-                d3.select(".mouse-line")
-                    .style("opacity", "0");
-                d3.selectAll(".mouse-per-line circle")
-                    .style("opacity", "0");
-                d3.selectAll(".mouse-per-line text")
-                    .style("opacity", "0");
-                d3.selectAll("#tooltip")
-                    .style('display', 'none')
 
-            })
-            .on('mouseover', function() { // on mouse in show line, circles and text
-                d3.select(".mouse-line")
-                    .style("opacity", "1");
-                d3.selectAll(".mouse-per-line circle")
-                    .style("opacity", "1");
-                d3.selectAll("#tooltip")
-                    .style('display', 'block')
-            })
-            .on('mousemove', function() { // update tooltip content, line, circles and text when mouse moves
-                var mouse = d3.mouse(this)
 
-                d3.selectAll(".mouse-per-line")
-                    .attr("transform", function(d, i) {
-                        var xDate = line_x.invert(mouse[0])
-                            //console.log(xDate) // use 'invert' to get date corresponding to distance from mouse position relative to svg
-                        var bisect = d3.bisector(function(d) {
-                                return d;
-                            }).left // retrieve row index of date on parsed csv
-                        var idx = bisect(d.value, xDate);
-                        //console.log(bisect)
 
-                        d3.select(".mouse-line")
-                            .attr("d", function() {
-                                var data = "M" + line_x(d.year) + "," + (line_height);
-                                data += " " + line_x(d.year) + "," + 0;
-                                return data;
-                            });
-                        return "translate(" + line_x(d.date) + "," + line_y(d.value) + ")";
 
-                    });
+        // This allows to find the closest X index of the mouse:
+        //     var lineStroke = "2px"
 
-                updateTooltipContent(mouse, dataFiltered)
 
-            })
 
-    }
+        //     tooltip = d3.select("#line_block").append("div")
+        //         .attr('id', 'tooltip')
+        //         .style('position', 'absolute')
+        //         .style("background-color", "#D3D3D3")
+        //         .style('padding', 6)
+        //         .style('display', 'none')
 
-    function updateTooltipContent(mouse, dataFiltered) {
+        //     mouseG = line_svg.append("g")
+        //         .attr("class", "mouse-over-effects");
 
-        sortingObj = []
-        dataFiltered.map(d => {
-            var xDate = line_x.invert(mouse[0])
-            var bisect = d3.bisector(function(d) { return d; }).left
-            var idx = bisect(d.value, xDate)
-            sortingObj.push(d)
-        })
+        //     mouseG.append("path") // create vertical line to follow mouse
+        //         .attr("class", "mouse-line")
+        //         .style("stroke", "#A9A9A9")
+        //         .style("stroke-width", lineStroke)
+        //         .style("opacity", "0");
 
-        sortingObj.sort(function(d) {
-            return d3.descending(d);
-        })
+        //     var mousePerLine = mouseG.selectAll('.mouse-per-line')
+        //         .data(dataFiltered)
+        //         .enter()
+        //         .append("g")
+        //         .attr("class", "mouse-per-line");
 
-        var sortingArr = sortingObj.map(d => d.key)
+        //     mousePerLine.append("circle")
+        //         .attr("r", 4)
+        //         .style("stroke", function(d) {
+        //             return color(d.key)
+        //         })
+        //         .style("fill", "none")
+        //         .style("stroke-width", lineStroke)
+        //         .style("opacity", "0");
 
-        var dataFiltered1 = dataFiltered.slice().sort(function(a, b) {
-            return sortingArr.indexOf(a.key) - sortingArr.indexOf(b.key) // rank vehicle category based on price of premium
-        })
+        //     mouseG.append('svg:rect') // append a rect to catch mouse movements on canvas
+        //         .attr('width', line_width)
+        //         .attr('height', line_height)
+        //         .attr('fill', 'none')
+        //         .attr('pointer-events', 'all')
+        //         .on('mouseout', function() { // on mouse out hide line, circles and text
+        //             d3.select(".mouse-line")
+        //                 .style("opacity", "0");
+        //             d3.selectAll(".mouse-per-line circle")
+        //                 .style("opacity", "0");
+        //             d3.selectAll(".mouse-per-line text")
+        //                 .style("opacity", "0");
+        //             d3.selectAll("#tooltip")
+        //                 .style('display', 'none')
 
-        tooltip.html(sortingObj[0].year)
-            .style('display', 'block')
-            .style('left', d3.event.pageX + 20)
-            .style('top', d3.event.pageY - 20)
-            .style('font-size', 11.5)
-            .selectAll()
-            .data(dataFiltered1).enter() // for each vehicle category, list out name and price of premium
-            .append('div')
-            .style('color', d => {
-                return color(d.key)
-            })
-            .style('font-size', 10)
-            .html(d => {
-                var xDate = line_x.invert(mouse[0])
-                var bisect = d3.bisector(function(d) { return d.year; }) //.left
-                var idx = bisect(d.value, xDate)
-                return d.key.substring(0, 3) + " " + d.key.slice(-1) + ": $" + d.values[idx].premium.toString()
-            })
+        //         })
+        //         .on('mouseover', function() { // on mouse in show line, circles and text
+        //             d3.select(".mouse-line")
+        //                 .style("opacity", "1");
+        //             d3.selectAll(".mouse-per-line circle")
+        //                 .style("opacity", "1");
+        //             d3.selectAll("#tooltip")
+        //                 .style('display', 'block')
+        //         })
+        //         .on('mousemove', function() { // update tooltip content, line, circles and text when mouse moves
+        //             var mouse = d3.mouse(this)
+
+        //             d3.selectAll(".mouse-per-line") //circles
+        //                 .attr("transform", function(d, i) {
+        //                     var xDate = line_x.invert(mouse[0])
+        //                     var bisect = d3.bisector(function(d) { return d.year; }).left
+        //                     var idx = bisect(dataFiltered, xDate);
+
+        //                     d3.select(".mouse-line")
+        //                         .attr("d", function() {
+        //                             var data = "M" + line_x(dataFiltered[idx].year) + "," + (line_height);
+        //                             data += " " + line_x(dataFiltered[idx].year) + "," + 0;
+        //                             return data; // line
+        //                         });
+        //                     return "translate(" + line_x(dataFiltered[idx].year) + "," + line_y(dataFiltered[idx].value) + ")"; //circles
+
+        //                 });
+
+        //             updateTooltipContent(mouse, dataFiltered)
+
+        //         })
+
+        // }
+
+        // function updateTooltipContent(mouse, dataFiltered) {
+
+        //     sortingObj = []
+        //     dataFiltered.map(d => {
+        //         var xDate = line_x.invert(mouse[0])
+        //         var bisect = d3.bisector(function(d) { return d.year; }).left
+        //         var idx = bisect(dataFiltered, xDate)
+        //         sortingObj.push({ key: dataFiltered[idx].country, premium: dataFiltered[idx].value, year: dataFiltered[idx].year.getFullYear() })
+        //     })
+
+        //     console.log(sortingObj)
+
+        //     sortingObj.sort(function(d) {
+        //         return d3.descending(d);
+        //     })
+
+        //     var sortingArr = sortingObj.map(d => d.key)
+
+        //     var dataFiltered1 = dataFiltered.slice().sort(function(a, b) {
+        //         return sortingArr.indexOf(a.key) - sortingArr.indexOf(b.key) // rank vehicle category based on price of premium
+        //     })
+
+        //     tooltip.html(sortingObj[0].year)
+        //         .style('display', 'block')
+        //         .style('left', d3.event.pageX + 20)
+        //         .style('top', d3.event.pageY - 20)
+        //         .style('font-size', 11.5)
+        //         .selectAll()
+        //         .data(dataFiltered1).enter() // for each vehicle category, list out name and price of premium
+        //         .append('div')
+        //         .style('color', d => {
+        //             return color(d.key)
+        //         })
+        //         .style('font-size', 10)
+        //         .html(d => {
+        //             var xDate = line_x.invert(mouse[0])
+        //             var bisect = d3.bisector(function(d) { return d.year; }).left
+        //             var idx = bisect(dataFiltered, xDate)
+        //             return d.country + "   " + dataFiltered[idx].value
+        //         })
 
     }
     filteredData()
