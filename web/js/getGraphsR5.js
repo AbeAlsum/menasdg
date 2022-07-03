@@ -287,7 +287,7 @@ function getLineChart(data, countryList, dimentionsDict) {
                 // console.log(text)
 
             selected
-                .style("opacity", 1)
+                .style("opacity", 0.5)
 
             tooltip
                 .style("opacity", 1)
@@ -328,7 +328,7 @@ function getLineChart(data, countryList, dimentionsDict) {
                 .attr("r", 10)
                 .style("fill", "red")
                 .style("stroke", "red")
-                .style("opacity", 1)
+                .style("opacity", 0.5)
 
 
             tooltip
@@ -358,6 +358,8 @@ function getLineChart(data, countryList, dimentionsDict) {
                         } else {}
                         // } catch {}
                     }
+                    bar_update(text)
+                    getMap(text)
                     return JSON.stringify(text)
                 })
         }
@@ -366,6 +368,7 @@ function getLineChart(data, countryList, dimentionsDict) {
 
         // A function that change this tooltip when the leaves a point: just need to set opacity to 0 again
         var mouseleave = function(d) {
+
             selected = d3.selectAll(".cl" + d.year.getFullYear())
                 .style("opacity", 0)
 
@@ -390,17 +393,38 @@ function getLineChart(data, countryList, dimentionsDict) {
             .on("mousemove", mousemove)
             .on("mouseleave", mouseleave)
 
+        // var vLines = line_svg.append('g')
+        //     .selectAll("path")
+        //     .data(dataFiltered)
+        //     .enter()
+        //     .append("path")
+        //     .attr("class", function(d) { return "cl" + d.year.getFullYear().toString() })
+        //     .attr("d", function(d) {
+        //         var data = "M" + line_x(d.year) + "," + (line_height);
+        //         data += " " + line_x(d.year) + "," + 0;
+        //         return data; // line
+        //     })
+        //     .style("stroke", "red")
+        //     .style("opacity", 0)
+        //     .on("mouseover", mouseover)
+        //     .on("mousemove", mousemove)
+        //     .on("mouseleave", mouseleave)
+
         var vLines = line_svg.append('g')
-            .selectAll("path")
+            .selectAll("rect")
             .data(dataFiltered)
             .enter()
-            .append("path")
+            .append("rect")
             .attr("class", function(d) { return "cl" + d.year.getFullYear().toString() })
-            .attr("d", function(d) {
-                var data = "M" + line_x(d.year) + "," + (line_height);
-                data += " " + line_x(d.year) + "," + 0;
-                return data; // line
-            })
+            // .attr("d", function(d) {
+            //     var data = "M" + line_x(d.year) + "," + (line_height);
+            //     data += " " + line_x(d.year) + "," + 0;
+            //     return data; // line
+            // })
+            .attr('x', function(d) { return line_x(d.year) - 25 })
+            .attr('y', function(d) { return line_y(d.value); })
+            .attr('width', 50)
+            .attr('height', line_height)
             .style("stroke", "red")
             .style("opacity", 0)
             .on("mouseover", mouseover)

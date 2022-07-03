@@ -162,3 +162,11 @@
 .dropdown__body>div:hover {
     background: #afafaf;
 }
+
+#line_block {
+    position: relative;
+}
+
+#line_block .tooltip {
+    position: absolute;
+}
