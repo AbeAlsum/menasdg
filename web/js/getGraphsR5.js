@@ -11,10 +11,13 @@ var line_svg = d3.select("#line_block")
         "translate(" + line_margin.left + "," + line_margin.top + ")");
 
 
-var line_x = d3.scaleTime()
-    .domain(d3.extent([2000, 2010], function(d) {
+year_now = new Date().getFullYear()
+year_now = +year_now
+
+var line_x = d3.scaleBand()
+    .domain(d3.extent([2000, year_now], function(d) {
         date = d3.timeParse("%Y")(d)
-        return date;
+        return date.getFullYear();
     }))
     .range([0, line_width])
 
@@ -61,7 +64,7 @@ function getLineChart(data, countryList, dimentionsDict) {
         .append("g")
         .attr("class", "group");
 
-    var line_x = d3.scaleTime()
+    var line_x = d3.scaleBand()
         .domain(d3.extent(testFilter, function(d) {
             //console.log(d.year)
             return d.year;
@@ -93,7 +96,10 @@ function getLineChart(data, countryList, dimentionsDict) {
         .call(d3.axisTop(line_x));
 
     var linepath = d3.line()
-        .x(function(d) { return line_x(d.year); })
+        .x(function(d) {
+            // console.log(d)
+            return line_x(d.year);
+        })
         .y(function(d) { return line_y(d.value); });
 
 
@@ -108,8 +114,22 @@ function getLineChart(data, countryList, dimentionsDict) {
         });
 
     function filteredData() {
+
+
+
+
+        var circles = line_svg.selectAll("circle")
+
+        // console.log(circles)
+
+        circles
+            .remove()
+
         var linepath = d3.line()
-            .x(function(d) { return line_x(d.year); })
+            .x(function(d) {
+                // console.log(d)
+                return line_x(d.year);
+            })
             .y(function(d) { return line_y(d.value); });
 
         countries = []
@@ -158,9 +178,16 @@ function getLineChart(data, countryList, dimentionsDict) {
         });
 
 
+        var unique_years = []
 
+        dataFiltered.forEach((d) => {
+            // console.log(d.year)
+            if (unique_years.includes(d.year)) {
 
-        //console.log(dataFiltered)
+            } else { unique_years.push(d.year) }
+        })
+
+        // console.log(dataFiltered)
 
         var sumstat = d3.nest() // nest function allows to group the calculation per level of a factor
             .key(function(d) {
@@ -180,12 +207,17 @@ function getLineChart(data, countryList, dimentionsDict) {
             .range([line_height, 0]);
 
 
-        var line_x = d3.scaleTime()
-            .domain(d3.extent(dataFiltered, function(d) {
-                //console.log(d.year)
-                return d.year;
-            }))
+        var line_x = d3.scaleBand()
+            .domain(unique_years.sort(d3.ascending))
             .range([0, line_width]);
+
+
+        // var line_x = d3.scaleBand()
+        //     .domain(d3.extent(dataFiltered, function(d) {
+        //         console.log(d.year)
+        //         return d.year;
+        //     }))
+        //     .range([0, line_width]);
 
 
         // line_x.domain([0, d3.max(dataFiltered, function(d) {
@@ -201,7 +233,7 @@ function getLineChart(data, countryList, dimentionsDict) {
         line_svg.selectAll(".myXaxis")
             .transition()
             .duration(500)
-            .call(d3.axisTop(line_x));
+            .call(d3.axisBottom(line_x));
 
 
         line_svg.selectAll(".group")
@@ -239,125 +271,77 @@ function getLineChart(data, countryList, dimentionsDict) {
             .style("border-radius", "5px")
             .style("padding", "10px")
 
-        // .html(function() {
-        //     selection = document.getElementsByClassName(d3.select(this)._groups[0][0].classList[0])
-        //     text = []
-        //         // console.log(selection.length)
-        //     for (var i = 0; i < selection.length; i++) {
-        //         //console.log(selection[i])
-        //         // try {
-        //         //     console.log(selected._groups[0][i].nodeName)
-        //         if (selection[i].nodeName == "circle") {
-        //             if (selection[i].style.opacity == 1) {
-        //                 console.log(selection[i])
-        //             }
-        //             text.push({
-        //                 country: selected._groups[0][i].__data__.country,
-        //                 value: selected._groups[0][i].__data__.value,
-        //                 year: selected._groups[0][i].__data__.year.getFullYear()
-        //             })
-        //         } else {}
-        //         // } catch {}
-        //     }
-        //     return text
-        // })
-
 
         var mouseover = function(d) {
-            selected = d3.selectAll(".cl" + d.year.getFullYear())
-                // console.log(d3.select(this)._groups[0][0].classList[0])
-            selection = document.getElementsByClassName(d3.select(this)._groups[0][0].classList[0])
-                // selected = d3.selectAll("." + d3.select(this)._groups[0][0].classList[0])
-                //     // console.log(selected._groups[0])
-                // text = []
-                //     // console.log(selection.length)
-                // for (var i = 0; i < selection.length; i++) {
-                //     //console.log(selection[i])
-                //     // try {
-                //     //     console.log(selected._groups[0][i].nodeName)
-                //     if (selection[i].nodeName == "circle") {
-                //         text.push({
-                //             country: selected._groups[0][i].__data__.country,
-                //             value: selected._groups[0][i].__data__.value,
-                //             year: selected._groups[0][i].__data__.year.getFullYear()
-                //         })
-                //     } else {}
-                //     // } catch {}
-                // }
-                // console.log(text)
-
-            selected
-                .style("opacity", 0.5)
-
-            tooltip
-                .style("opacity", 1)
-                // .html(
-                //     JSON.stringify(text)
-                // )
-
-        }
-
-
-
-        var mousemove = function(d) {
-            selected = d3.selectAll(".cl" + d.year.getFullYear())
+            // selected = d3.selectAll(".cl" + d.year.getFullYear())
 
             // selection = document.getElementsByClassName(d3.select(this)._groups[0][0].classList[0])
-            //     // selected = d3.selectAll("." + d3.select(this)._groups[0][0].classList[0])
-            //     //     // console.log(selected._groups[0])
-            // text = []
-            //     // console.log(selection.length)
-            // for (var i = 0; i < selection.length; i++) {
-            //     //console.log(selection[i])
-            //     // try {
-            //     //     console.log(selected._groups[0][i].nodeName)
-            //     if (selection[i].nodeName == "circle") {
-            //         if (selection[i].style.opacity == 1) {
-            //             console.log(selection[i])
-            //         }
-            //         text.push({
-            //             country: selected._groups[0][i].__data__.country,
-            //             value: selected._groups[0][i].__data__.value,
-            //             year: selected._groups[0][i].__data__.year.getFullYear()
-            //         })
-            //     } else {}
-            //     // } catch {}
-            //}
+            vLines
+                .style("opacity", 1)
 
-            selected
-                .attr("r", 10)
-                .style("fill", "red")
-                .style("stroke", "red")
-                .style("opacity", 0.5)
-
+            text = []
 
             tooltip
-            // .html(JSON.stringify(text))
                 .style("opacity", 1)
-                //.html()
-                // d.value + " " + d.year.getFullYear())
                 .style("left", (d3.mouse(this)[0] + 90) + "px") // It is important to put the +90: other wise the tooltip is exactly where the point is an it creates a weird effect
                 .style("top", (d3.mouse(this)[1]) + "px")
                 .html(function() {
-                    selection = document.getElementsByClassName(d3.select(".cl" + d.year.getFullYear())._groups[0][0].classList[0])
-                    text = []
-                        // console.log(selection.length)
-                    for (var i = 0; i < selection.length; i++) {
-                        //console.log(selection[i])
-                        // try {
-                        //     console.log(selected._groups[0][i].nodeName)
-                        if (selection[i].nodeName == "circle") {
-                            if (selection[i].style.opacity == 1) {
-                                console.log(selection[i])
-                            }
-                            text.push({
-                                country: selected._groups[0][i].__data__.country,
-                                value: selected._groups[0][i].__data__.value,
-                                year: selected._groups[0][i].__data__.year.getFullYear()
-                            })
-                        } else {}
-                        // } catch {}
-                    }
+                    // console.log(d)
+                    // var selection = document.getElementsByClassName(d3.select(".cl" + d.year.getFullYear())._groups[0][0].classList[0])
+                    var selected = d3.selectAll(".cl" + d)
+                        // console.log(selected)
+                        // console.log(selected.length)
+                    selected._groups.forEach(nodeList => {
+                        nodeList.forEach(d => {
+                            // for (var i = 0; i < selected.length; i++) {
+                            // console.log(d)
+                            if (d.nodeName == "circle") {
+                                // console.log(d)
+                                text.push({
+                                    country: d.__data__.country,
+                                    value: d.__data__.value,
+                                    year: d.__data__.year
+                                })
+                            } else {}
+                        })
+                    })
+                    bar_update(text)
+                    getMap(text)
+                    return JSON.stringify(text)
+                })
+        }
+
+        var mousemove = function(d) {
+            // selected = d3.selectAll(".cl" + d.year.getFullYear())
+
+            vLines
+                .style("opacity", 1)
+
+            text = []
+
+            tooltip
+                .style("opacity", 1)
+                .style("left", (d3.mouse(this)[0] + 90) + "px") // It is important to put the +90: other wise the tooltip is exactly where the point is an it creates a weird effect
+                .style("top", (d3.mouse(this)[1]) + "px")
+                .html(function() {
+                    // var selection = document.getElementsByClassName(d3.select(".cl" + d.year.getFullYear())._groups[0][0].classList[0])
+                    var selected = d3.selectAll(".cl" + d)
+                        // console.log(selected)
+                        // console.log(selected.length)
+                    selected._groups.forEach(nodeList => {
+                        nodeList.forEach(d => {
+                            // for (var i = 0; i < selected.length; i++) {
+                            // console.log(d)
+                            if (d.nodeName == "circle") {
+                                // console.log(d)
+                                text.push({
+                                    country: d.__data__.country,
+                                    value: d.__data__.value,
+                                    year: d.__data__.year
+                                })
+                            } else {}
+                        })
+                    })
                     bar_update(text)
                     getMap(text)
                     return JSON.stringify(text)
@@ -369,8 +353,8 @@ function getLineChart(data, countryList, dimentionsDict) {
         // A function that change this tooltip when the leaves a point: just need to set opacity to 0 again
         var mouseleave = function(d) {
 
-            selected = d3.selectAll(".cl" + d.year.getFullYear())
-                .style("opacity", 0)
+            // selected = d3.selectAll(".cl" + d.getFullYear())
+            //     .style("opacity", 0)
 
             tooltip
                 .transition()
@@ -383,183 +367,58 @@ function getLineChart(data, countryList, dimentionsDict) {
             .data(dataFiltered)
             .enter()
             .append("circle")
-            .attr("class", function(d) { return "cl" + d.year.getFullYear().toString() })
+            .attr("class", function(d) { return "cl" + d.year })
             .attr("cx", function(d) { return line_x(d.year); })
             .attr("cy", function(d) { return line_y(d.value); })
             .attr("r", 3)
             .style("fill", "#69b3a2")
-            .style("opacity", 0)
+            .style("opacity", 1)
             .on("mouseover", mouseover)
             .on("mousemove", mousemove)
             .on("mouseleave", mouseleave)
 
-        // var vLines = line_svg.append('g')
-        //     .selectAll("path")
-        //     .data(dataFiltered)
-        //     .enter()
-        //     .append("path")
-        //     .attr("class", function(d) { return "cl" + d.year.getFullYear().toString() })
-        //     .attr("d", function(d) {
-        //         var data = "M" + line_x(d.year) + "," + (line_height);
-        //         data += " " + line_x(d.year) + "," + 0;
-        //         return data; // line
-        //     })
-        //     .style("stroke", "red")
-        //     .style("opacity", 0)
-        //     .on("mouseover", mouseover)
-        //     .on("mousemove", mousemove)
-        //     .on("mouseleave", mouseleave)
 
-        var vLines = line_svg.append('g')
-            .selectAll("rect")
-            .data(dataFiltered)
+
+
+        // console.log("!ATTENTION!!!!")
+        // console.log(unique_years)
+
+
+        var vLines = line_svg.selectAll("rect")
+            .data(unique_years)
+
+        // console.log(vLines)
+
+        vLines
             .enter()
             .append("rect")
-            .attr("class", function(d) { return "cl" + d.year.getFullYear().toString() })
-            // .attr("d", function(d) {
-            //     var data = "M" + line_x(d.year) + "," + (line_height);
-            //     data += " " + line_x(d.year) + "," + 0;
-            //     return data; // line
-            // })
-            .attr('x', function(d) { return line_x(d.year) - 25 })
-            .attr('y', function(d) { return line_y(d.value); })
-            .attr('width', 50)
+            .merge(vLines)
+            .transition(1) // and apply changes to all of them
+            .duration(1)
+            .attr("class", function(d) {
+                return "cl" + d //.getFullYear().toString()
+            })
+            .attr('x', function(d) {
+                return line_x(d) - (line_width / unique_years.length) / 2
+            })
+            .attr('y', 0)
+            .attr('width', function() {
+                return line_width / unique_years.length
+            })
             .attr('height', line_height)
             .style("stroke", "red")
-            .style("opacity", 0)
+            .style("opacity", 0.5)
+            .style("fill", "Gray")
+            .style('fill-opacity', 0)
+
+        vLines
             .on("mouseover", mouseover)
             .on("mousemove", mousemove)
             .on("mouseleave", mouseleave)
 
-
-
-
-
-        // This allows to find the closest X index of the mouse:
-        //     var lineStroke = "2px"
-
-
-
-        //     tooltip = d3.select("#line_block").append("div")
-        //         .attr('id', 'tooltip')
-        //         .style('position', 'absolute')
-        //         .style("background-color", "#D3D3D3")
-        //         .style('padding', 6)
-        //         .style('display', 'none')
-
-        //     mouseG = line_svg.append("g")
-        //         .attr("class", "mouse-over-effects");
-
-        //     mouseG.append("path") // create vertical line to follow mouse
-        //         .attr("class", "mouse-line")
-        //         .style("stroke", "#A9A9A9")
-        //         .style("stroke-width", lineStroke)
-        //         .style("opacity", "0");
-
-        //     var mousePerLine = mouseG.selectAll('.mouse-per-line')
-        //         .data(dataFiltered)
-        //         .enter()
-        //         .append("g")
-        //         .attr("class", "mouse-per-line");
-
-        //     mousePerLine.append("circle")
-        //         .attr("r", 4)
-        //         .style("stroke", function(d) {
-        //             return color(d.key)
-        //         })
-        //         .style("fill", "none")
-        //         .style("stroke-width", lineStroke)
-        //         .style("opacity", "0");
-
-        //     mouseG.append('svg:rect') // append a rect to catch mouse movements on canvas
-        //         .attr('width', line_width)
-        //         .attr('height', line_height)
-        //         .attr('fill', 'none')
-        //         .attr('pointer-events', 'all')
-        //         .on('mouseout', function() { // on mouse out hide line, circles and text
-        //             d3.select(".mouse-line")
-        //                 .style("opacity", "0");
-        //             d3.selectAll(".mouse-per-line circle")
-        //                 .style("opacity", "0");
-        //             d3.selectAll(".mouse-per-line text")
-        //                 .style("opacity", "0");
-        //             d3.selectAll("#tooltip")
-        //                 .style('display', 'none')
-
-        //         })
-        //         .on('mouseover', function() { // on mouse in show line, circles and text
-        //             d3.select(".mouse-line")
-        //                 .style("opacity", "1");
-        //             d3.selectAll(".mouse-per-line circle")
-        //                 .style("opacity", "1");
-        //             d3.selectAll("#tooltip")
-        //                 .style('display', 'block')
-        //         })
-        //         .on('mousemove', function() { // update tooltip content, line, circles and text when mouse moves
-        //             var mouse = d3.mouse(this)
-
-        //             d3.selectAll(".mouse-per-line") //circles
-        //                 .attr("transform", function(d, i) {
-        //                     var xDate = line_x.invert(mouse[0])
-        //                     var bisect = d3.bisector(function(d) { return d.year; }).left
-        //                     var idx = bisect(dataFiltered, xDate);
-
-        //                     d3.select(".mouse-line")
-        //                         .attr("d", function() {
-        //                             var data = "M" + line_x(dataFiltered[idx].year) + "," + (line_height);
-        //                             data += " " + line_x(dataFiltered[idx].year) + "," + 0;
-        //                             return data; // line
-        //                         });
-        //                     return "translate(" + line_x(dataFiltered[idx].year) + "," + line_y(dataFiltered[idx].value) + ")"; //circles
-
-        //                 });
-
-        //             updateTooltipContent(mouse, dataFiltered)
-
-        //         })
-
-        // }
-
-        // function updateTooltipContent(mouse, dataFiltered) {
-
-        //     sortingObj = []
-        //     dataFiltered.map(d => {
-        //         var xDate = line_x.invert(mouse[0])
-        //         var bisect = d3.bisector(function(d) { return d.year; }).left
-        //         var idx = bisect(dataFiltered, xDate)
-        //         sortingObj.push({ key: dataFiltered[idx].country, premium: dataFiltered[idx].value, year: dataFiltered[idx].year.getFullYear() })
-        //     })
-
-        //     console.log(sortingObj)
-
-        //     sortingObj.sort(function(d) {
-        //         return d3.descending(d);
-        //     })
-
-        //     var sortingArr = sortingObj.map(d => d.key)
-
-        //     var dataFiltered1 = dataFiltered.slice().sort(function(a, b) {
-        //         return sortingArr.indexOf(a.key) - sortingArr.indexOf(b.key) // rank vehicle category based on price of premium
-        //     })
-
-        //     tooltip.html(sortingObj[0].year)
-        //         .style('display', 'block')
-        //         .style('left', d3.event.pageX + 20)
-        //         .style('top', d3.event.pageY - 20)
-        //         .style('font-size', 11.5)
-        //         .selectAll()
-        //         .data(dataFiltered1).enter() // for each vehicle category, list out name and price of premium
-        //         .append('div')
-        //         .style('color', d => {
-        //             return color(d.key)
-        //         })
-        //         .style('font-size', 10)
-        //         .html(d => {
-        //             var xDate = line_x.invert(mouse[0])
-        //             var bisect = d3.bisector(function(d) { return d.year; }).left
-        //             var idx = bisect(dataFiltered, xDate)
-        //             return d.country + "   " + dataFiltered[idx].value
-        //         })
+        vLines
+            .exit()
+            .remove()
 
     }
     filteredData()
@@ -574,7 +433,6 @@ function getLineChart(data, countryList, dimentionsDict) {
     })
 
     countryList.forEach(function(d) {
-        //console.log(d)
         ids = d.geoAreaName.toString()
         cids = ids.replace(/\s/g, '')
         var cb = document.querySelector('#' + cids);

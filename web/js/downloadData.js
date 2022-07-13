@@ -44,19 +44,23 @@ function downloadData() {
 
                 if (countryUnique.includes(d.geoAreaName)) {} else {
                     countryUnique.push(d.geoAreaName)
+                    geoAreaName = d.geoAreaName.replace('(', '')
+                    geoAreaName = geoAreaName.replace(')', '')
+                    geoAreaName = geoAreaName.replace(',', '')
                     countryList.push({
-                        geoAreaName: d.geoAreaName,
+                        geoAreaName: geoAreaName,
                         geoAreaCode: d.geoAreaCode
                     })
                 }
-                date = d3.timeParse("%Y")(d.timePeriodStart)
+                // date = d3.timeParse("%Y")(d.timePeriodStart)
+                date = d.timePeriodStart
                 data.push({
                     year: date,
                     value: d.value,
                     series: d.series,
                     seriesDescription: d.seriesDescription,
                     dimensions: d.dimensions,
-                    country: d.geoAreaName,
+                    country: geoAreaName,
                     geoAreaCode: d.geoAreaCode
                 })
 

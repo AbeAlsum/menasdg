@@ -55,7 +55,7 @@ returnTopo().then(topo => {
             return map_colorScale(d.total);
         })
         .style("stroke", "transparent")
-        .attr("class", function(d) { return d.properties.name })
+        .attr("class", function(d) { return d.properties.name + " countryL" })
         .style("opacity", .8)
 });
 
@@ -104,20 +104,33 @@ returnTopo().then(topo => {
 
 function getMap(text) {
 
+    countryL = document.getElementsByClassName("countryL")
+
+    // console.log(countryL)
+
+    for (let elem of countryL) {
+        elem.style.fill = "#eff3ff"
+    }
+
+    values_list = []
+    text.forEach(elem => {
+        values_list.push(elem.value)
+    })
+
+    cscale = text.length
+        // console.log(cscale)
+
     // console.log(text)
     map_svg = d3.select("#map_block")
     var map_colorScale = d3.scaleThreshold()
-        .domain([10, 20, 30, 40, 50, 60])
+        .domain(values_list)
         .range(d3.schemeBlues[7]);
 
     text.forEach(element => {
         countries = document.getElementsByClassName(element.country)
             // console.log(countries)
         for (let item of countries) {
-            // console.log(item.__data__)
-            // console.log(item.__data__.total)
-            // console.log(map_colorScale(item.__data__.total))
-            // item.style.fill = 'red'
+            // console.log(item)
             item.style.fill = map_colorScale(element.value)
         }
     })
