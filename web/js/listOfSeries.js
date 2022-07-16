@@ -33,7 +33,8 @@ function listOfSeries() {
         var selectedOption = d3.select(this).property("value")
             //console.log(selectedOption)
             // run the updateChart function with this selected option
-        update(selectedOption)
+        update(selectedOption.split(';')[0])
+            // indicatorPlaceHolder(selectedOption.split(';')[1])
     })
 
 }

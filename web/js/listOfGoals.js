@@ -4,15 +4,17 @@ function listOfGoals() {
         if (error) return console.warn(error);
         //console.log(json)
         var list = document.getElementById('goalsSelector')
-        opt = document.createElement('option');
-        opt.innerHTML = "select goal"
-        list.appendChild(opt)
+            // opt = document.createElement('option');
+            // opt.innerHTML = "select goal"
+            // list.appendChild(opt)
         json.forEach(function(d) {
             opt = document.createElement('option');
-            opt.innerHTML = d.description
-            opt.value = d.code
+            opt.innerHTML = d.description //.slice(0, 30) + "..." //work with lenth of string
+            opt.value = d.code + ";" + d.description
             list.appendChild(opt)
         })
+
+        console.log(list)
     });
 }
 listOfGoals()

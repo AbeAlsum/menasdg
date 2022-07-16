@@ -67,8 +67,10 @@ function bar_update(data) {
         .exit()
         .remove()
 
-    var labels = bar_svg.selectAll("label")
+    var labels = bar_svg.selectAll(".label")
         .data(data)
+
+    // console.log(labels)
 
     labels
         .enter()
@@ -77,15 +79,17 @@ function bar_update(data) {
         .merge(labels)
         .attr("y", function(d) { return bar_y(d.country); })
         .transition() // and apply changes to all of them
-        .duration(1000)
-        .attr("x", (function(d) { return bar_x(d.value) - 20; }))
-        .attr("y", function(d) { return bar_y(d.country); })
+        .duration(10)
+        .attr("x", (function(d) { return bar_x(d.value); }))
+        .attr("y", function(d) { return bar_y(d.country) - 20; })
         .attr("dy", ".75em")
         .text(function(d) { return d.value; });
 
     labels
         .exit()
         .remove()
+
+
 }
 
 // Initialize the plot with the first dataset

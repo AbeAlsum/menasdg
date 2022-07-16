@@ -15,15 +15,15 @@ function listOfIndicators() {
                     list.removeChild(list.lastChild);
                 }
             } catch {}
-            opt = document.createElement('option');
-            opt.innerHTML = "select indicator"
-            list.appendChild(opt)
+            // opt = document.createElement('option');
+            // opt.innerHTML = "select indicator"
+            // list.appendChild(opt)
             json.forEach(function(d) {
                 if (d.target === option) {
                     //console.log(d.target)
                     opt = document.createElement('option');
-                    opt.innerHTML = d.description
-                    opt.value = d.code
+                    opt.innerHTML = d.description // .slice(0, 30) + "..." //work with lenth of string
+                    opt.value = d.code + ";" + d.description
                     list.appendChild(opt)
                 } else {}
             })
@@ -31,13 +31,16 @@ function listOfIndicators() {
 
     }
 
-    d3.select("#targetsSelector").on("change", function(d) {
-        // recover the option that has been chosen
-        var selectedOption = d3.select(this).property("value")
-            //console.log(selectedOption)
-            // run the updateChart function with this selected option
-        update(selectedOption)
-    })
+    document.querySelector('#targetsSelector').addEventListener('select.change', (e) => {
+        const btn = e.target.querySelector('.select__toggle');
+        // выбранное значение
+        console.log(`Выбранное значение: ${btn.value}`);
+        update(btn.value)
+            // индекс выбранной опции
+        const selected = e.target.querySelector('.select__option_selected');
+        const text = selected ? selected.textContent : '';
+        console.log(`Выбранный текст опции: ${text}`);
+    });
 
 }
 listOfIndicators()

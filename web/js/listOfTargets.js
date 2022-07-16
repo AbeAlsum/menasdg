@@ -7,31 +7,42 @@ function listOfTargets() {
         d3.json(url, function(error, json) {
             if (error) return console.warn(error);
             //console.log(json)
-            var list = document.getElementById('targetsSelector')
-            try {
-                while (list.firstChild) {
-                    list.removeChild(list.lastChild);
-                }
-            } catch {}
-            opt = document.createElement('option');
-            opt.innerHTML = "select target"
-            list.appendChild(opt)
+            var TargetsList = []
             json[0].targets.forEach(function(d) {
-                opt = document.createElement('option');
-                opt.innerHTML = d.description
-                opt.value = d.code
-                list.appendChild(opt)
+                var goal = []
+                goal.push(d.code)
+                goal.push(d.description)
+                TargetsList.push(goal)
             })
+
+
+            new CustomSelect('#targetsSelector', {
+                name: 'goal',
+                targetValue: 'ford',
+                options: TargetsList,
+                onSelected(select, option) {
+                    // выбранное значение
+                    console.log(`Выбранное значение: ${select.value}`);
+                    // индекс выбранной опции
+                    console.log(`Индекс выбранной опции: ${select.selectedIndex}`);
+                    // выбранный текст опции
+                    const text = option ? option.textContent : '';
+                    console.log(`Выбранный текст опции: ${text}`);
+                },
+            });
         });
     }
 
-    d3.select("#goalsSelector").on("change", function(d) {
-        // recover the option that has been chosen
-        var selectedOption = d3.select(this).property("value")
-            //console.log(selectedOption)
-            // run the updateChart function with this selected option
-        update(selectedOption)
-    })
+    document.querySelector('.select').addEventListener('select.change', (e) => {
+        const btn = e.target.querySelector('.select__toggle');
+        // выбранное значение
+        console.log(`Выбранное значение: ${btn.value}`);
+        update(btn.value)
+            // индекс выбранной опции
+        const selected = e.target.querySelector('.select__option_selected');
+        const text = selected ? selected.textContent : '';
+        console.log(`Выбранный текст опции: ${text}`);
+    });
 
 }
 listOfTargets()
