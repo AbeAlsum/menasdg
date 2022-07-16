@@ -65,61 +65,29 @@ function downloadData() {
                     geoAreaCode: d.geoAreaCode
                 })
 
-                //console.log(data)
-
-                singleDimention = []
+                singleDimention = ""
+                dimentionsList = []
                 for (const [key, value] of Object.entries(d.dimensions)) {
-                    // console.log(key + " : " + value)
-                    singleDimention.push(key + " : " + value)
-                    dimentionsDict_2.push(singleDimention)
-                    if (dimentionsDict.length == 0) {
-                        dimentionsDict.push({
-                            name: key,
-                            value: value
+                    singleDimention = singleDimention + key + " : " + value + ', '
+                    dimentionsList.push({
+                        name: key,
+                        value: value
+                    })
+                }
+                if (listOfKeys.length != 0) {
+                    if (listOfKeys.includes(singleDimention)) {} else {
+                        listOfKeys.push(singleDimention)
+                        dimentionsDict_2.push({
+                            singleD: singleDimention.slice(0, -2),
+                            listed: dimentionsList
                         })
-                        if (listOfKeys.includes(key)) {} else {
-                            listOfKeys.push(key)
-                        }
-
-                    } else {
-                        if (listOfKeys.includes(key)) {
-                            dimentionsDict.forEach(function(dimention) {
-                                if (dimention.name == key) {
-                                    var listOfThings = []
-                                    try {
-                                        dimention.value.forEach(function(singleValue) {
-                                            listOfThings.push(singleValue)
-                                        })
-                                    } catch {
-                                        listOfThings.push(dimention.value)
-                                    }
-
-
-                                    if (listOfThings.includes(value)) {} else { listOfThings.push(value) }
-
-                                    dimentionsDict = dimentionsDict.filter(function(e) { return e.name !== key; });
-
-                                    dimentionsDict.push({
-                                        name: key,
-                                        value: listOfThings
-                                    })
-                                    if (listOfKeys.includes(key)) {} else {
-                                        listOfKeys.push(key)
-                                    }
-                                } else {}
-                            })
-                        } else {
-                            dimentionsDict.push({
-                                name: key,
-                                value: value
-                            })
-                            if (listOfKeys.includes(key)) {} else {
-                                listOfKeys.push(key)
-                            }
-                        }
                     }
-
-
+                } else {
+                    listOfKeys.push(singleDimention)
+                    dimentionsDict_2.push({
+                        singleD: singleDimention.slice(0, -2),
+                        listed: dimentionsList
+                    })
                 }
             } else {}
         })
@@ -151,21 +119,11 @@ function downloadData() {
             }
         } catch {}
 
-        dimentionsDict.forEach(function(d) {
-            console.log(d)
-            dim = document.createElement('select');
-            dimention_block.appendChild(dim)
-            ids = d.name.toString()
-            cids = ids.replace(/\s/g, '')
-            dim.id = cids
-
-            d.value.forEach(function(dc) {
-                dim_option = document.createElement('option');
-                dim_option.innerHTML = dc
-                dim_option.value = dc
-                dim.appendChild(dim_option)
-            })
-
+        dimentionsDict_2.forEach(function(d) {
+            dim_option = document.createElement('option');
+            dim_option.innerHTML = d.singleD
+            dim_option.data = d.listed
+            dimention_block.appendChild(dim_option)
         })
 
 

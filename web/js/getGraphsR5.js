@@ -145,15 +145,27 @@ function getLineChart(data, countryList, dimentionsDict) {
             }
         })
 
-        actualParameters = []
-        dimentionsDict.forEach(function(d) {
-            ids = d.name.toString()
-            cids = ids.replace(/\s/g, '')
-            actualParameters.push({
-                name: d.name,
-                value: d3.select('#' + cids).property("value")
+        // actualParameters = []
+
+        // dimentionsDict.forEach(function(d) {
+        //     ids = d.name.toString()
+        //     cids = ids.replace(/\s/g, '')
+        //     actualParameters.push({
+        //         name: d.name,
+        //         value: d3.select('#' + cids).property("value")
+        //     })
+        // })
+
+        d3.select("#dimention_block").on("click.dimention_block", function(d) {
+            var selectedOption = d3.select(this).property("value")
+            console.log(selectedOption)
+            listOfValues = selectedOption.split(', ')
+            listOfValues.forEach(elem => {
+                console.log(elem)
             })
         })
+
+
 
 
         dataFilteredCountry = data.filter(function(e) {
