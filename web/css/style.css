@@ -173,6 +173,17 @@
     height: 20px;
 }
 
+#countriesSelector {
+    max-height: 100px;
+    width: 25vw;
+    overflow: scroll;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    grid-column-start: 2;
+    grid-row-start: 1;
+    grid-row-end: 4;
+}
+
 .dropdown {
     position: relative;
     width: 150px;
