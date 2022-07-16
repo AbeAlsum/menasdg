@@ -24,6 +24,7 @@ function downloadData() {
         var data = []
         var dimentionsDict = []
         var listOfKeys = []
+        var dimentionsDict_2 = []
             // для кожного запису в таблиці із даними
 
         //console.log(json)
@@ -66,8 +67,11 @@ function downloadData() {
 
                 //console.log(data)
 
-
+                singleDimention = []
                 for (const [key, value] of Object.entries(d.dimensions)) {
+                    // console.log(key + " : " + value)
+                    singleDimention.push(key + " : " + value)
+                    dimentionsDict_2.push(singleDimention)
                     if (dimentionsDict.length == 0) {
                         dimentionsDict.push({
                             name: key,
@@ -119,6 +123,8 @@ function downloadData() {
                 }
             } else {}
         })
+
+        console.log(dimentionsDict_2)
 
         countryList.forEach(function(d) {
             //console.log(d)
