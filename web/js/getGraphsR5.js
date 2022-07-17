@@ -334,10 +334,21 @@ function getLineChart(data, countryList, dimentionsDict) {
                 .style("left", (d3.mouse(this)[0] + 90) + "px") // It is important to put the +90: other wise the tooltip is exactly where the point is an it creates a weird effect
                 .style("top", (d3.mouse(this)[1]) + "px")
                 .html(function() {
+                    var yearPlaceholder = document.getElementById('yearPlaceholder')
+                    try {
+                        while (yearPlaceholder.firstChild) {
+                            yearPlaceholder.removeChild(yearPlaceholder.lastChild);
+                        }
+                    } catch {}
                     // var selection = document.getElementsByClassName(d3.select(".cl" + d.year.getFullYear())._groups[0][0].classList[0])
-                    var selected = d3.selectAll(".cl" + d)
+
+                    year = document.createElement('h3');
+                    year.innerHTML = "Year: " + d
+                    yearPlaceholder.appendChild(year)
                         // console.log(selected)
                         // console.log(selected.length)
+
+                    var selected = d3.selectAll(".cl" + d)
                     selected._groups.forEach(nodeList => {
                         nodeList.forEach(d => {
                             // for (var i = 0; i < selected.length; i++) {

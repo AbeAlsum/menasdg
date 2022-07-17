@@ -1,56 +1,5 @@
-#switch {
-    height: 0;
-    width: 0;
-    visibility: hidden;
-}
-
-#switch_label {
-    cursor: pointer;
-    text-indent: -9999px;
-    width: 5vw;
-    height: 2vh;
-    background: grey;
-    display: block;
-    border-radius: 100px;
-    position: relative;
-}
-
-#switch_label:after {
-    content: '';
-    position: absolute;
-    top: 5px;
-    left: 5px;
-    width: 3vw;
-    height: 1vh;
-    background: #fff;
-    border-radius: 90px;
-    transition: 0.3s;
-}
-
-#switch:checked+label {
-    background: #bada55;
-}
-
-#switch:checked+label:after {
-    left: calc(100% - 5px);
-    transform: translateX(-100%);
-}
-
-#switch_label:active:after {
-    width: 13px;
-}
-
-
-/* блок із графіком, картою та лайнчартом*/
-
-#dimention_block {
-    grid-row: 1;
-    grid-column: 1;
-}
-
-#attribute_block {
-    grid-row: 1;
-    grid-column: 2;
+#yearPlaceholder h2 {
+    margin-left: 45vw;
 }
 
 #main_grid {
@@ -92,9 +41,14 @@
     grid-column-end: -1;
 }
 
+
+/* Блок із селекторами та інтерактивними елементами */
+
 #selectorsGrid {
+    margin-left: 3vw;
+    margin-right: 3vw;
     display: grid;
-    grid-template-columns: 70vw 30vw;
+    grid-template-columns: 7/10 3/10;
 }
 
 .select__toggle {
@@ -161,21 +115,42 @@
 #goalsSelector {
     width: 70vw;
     height: 50px;
+    grid-row: 1;
+    grid-column: 1;
 }
 
 #targetsSelector {
     width: 70vw;
     height: 50px;
+    grid-row: 2;
+    grid-column: 1;
 }
 
 #indicatorsList {
+    border-radius: 5px;
+    margin-bottom: 1vw;
     width: 70vw;
-    height: 20px;
+    height: 2vw;
+    grid-row: 3;
+    grid-column: 1;
 }
 
 #seriesSelector {
+    border-radius: 5px;
+    margin-bottom: 1vw;
     width: 70vw;
-    height: 20px;
+    height: 2vw;
+    grid-row: 4;
+    grid-column: 1;
+}
+
+#dimention_block {
+    border-radius: 5px;
+    margin-bottom: 1vw;
+    width: 70vw;
+    height: 2vw;
+    grid-row: 5;
+    grid-column: 1;
 }
 
 #selectedButtons {
@@ -186,14 +161,16 @@
 }
 
 #countriesSelector {
-    max-height: 100px;
-    width: 25vw;
+    margin-left: 1vw;
+    max-height: 200px;
+    height: 200px;
+    width: 20vw;
     overflow: scroll;
     overflow-y: scroll;
     overflow-x: hidden;
-    grid-column-start: 2;
+    grid-column: 2;
     grid-row-start: 2;
-    grid-row-end: 4;
+    grid-row-end: 6;
 }
 
 .dropdown {
@@ -253,6 +230,18 @@
 
 .dropdown__body>div:hover {
     background: #afafaf;
+}
+
+.selectButtons {
+    background-color: #fff;
+    width: 5vw;
+    height: 2vw;
+    margin-left: 1vw;
+    margin-right: 1vw;
+}
+
+.selectButtons:active {
+    background-color: green;
 }
 
 #map_block {

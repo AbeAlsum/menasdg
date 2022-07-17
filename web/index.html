@@ -21,12 +21,10 @@
     <h1>
         This is a text!
     </h1>
-    <p>select a country
-    </p>
     <div id="selectorsGrid">
         <!-- Документация на селектор по ссылке https://itchief.ru/javascript/custom-select -->
         <div class="select" id="goalsSelector">
-            <button type="button" class="select__toggle" name="car" value="" data-select="toggle" data-index="-1">Выберите из списка</button>
+            <button type="button" class="select__toggle" name="car" value="" data-select="toggle" data-index="-1">Select goal</button>
             <div class="select__dropdown">
                 <ul class="select__options">
                 </ul>
@@ -34,7 +32,7 @@
         </div>
 
         <div class="select" id="targetsSelector">
-            <button type="button" class="select__toggle" name="car" value="" data-select="toggle" data-index="-1">Выберите из списка</button>
+            <button type="button" class="select__toggle" name="car" value="" data-select="toggle" data-index="-1">Select target</button>
             <div class="select__dropdown">
                 <ul class="select__options">
                 </ul>
@@ -46,13 +44,16 @@
         <option>seriesSelector</option></select>
 
         <div id='selectedButtons'>
-            <input type="button" onclick='selects()' value="Select All" id="selectAllButton" />
-            <input type="button" onclick='deSelect()' value="Deselect All" id="deSelectAllButton" />
-            <input type="button" onclick='menaSelect()' value="Select MENA" id="menaSelectButton" /></div>
+            <input type="button" onclick='selects()' value="Select All" id="selectAllButton" class="selectButtons" />
+            <input type="button" onclick='deSelect()' value="Deselect All" id="deSelectAllButton" class="selectButtons" />
+            <input type="button" onclick='menaSelect()' value="Select MENA" id="menaSelectButton" class="selectButtons" /></div>
         <div id='countriesSelector'> List of countries</div>
 
 
-        <select id="dimention_block"></select>
+        <select id="dimention_block">select dimention</select>
+    </div>
+    <div id='yearPlaceholder'>
+        <H2>Year: </H2>
     </div>
     <div id='main_grid'>
 
