@@ -40,65 +40,73 @@
                 </ul>
             </div>
         </div>
-
-        <!-- <select id='targetsSelector'>
-        <option>targetsSelector</option>
-    </select> -->
         <select id='indicatorsList'>
-        <option>indicatorsList</option>
-    </select>
+        <option>indicatorsList</option></select>
         <select id='seriesSelector'>
-        <option>seriesSelector</option>
-    </select>
+        <option>seriesSelector</option></select>
 
-        <!-- <select id='countriesSelector' multiple>
-    <option>countriesSelector</option>
-    </select> -->
+        <div id='selectedButtons'>
+            <input type="button" onclick='selects()' value="Select All" id="selectAllButton" />
+            <input type="button" onclick='deSelect()' value="Deselect All" id="deSelectAllButton" />
+            <input type="button" onclick='menaSelect()' value="Select MENA" id="menaSelectButton" /></div>
         <div id='countriesSelector'> List of countries</div>
 
-        <!-- <div class="dropdown">
-            <div class="dropdown__header" data-value="all">Select Country</div>
-            <div class="dropdown__body" id='countriesSelector'>
-            </div>
-        </div> -->
+
+        <select id="dimention_block"></select>
     </div>
-    <div id='goalPlaceHolder'></div>
-    <div id='targetPlaceHolder'></div>
-    <div id='indicatorPlaceHolder'></div>
-    <select id="dimention_block"></select>
-    <!-- <input type="checkbox" id="switch" value="yes" /><label for="switch" id='switch_label'>Toggle</label> -->
     <div id='main_grid'>
 
         <div id="attribute_block"></div>
         <div id='map_block'></div>
         <div id='bar_block'> </div>
         <div id='line_block'></div>
-        <div id="ridgeline_block"></div>
     </div>
-
-    <!-- <div id='scatter_field'>
-        <div id="scatter_block"></div>
-    </div> -->
-
-    <!-- <script src="js/listOfCountries.js"></script> -->
-    <!-- <script src="js/listOfCountriesR2.js"></script> -->
     <script src="js/listOfGoalsR2.js"></script>
     <script src="js/listOfTargets.js"></script>
     <script src="js/listOfIndicators.js"></script>
     <script src="js/listOfSeries.js"></script>
     <script src="js/getGraphsR5.js"></script>
-    <!-- <script src="js/lineChart.js"></script> -->
     <script src="js/getMap.js"></script>
     <script src="js/getBarR2.js"></script>
-    <!-- <script src="js/getScatter.js"></script>
-    <script src="js/getRidgeline.js"></script> -->
     <script src="js/downloadDataR2.js"></script>
     <script src="js/placeHolders.js"></script>
-    <!-- <script src="js/listOfDimentions.js"></script> -->
-    <!-- подключаем JS селекта -->
     <script src="js/custom-select.js"></script>
 
 
+    <script type="text/javascript">
+        function menaSelect() {
+            var selec = document.getElementsByName('ck');
+            for (var i = 0; i < selec.length; i++) {
+                if (selec[i].type == 'checkbox') {
+                    if (selec[i].classList.contains("menaCountry")) {
+                        selec[i].checked = true;
+                    } else {
+                        selec[i].checked = false;
+                    }
+                }
+
+            }
+        }
+    </script>
+
+    <script type="text/javascript">
+        function selects() {
+            var selec = document.getElementsByName('ck');
+            for (var i = 0; i < selec.length; i++) {
+                if (selec[i].type == 'checkbox')
+                    selec[i].checked = true;
+            }
+        }
+
+        function deSelect() {
+            var selec = document.getElementsByName('ck');
+            for (var i = 0; i < selec.length; i++) {
+                if (selec[i].type == 'checkbox')
+                    selec[i].checked = false;
+
+            }
+        }
+    </script>
     <script>
         $('.dropdown__header').on('click', function() {
             let dropdown = $(this).parents('.dropdown');

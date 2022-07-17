@@ -20,10 +20,9 @@ function listOfIndicators() {
             // list.appendChild(opt)
             json.forEach(function(d) {
                 if (d.target === option) {
-                    //console.log(d.target)
                     opt = document.createElement('option');
-                    opt.innerHTML = d.description // .slice(0, 30) + "..." //work with lenth of string
-                    opt.value = d.code + ";" + d.description
+                    opt.innerHTML = d.description
+                    opt.value = d.code
                     list.appendChild(opt)
                 } else {}
             })

@@ -145,31 +145,25 @@ function getLineChart(data, countryList, dimentionsDict) {
             }
         })
 
-        // actualParameters = []
-
-        // dimentionsDict.forEach(function(d) {
-        //     ids = d.name.toString()
-        //     cids = ids.replace(/\s/g, '')
-        //     actualParameters.push({
-        //         name: d.name,
-        //         value: d3.select('#' + cids).property("value")
-        //     })
-        // })
-
-        d3.select("#dimention_block").on("click.dimention_block", function(d) {
-            var selectedOption = d3.select(this).property("value")
-            console.log(selectedOption)
-            listOfValues = selectedOption.split(', ')
-            listOfValues.forEach(elem => {
-                console.log(elem)
+        var select = document.getElementById('dimention_block');
+        var selectedOption = select.options[select.selectedIndex].text;
+        console.log(selectedOption)
+        listOfValues = selectedOption.split(', ')
+        actualParameters = []
+        listOfValues.forEach(elem => {
+            par = elem.split(":")
+            actualParameters.push({
+                name: par[0].trim(),
+                value: par[1].trim()
             })
         })
 
+        console.log(actualParameters)
 
 
 
         dataFilteredCountry = data.filter(function(e) {
-            if (countries.includes(e.geoAreaCode)) { return e } else {}
+            if (countries.includes(e.geoAreaCode) && e.value != "NaN") { return e } else {}
         })
 
         dataFiltered = dataFilteredCountry.filter(function(e) {
@@ -177,7 +171,10 @@ function getLineChart(data, countryList, dimentionsDict) {
             selectorTwo = []
             actualParameters.forEach(function(param) {
                 for (const [key, value] of Object.entries(e.dimensions)) {
+                    console.log(key + ": " + value)
                     if (key == param.name && value == param.value) {
+                        console.log(key + ", " +
+                            param.name + ": " + value + ", " + param.value)
                         selectorOne.push(value)
                         selectorTwo.push(param.value)
                     } else {}
@@ -189,6 +186,7 @@ function getLineChart(data, countryList, dimentionsDict) {
 
         });
 
+        console.log(dataFiltered)
 
         var unique_years = []
 
@@ -379,7 +377,7 @@ function getLineChart(data, countryList, dimentionsDict) {
             .data(dataFiltered)
             .enter()
             .append("circle")
-            .attr("class", function(d) { return "cl" + d.year })
+            .attr("class", function(d) { return "cl" + d.year + " circle" })
             .attr("cx", function(d) { return line_x(d.year); })
             .attr("cy", function(d) { return line_y(d.value); })
             .attr("r", 3)
@@ -435,13 +433,20 @@ function getLineChart(data, countryList, dimentionsDict) {
     }
     filteredData()
 
-    dimentionsDict.forEach(function(d) {
-        ids = d.name.toString()
-        cids = ids.replace(/\s/g, '')
-        var cb = document.querySelector('#' + cids);
-        cb.addEventListener('click', (event) => {
-            filteredData()
-        })
+    d3.select("#dimention_block").on("click", function(d) {
+        filteredData()
+    })
+
+    d3.select("#deSelectAllButton").on("click", function(d) {
+        filteredData()
+    })
+
+    d3.select("#selectAllButton").on("click", function(d) {
+        filteredData()
+    })
+
+    d3.select("#menaSelectButton").on("click", function(d) {
+        filteredData()
     })
 
     countryList.forEach(function(d) {

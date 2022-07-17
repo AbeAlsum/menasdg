@@ -41,13 +41,6 @@
 }
 
 
-/*блок із скаттерплотом для порівняння різних параметрів*/
-
-#scatter_field {
-    display: None;
-}
-
-
 /* блок із графіком, картою та лайнчартом*/
 
 #dimention_block {
@@ -81,7 +74,19 @@
     grid-column-end: -1;
 }
 
-#ridgeline_block {
+#line_block .circle {
+    pointer-events: none
+}
+
+#line_block .tooltip {
+    pointer-events: none
+}
+
+#line_block .line {
+    pointer-events: none
+}
+
+#line_block #ridgeline_block {
     grid-row: 4;
     grid-column-start: 1;
     grid-column-end: -1;
@@ -173,6 +178,13 @@
     height: 20px;
 }
 
+#selectedButtons {
+    display: grid;
+    grid-template-columns: 30% 30% 30%;
+    grid-column-start: 2;
+    grid-row-start: 1;
+}
+
 #countriesSelector {
     max-height: 100px;
     width: 25vw;
@@ -180,7 +192,7 @@
     overflow-y: scroll;
     overflow-x: hidden;
     grid-column-start: 2;
-    grid-row-start: 1;
+    grid-row-start: 2;
     grid-row-end: 4;
 }
 
@@ -257,4 +269,5 @@
 
 #line_block .tooltip {
     position: absolute;
+    pointer-events: none;
 }

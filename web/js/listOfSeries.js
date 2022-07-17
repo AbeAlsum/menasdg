@@ -3,6 +3,7 @@
 function listOfSeries() {
 
     function update(option) {
+        console.log(option)
         var url = 'https://unstats.un.org/SDGAPI/v1/sdg/Indicator/' + option + '/Series/List'
         console.log(url)
         d3.json(url, function(error, json) {
@@ -33,8 +34,7 @@ function listOfSeries() {
         var selectedOption = d3.select(this).property("value")
             //console.log(selectedOption)
             // run the updateChart function with this selected option
-        update(selectedOption.split(';')[0])
-            // indicatorPlaceHolder(selectedOption.split(';')[1])
+        update(selectedOption)
     })
 
 }
