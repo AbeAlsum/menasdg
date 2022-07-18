@@ -20,6 +20,8 @@
     <link rel="stylesheet" href="css/custom-select.css">
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <script src="js/custom-select.js"></script>
 </head>
 
 <body>
@@ -28,25 +30,16 @@
     </h1>
     <div id="selectorsGrid">
         <!-- Документация на селектор по ссылке https://itchief.ru/javascript/custom-select -->
-        <div class="select" id="goalsSelector">
-            <button type="button" class="select__toggle" name="car" value="" data-select="toggle" data-index="-1">Select goal</button>
-            <div class="select__dropdown">
-                <ul class="select__options">
-                </ul>
-            </div>
+        <div id="goalsSelector">
         </div>
 
-        <div class="select" id="targetsSelector">
-            <button type="button" class="select__toggle" name="car" value="" data-select="toggle" data-index="-1">Select target</button>
-            <div class="select__dropdown">
-                <ul class="select__options">
-                </ul>
-            </div>
-        </div>
+        <select id="targetsSelector">
+            <option>loading...</option>
+        </select>
         <select id='indicatorsList'>
-        <option>indicatorsList</option></select>
+        <option>loading...</option></select>
         <select id='seriesSelector'>
-        <option>seriesSelector</option></select>
+        <option>loading...</option></select>
 
         <div id='selectedButtons'>
             <input type="button" onclick='selects()' value="Select All" id="selectAllButton" class="selectButtons" />
@@ -66,18 +59,17 @@
         <div id='legend_block'></div>
         <div id='line_block'></div>
     </div>
-    <script src="js/listOfGoalsR2.js"></script>
-    <script src="js/listOfTargets.js"></script>
-    <script src="js/listOfIndicators.js"></script>
-    <script src="js/listOfSeries.js"></script>
+
+    <!-- <script src="js/listOfTargetsR2.js"></script>
+    <script src="js/listOfGoalsR2.js"></script> -->
+    <!-- <script src="js/listOfIndicators.js"></script> -->
+    <!-- <script src="js/listOfSeries.js"></script> -->
     <script src="js/getGraphsR5.js"></script>
     <script src="js/getMap.js"></script>
     <script src="js/getBarR2.js"></script>
     <script src="js/downloadDataR2.js"></script>
     <script src="js/placeHolders.js"></script>
-    <script src="js/custom-select.js"></script>
-
-
+    <script src="js/selectors.js"></script>
     <script type="text/javascript">
         function menaSelect() {
             var selec = document.getElementsByName('ck');

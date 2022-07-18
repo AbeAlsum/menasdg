@@ -30,16 +30,13 @@ function listOfIndicators() {
 
     }
 
-    document.querySelector('#targetsSelector').addEventListener('select.change', (e) => {
-        const btn = e.target.querySelector('.select__toggle');
-        // выбранное значение
-        console.log(`Выбранное значение: ${btn.value}`);
-        update(btn.value)
-            // индекс выбранной опции
-        const selected = e.target.querySelector('.select__option_selected');
-        const text = selected ? selected.textContent : '';
-        console.log(`Выбранный текст опции: ${text}`);
-    });
-
+    d3.select("#targetsSelector").on("change.targetsList", function(d) {
+        // recover the option that has been chosen
+        var selectedOption = d3.select(this).property("value")
+            //console.log(selectedOption)
+            // run the updateChart function with this selected option
+        console.log(selectedOption)
+        update(selectedOption)
+    })
 }
 listOfIndicators()

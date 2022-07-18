@@ -36,6 +36,8 @@ line_svg.append("g")
     .attr("class", "myYaxis")
     .call(d3.axisLeft(line_y));
 
+
+
 function getLineChart(data, countryList, dimentionsDict) {
 
     // console.log(countryList.length)
@@ -144,7 +146,7 @@ function getLineChart(data, countryList, dimentionsDict) {
 
 
     countryList.forEach(country => {
-        console.log(country)
+        // console.log(country)
         legendElement = document.createElement('div');
         colorSquare = document.createElement('div');
         legendText = document.createElement('p');
@@ -218,8 +220,8 @@ function getLineChart(data, countryList, dimentionsDict) {
                 for (const [key, value] of Object.entries(e.dimensions)) {
                     // console.log(key + ": " + value)
                     if (key == param.name && value == param.value) {
-                        console.log(key + ", " +
-                            param.name + ": " + value + ", " + param.value)
+                        // console.log(key + ", " +
+                        //     param.name + ": " + value + ", " + param.value)
                         selectorOne.push(value)
                         selectorTwo.push(param.value)
                     } else {}
