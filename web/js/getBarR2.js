@@ -81,7 +81,7 @@ function bar_update(data) {
         .transition() // and apply changes to all of them
         .duration(10)
         .attr("x", (function(d) { return bar_x(d.value); }))
-        .attr("y", function(d) { return bar_y(d.country) - 20; })
+        .attr("y", function(d) { return bar_y(d.country) + (bar_y.bandwidth() / 2) + 3; })
         .attr("dy", ".75em")
         .text(function(d) { return d.value; });
 

@@ -1,4 +1,4 @@
-#yearPlaceholder h2 {
+#yearPlaceholder h3 {
     margin-left: 45vw;
 }
 
@@ -17,14 +17,25 @@
     grid-column: 2;
 }
 
-#line_block {
+#legend_block {
+    width: fit-content;
+    align-self: center;
+    grid-auto-flow: column;
+    align-items: center;
     grid-row: 3;
     grid-column-start: 1;
     grid-column-end: -1;
 }
 
+#line_block {
+    grid-row: 4;
+    grid-column-start: 1;
+    grid-column-end: -1;
+}
+
 #line_block .circle {
-    pointer-events: none
+    pointer-events: none;
+    border-radius: 3px;
 }
 
 #line_block .tooltip {
@@ -32,7 +43,8 @@
 }
 
 #line_block .line {
-    pointer-events: none
+    pointer-events: none;
+    width: 5px;
 }
 
 #line_block #ridgeline_block {

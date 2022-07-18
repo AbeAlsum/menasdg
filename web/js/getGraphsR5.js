@@ -38,6 +38,8 @@ line_svg.append("g")
 
 function getLineChart(data, countryList, dimentionsDict) {
 
+    // console.log(countryList.length)
+
     var sumstat = d3.nest()
         .key(function(d) {
             //console.log(d.country)
@@ -50,9 +52,25 @@ function getLineChart(data, countryList, dimentionsDict) {
         return d.key
     })
 
+    // var color = d3.scaleOrdinal() //d3.schemeBlues[countryList.length]
+    //     .domain(res)
+    //     .range(d3.schemeSet3);
+
     var color = d3.scaleOrdinal()
         .domain(res)
-        .range(['#e41a1c', '#377eb8', '#4daf4a', '#984ea3', '#ff7f00', '#ffff33', '#a65628', '#f781bf', '#999999'])
+        .range(['#e41a1c', '#377eb8', '#4daf4a', '#984ea3', '#ff7f00', '#ffff33', '#a65628', '#f781bf', '#999999', "#a6cee3",
+            "#1f78b4",
+            "#b2df8a",
+            "#33a02c",
+            "#fb9a99",
+            "#e31a1c",
+            "#fdbf6f",
+            "#ff7f00",
+            "#cab2d6",
+            "#6a3d9a",
+            "#ffff99",
+            "#b15928"
+        ])
 
     var testFilter = data.filter(function(d) { return d.country == res[0] });
 
@@ -113,12 +131,39 @@ function getLineChart(data, countryList, dimentionsDict) {
             return color(d.key);
         });
 
+    // var color = d3.scaleOrdinal(d3.schemeBlues[countryList.length])
+    //     .domain(res)
+
+    legend_block = document.getElementById('legend_block')
+
+    try {
+        while (legend_block.firstChild) {
+            legend_block.removeChild(legend_block.lastChild);
+        }
+    } catch {}
+
+
+    countryList.forEach(country => {
+        console.log(country)
+        legendElement = document.createElement('div');
+        colorSquare = document.createElement('div');
+        legendText = document.createElement('p');
+        legendText.innerHTML = country.geoAreaName
+            // colorSquare.color = color(country.geoAreaName)
+        colorSquare.style.cssText = "height: 10px; width: 10px; background-color:" + color(country.geoAreaName) + ";"
+        legendElement.style.cssText = "display: grid; grid-template-columns: 1fr 95%; align-items: center;"
+        legend_block.style.cssText = "display: grid; grid-template-columns: repeat(" + countryList.length + ", 1fr); grid-gap: 10px;"
+        legend_block.appendChild(legendElement)
+        legendElement.appendChild(colorSquare)
+        legendElement.appendChild(legendText)
+
+    })
+
     function filteredData() {
 
 
-
-
         var circles = line_svg.selectAll("circle")
+
 
         // console.log(circles)
 
@@ -171,7 +216,7 @@ function getLineChart(data, countryList, dimentionsDict) {
             selectorTwo = []
             actualParameters.forEach(function(param) {
                 for (const [key, value] of Object.entries(e.dimensions)) {
-                    console.log(key + ": " + value)
+                    // console.log(key + ": " + value)
                     if (key == param.name && value == param.value) {
                         console.log(key + ", " +
                             param.name + ": " + value + ", " + param.value)
@@ -197,6 +242,8 @@ function getLineChart(data, countryList, dimentionsDict) {
             } else { unique_years.push(d.year) }
         })
 
+
+
         // console.log(dataFiltered)
 
         var sumstat = d3.nest() // nest function allows to group the calculation per level of a factor
@@ -212,6 +259,26 @@ function getLineChart(data, countryList, dimentionsDict) {
             })
             //console.log(arr)
 
+
+        var color = d3.scaleOrdinal()
+            .domain(sumstat)
+            .range(['#e41a1c', '#377eb8', '#4daf4a', '#984ea3', '#ff7f00', '#ffff33', '#a65628', '#f781bf', '#999999', "#a6cee3",
+                "#1f78b4",
+                "#b2df8a",
+                "#33a02c",
+                "#fb9a99",
+                "#e31a1c",
+                "#fdbf6f",
+                "#ff7f00",
+                "#cab2d6",
+                "#6a3d9a",
+                "#ffff99",
+                "#b15928"
+            ])
+
+        // var color = d3.scaleOrdinal(d3.schemeBlues[countryList.length])
+        //     .domain(dataFiltered)
+
         var line_y = d3.scaleLinear()
             .domain([0, d3.max(arr)])
             .range([line_height, 0]);
@@ -220,19 +287,6 @@ function getLineChart(data, countryList, dimentionsDict) {
         var line_x = d3.scaleBand()
             .domain(unique_years.sort(d3.ascending))
             .range([0, line_width]);
-
-
-        // var line_x = d3.scaleBand()
-        //     .domain(d3.extent(dataFiltered, function(d) {
-        //         console.log(d.year)
-        //         return d.year;
-        //     }))
-        //     .range([0, line_width]);
-
-
-        // line_x.domain([0, d3.max(dataFiltered, function(d) {
-        //     return d.year
-        // })]);
 
         line_svg.selectAll(".myYaxis")
             .transition()
@@ -266,7 +320,8 @@ function getLineChart(data, countryList, dimentionsDict) {
             .attr("fill", "none")
             .style("stroke", function(d) {
                 return color(d.key);
-            });
+            })
+            .style("stroke-width", "4px")
 
 
 
@@ -287,7 +342,7 @@ function getLineChart(data, countryList, dimentionsDict) {
 
             // selection = document.getElementsByClassName(d3.select(this)._groups[0][0].classList[0])
             vLines
-                .style("opacity", 1)
+                .style("opacity", 0)
 
             text = []
 
@@ -325,9 +380,10 @@ function getLineChart(data, countryList, dimentionsDict) {
             // selected = d3.selectAll(".cl" + d.year.getFullYear())
 
             vLines
-                .style("opacity", 1)
+                .style("opacity", 0)
 
             text = []
+            barData = []
 
             tooltip
                 .style("opacity", 1)
@@ -355,6 +411,12 @@ function getLineChart(data, countryList, dimentionsDict) {
                             // console.log(d)
                             if (d.nodeName == "circle") {
                                 // console.log(d)
+                                barData.push({
+                                    country: d.__data__.country,
+                                    value: d.__data__.value,
+                                    year: d.__data__.year
+                                })
+
                                 text.push({
                                     country: d.__data__.country,
                                     value: d.__data__.value,
@@ -363,9 +425,16 @@ function getLineChart(data, countryList, dimentionsDict) {
                             } else {}
                         })
                     })
-                    bar_update(text)
-                    getMap(text)
-                    return JSON.stringify(text)
+                    bar_update(barData)
+                    getMap(barData)
+
+                    // text = JSON.stringify(text)
+                    string = ""
+                    text.forEach(elem => {
+                        // console.log(elem)
+                        string = string + elem.country + " " + elem.value + "<br>"
+                    })
+                    return "<b>Year: " + d + "</b><br>" + string
                 })
         }
 
@@ -391,8 +460,12 @@ function getLineChart(data, countryList, dimentionsDict) {
             .attr("class", function(d) { return "cl" + d.year + " circle" })
             .attr("cx", function(d) { return line_x(d.year); })
             .attr("cy", function(d) { return line_y(d.value); })
-            .attr("r", 3)
-            .style("fill", "#69b3a2")
+            .attr("r", 2)
+            .style("fill", function(d) {
+                // console.log(d)
+                return color(d.country);
+            })
+            .style('r', "5px")
             .style("opacity", 1)
             .on("mouseover", mouseover)
             .on("mousemove", mousemove)
@@ -428,7 +501,7 @@ function getLineChart(data, countryList, dimentionsDict) {
             })
             .attr('height', line_height)
             .style("stroke", "red")
-            .style("opacity", 0.5)
+            .style("opacity", 0)
             .style("fill", "Gray")
             .style('fill-opacity', 0)
 
@@ -445,18 +518,22 @@ function getLineChart(data, countryList, dimentionsDict) {
     filteredData()
 
     d3.select("#dimention_block").on("click", function(d) {
+        // console.log("dimention_block")
         filteredData()
     })
 
-    d3.select("#deSelectAllButton").on("click", function(d) {
+    var deSelectAllButton = document.querySelector('#deSelectAllButton')
+    deSelectAllButton.addEventListener('click', (event) => {
         filteredData()
     })
 
-    d3.select("#selectAllButton").on("click", function(d) {
+    var selectAllButton = document.querySelector('#selectAllButton')
+    selectAllButton.addEventListener('click', (event) => {
         filteredData()
     })
 
-    d3.select("#menaSelectButton").on("click", function(d) {
+    var menaSelectButton = document.querySelector('#menaSelectButton')
+    menaSelectButton.addEventListener('click', (event) => {
         filteredData()
     })
 

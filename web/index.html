@@ -8,6 +8,11 @@
     <script src="https://d3js.org/d3.v4.js"></script>
     <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
     <script src="https://d3js.org/d3-geo-projection.v2.min.js"></script>
+
+    <!-- сектор підвантаження кольорів для легенди -->
+    <script src="https://cdn.jsdelivr.net/npm/d3-color@3"></script>
+    <script src="https://cdn.jsdelivr.net/npm/d3-interpolate@3"></script>
+    <script src="https://cdn.jsdelivr.net/npm/d3-scale-chromatic@3"></script>
     <!--<script src="https://d3js.org/d3-request.v1.min.js"></script> -->
     <title>Document</title>
     <link rel="stylesheet" href="css/style.css">
@@ -53,13 +58,12 @@
         <select id="dimention_block">select dimention</select>
     </div>
     <div id='yearPlaceholder'>
-        <H2>Year: </H2>
+        <H3>Year: </H3>
     </div>
     <div id='main_grid'>
-
-        <div id="attribute_block"></div>
         <div id='map_block'></div>
         <div id='bar_block'> </div>
+        <div id='legend_block'></div>
         <div id='line_block'></div>
     </div>
     <script src="js/listOfGoalsR2.js"></script>
