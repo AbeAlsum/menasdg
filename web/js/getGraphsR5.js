@@ -38,25 +38,17 @@ line_svg.append("g")
 
 
 
-function getLineChart(data, countryList, dimentionsDict) {
-
-    // console.log(countryList.length)
+function getLineChart(data, countryList) {
 
     var sumstat = d3.nest()
         .key(function(d) {
-            //console.log(d.country)
             return d.country;
         })
         .entries(data);
 
     var res = sumstat.map(function(d) {
-        //console.log(d.key)
         return d.key
     })
-
-    // var color = d3.scaleOrdinal() //d3.schemeBlues[countryList.length]
-    //     .domain(res)
-    //     .range(d3.schemeSet3);
 
     var color = d3.scaleOrdinal()
         .domain(res)
@@ -76,8 +68,6 @@ function getLineChart(data, countryList, dimentionsDict) {
 
     var testFilter = data.filter(function(d) { return d.country == res[0] });
 
-    //console.log(testFilter)
-
     var line_group = line_svg.selectAll(".group")
         .data(sumstat)
         .enter()
@@ -86,7 +76,6 @@ function getLineChart(data, countryList, dimentionsDict) {
 
     var line_x = d3.scaleBand()
         .domain(d3.extent(testFilter, function(d) {
-            //console.log(d.year)
             return d.year;
         }))
         .range([0, line_width])
@@ -98,9 +87,8 @@ function getLineChart(data, countryList, dimentionsDict) {
 
     var arr = []
     testFilter.forEach(function(d) {
-            arr.push(+d.value)
-        })
-        //console.log(arr)
+        arr.push(+d.value)
+    })
 
     var line_y = d3.scaleLinear()
         .domain([0, d3.max(arr)])
@@ -117,7 +105,6 @@ function getLineChart(data, countryList, dimentionsDict) {
 
     var linepath = d3.line()
         .x(function(d) {
-            // console.log(d)
             return line_x(d.year);
         })
         .y(function(d) { return line_y(d.value); });
@@ -133,9 +120,6 @@ function getLineChart(data, countryList, dimentionsDict) {
             return color(d.key);
         });
 
-    // var color = d3.scaleOrdinal(d3.schemeBlues[countryList.length])
-    //     .domain(res)
-
     legend_block = document.getElementById('legend_block')
 
     try {
@@ -146,12 +130,10 @@ function getLineChart(data, countryList, dimentionsDict) {
 
 
     countryList.forEach(country => {
-        // console.log(country)
         legendElement = document.createElement('div');
         colorSquare = document.createElement('div');
         legendText = document.createElement('p');
         legendText.innerHTML = country.geoAreaName
-            // colorSquare.color = color(country.geoAreaName)
         colorSquare.style.cssText = "height: 10px; width: 10px; background-color:" + color(country.geoAreaName) + ";"
         legendElement.style.cssText = "display: grid; grid-template-columns: 1fr 95%; align-items: center;"
         legend_block.style.cssText = "display: grid; grid-template-columns: repeat(" + countryList.length + ", 1fr); grid-gap: 10px;"
@@ -163,18 +145,15 @@ function getLineChart(data, countryList, dimentionsDict) {
 
     function filteredData() {
 
+        console.log("filteredData()")
 
         var circles = line_svg.selectAll("circle")
-
-
-        // console.log(circles)
 
         circles
             .remove()
 
         var linepath = d3.line()
             .x(function(d) {
-                // console.log(d)
                 return line_x(d.year);
             })
             .y(function(d) { return line_y(d.value); });
@@ -244,22 +223,18 @@ function getLineChart(data, countryList, dimentionsDict) {
             } else { unique_years.push(d.year) }
         })
 
-
-
-        // console.log(dataFiltered)
+        console.log(unique_years.sort())
 
         var sumstat = d3.nest() // nest function allows to group the calculation per level of a factor
             .key(function(d) {
-                //console.log(d.country)
                 return d.country;
             })
             .entries(dataFiltered);
 
         var arr = []
         dataFiltered.forEach(function(d) {
-                arr.push(+d.value)
-            })
-            //console.log(arr)
+            arr.push(+d.value)
+        })
 
 
         var color = d3.scaleOrdinal()
@@ -277,9 +252,6 @@ function getLineChart(data, countryList, dimentionsDict) {
                 "#ffff99",
                 "#b15928"
             ])
-
-        // var color = d3.scaleOrdinal(d3.schemeBlues[countryList.length])
-        //     .domain(dataFiltered)
 
         var line_y = d3.scaleLinear()
             .domain([0, d3.max(arr)])
@@ -340,9 +312,6 @@ function getLineChart(data, countryList, dimentionsDict) {
 
 
         var mouseover = function(d) {
-            // selected = d3.selectAll(".cl" + d.year.getFullYear())
-
-            // selection = document.getElementsByClassName(d3.select(this)._groups[0][0].classList[0])
             vLines
                 .style("opacity", 0)
 
@@ -353,17 +322,10 @@ function getLineChart(data, countryList, dimentionsDict) {
                 .style("left", (d3.mouse(this)[0] + 90) + "px") // It is important to put the +90: other wise the tooltip is exactly where the point is an it creates a weird effect
                 .style("top", (d3.mouse(this)[1]) + "px")
                 .html(function() {
-                    // console.log(d)
-                    // var selection = document.getElementsByClassName(d3.select(".cl" + d.year.getFullYear())._groups[0][0].classList[0])
                     var selected = d3.selectAll(".cl" + d)
-                        // console.log(selected)
-                        // console.log(selected.length)
                     selected._groups.forEach(nodeList => {
                         nodeList.forEach(d => {
-                            // for (var i = 0; i < selected.length; i++) {
-                            // console.log(d)
                             if (d.nodeName == "circle") {
-                                // console.log(d)
                                 text.push({
                                     country: d.__data__.country,
                                     value: d.__data__.value,
@@ -379,7 +341,6 @@ function getLineChart(data, countryList, dimentionsDict) {
         }
 
         var mousemove = function(d) {
-            // selected = d3.selectAll(".cl" + d.year.getFullYear())
 
             vLines
                 .style("opacity", 0)
@@ -398,13 +359,10 @@ function getLineChart(data, countryList, dimentionsDict) {
                             yearPlaceholder.removeChild(yearPlaceholder.lastChild);
                         }
                     } catch {}
-                    // var selection = document.getElementsByClassName(d3.select(".cl" + d.year.getFullYear())._groups[0][0].classList[0])
 
                     year = document.createElement('h3');
                     year.innerHTML = "Year: " + d
                     yearPlaceholder.appendChild(year)
-                        // console.log(selected)
-                        // console.log(selected.length)
 
                     var selected = d3.selectAll(".cl" + d)
                     selected._groups.forEach(nodeList => {
@@ -428,6 +386,7 @@ function getLineChart(data, countryList, dimentionsDict) {
                         })
                     })
                     bar_update(barData)
+                    console.log(barData)
                     getMap(barData)
 
                     // text = JSON.stringify(text)
@@ -440,13 +399,7 @@ function getLineChart(data, countryList, dimentionsDict) {
                 })
         }
 
-
-
-        // A function that change this tooltip when the leaves a point: just need to set opacity to 0 again
         var mouseleave = function(d) {
-
-            // selected = d3.selectAll(".cl" + d.getFullYear())
-            //     .style("opacity", 0)
 
             tooltip
                 .transition()
@@ -473,17 +426,8 @@ function getLineChart(data, countryList, dimentionsDict) {
             .on("mousemove", mousemove)
             .on("mouseleave", mouseleave)
 
-
-
-
-        // console.log("!ATTENTION!!!!")
-        // console.log(unique_years)
-
-
         var vLines = line_svg.selectAll("rect")
             .data(unique_years)
-
-        // console.log(vLines)
 
         vLines
             .enter()
@@ -492,7 +436,7 @@ function getLineChart(data, countryList, dimentionsDict) {
             .transition(1) // and apply changes to all of them
             .duration(1)
             .attr("class", function(d) {
-                return "cl" + d //.getFullYear().toString()
+                return "cl" + d
             })
             .attr('x', function(d) {
                 return line_x(d) - (line_width / unique_years.length) / 2
@@ -508,19 +452,44 @@ function getLineChart(data, countryList, dimentionsDict) {
             .style('fill-opacity', 0)
 
         vLines
+            .exit()
+            .remove()
+
+        console.log(vLines)
+
+        var vLines = line_svg.selectAll("rect")
+        vLines
             .on("mouseover", mouseover)
             .on("mousemove", mousemove)
             .on("mouseleave", mouseleave)
 
-        vLines
-            .exit()
-            .remove()
 
+
+        var barData = dataFiltered.filter(function(d) {
+            return d.year == d3.max(dataFiltered, function(d) {
+                return d.year
+            })
+        })
+
+        bar_update(barData)
+        getMap(barData)
+
+        var yearPlaceholder = document.getElementById('yearPlaceholder')
+        try {
+            while (yearPlaceholder.firstChild) {
+                yearPlaceholder.removeChild(yearPlaceholder.lastChild);
+            }
+        } catch {}
+
+        year = document.createElement('h3');
+        year.innerHTML = "Year: " + d3.max(dataFiltered, function(d) {
+            return d.year
+        })
+        yearPlaceholder.appendChild(year)
     }
     filteredData()
 
     d3.select("#dimention_block").on("click", function(d) {
-        // console.log("dimention_block")
         filteredData()
     })
 

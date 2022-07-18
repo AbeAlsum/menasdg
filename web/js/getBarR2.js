@@ -34,6 +34,7 @@ function bar_update(data) {
         return a.value - b.value;
     });
 
+
     // console.log(data)
 
     // Update the X axis
@@ -45,6 +46,11 @@ function bar_update(data) {
     // Update the Y axis
     bar_x.domain([0, d3.max(data, function(d) { return +d.value })]);
     bar_xAxis.transition().duration(1).call(d3.axisBottom(bar_x));
+
+    bar_xAxis.attr('class', 'bottomAxis')
+
+    // console.log(bar_xAxis)
+
 
     // Create the u variable
     var bar_u = bar_svg.selectAll("rect")

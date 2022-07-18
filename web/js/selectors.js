@@ -130,7 +130,7 @@ function downloadData() {
 
 
         menaSelect()
-        getLineChart(data, countryList, dimentionsDict)
+        getLineChart(data, countryList)
     })
 }
 
