@@ -129,7 +129,7 @@ function downloadData() {
         })
 
 
-
+        menaSelect()
         getLineChart(data, countryList, dimentionsDict)
     })
 }
