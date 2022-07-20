@@ -66,8 +66,27 @@
 }
 
 #bar_block {
-    grid-row: 2;
+    grid-row-start: 2;
+    grid-row-end: 4;
     grid-column: 2;
+    height: 45vh;
+}
+
+#mapTooltip {
+    align-content: center;
+    height: 5vh;
+    grid-row: 3;
+    grid-column-start: 1;
+    grid-column-end: 2;
+}
+
+#mapTooltip p {
+    margin-left: 25vw;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: fit-content;
+    height: fit-content;
+    padding: 2px;
 }
 
 #legend_block {
@@ -75,13 +94,13 @@
     align-self: center;
     grid-auto-flow: column;
     align-items: center;
-    grid-row: 3;
+    grid-row: 5;
     grid-column-start: 1;
     grid-column-end: -1;
 }
 
 #line_block {
-    grid-row: 4;
+    grid-row: 6;
     grid-column-start: 1;
     grid-column-end: -1;
 }

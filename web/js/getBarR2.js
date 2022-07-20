@@ -1,7 +1,7 @@
 // set the dimensions and margins of the graph
-var bar_margin = { top: 30, right: 30, bottom: 70, left: 60 },
+var bar_margin = { top: 10, right: 100, bottom: 10, left: 50 },
     bar_width = d3.select("#bar_block").node().getBoundingClientRect().width - bar_margin.left - bar_margin.right,
-    bar_height = 400 - bar_margin.top - bar_margin.bottom;
+    bar_height = d3.select("#bar_block").node().getBoundingClientRect().height - bar_margin.top - bar_margin.bottom;
 
 // append the svg object to the body of the page
 var bar_svg = d3.select("#bar_block")
@@ -27,6 +27,8 @@ var bar_x = d3.scaleLinear()
 
 var bar_yAxis = bar_svg.append("g")
     .attr("class", "myYaxis")
+
+bar_yAxis.call(d3.axisLeft(bar_y))
 
 
 // A function that create / update the plot for a given variable:

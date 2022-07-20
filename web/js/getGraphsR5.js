@@ -1,4 +1,4 @@
-var line_margin = { top: 50, right: 50, bottom: 50, left: 100 },
+var line_margin = { top: 10, right: 50, bottom: 30, left: 100 },
     line_width = d3.select("#line_block").node().getBoundingClientRect().width - line_margin.left - line_margin.right,
     line_height = 400 - line_margin.top - line_margin.bottom;
 

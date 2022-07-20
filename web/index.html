@@ -46,7 +46,7 @@
             <input type="button" onclick='selects()' value="Select All" id="selectAllButton" class="selectButtons" />
             <input type="button" onclick='deSelect()' value="Deselect All" id="deSelectAllButton" class="selectButtons" />
             <input type="button" onclick='menaSelect()' value="Select MENA" id="menaSelectButton" class="selectButtons" /></div>
-        <div id='countriesSelector'> List of countries</div>
+        <div id='countriesSelector'> loading...</div>
 
 
         <select id="dimention_block"><option>loading...</option></select>
@@ -57,6 +57,7 @@
     <div id='main_grid'>
         <div id='map_block'></div>
         <div id='bar_block'> </div>
+        <div id="mapTooltip"></div>
         <div id='legend_block'></div>
         <div id='line_block'></div>
     </div>
@@ -65,7 +66,7 @@
     </div>
 
     <script src="js/getGraphsR5.js"></script>
-    <script src="js/getMap.js"></script>
+    <script src="js/getMapR2.js"></script>
     <script src="js/getBarR2.js"></script>
     <script src="js/selectors.js"></script>
 
