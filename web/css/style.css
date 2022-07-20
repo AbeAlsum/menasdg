@@ -24,6 +24,8 @@
         width: 98vw !important;
         margin-left: 1vw !important;
         margin-right: 1vw !important;
+        height: 15vh !important;
+        max-height: 15vh !important;
     }
     #selectedButtons {
         display: block !important;
@@ -33,6 +35,19 @@
         margin-left: 25vw !important;
         height: 5vh !important;
         margin-bottom: 1vh !important;
+    }
+    #map_block {
+        width: 100vw !important;
+    }
+    #bar_block {
+        width: 99vw !important;
+    }
+    #legend_block {
+        /* display: block !important; */
+        grid-template-columns: repeat(2, 1fr) !important;
+        max-width: 99vw !important;
+        height: fit-content !important;
+        grid-auto-flow: row !important;
     }
 }
 
@@ -291,6 +306,7 @@
     height: 2vw;
     margin-left: 1vw;
     margin-right: 1vw;
+    border-radius: 5px;
 }
 
 .selectButtons:active {

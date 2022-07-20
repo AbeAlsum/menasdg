@@ -1,4 +1,4 @@
-var line_margin = { top: 50, right: 50, bottom: 50, left: 50 },
+var line_margin = { top: 50, right: 50, bottom: 50, left: 100 },
     line_width = d3.select("#line_block").node().getBoundingClientRect().width - line_margin.left - line_margin.right,
     line_height = 400 - line_margin.top - line_margin.bottom;
 
@@ -32,9 +32,13 @@ var line_y = d3.scaleLinear()
     .domain([0, d3.max([0, 100], function(d) { return +d; })])
     .range([line_height, 0]);
 
-line_svg.append("g")
+line_y_axis = line_svg.append("g")
     .attr("class", "myYaxis")
     .call(d3.axisLeft(line_y));
+
+var f = d3.format(".2s")
+
+// line_y_axis.tickFormat(function(d) { return (f(d)) });
 
 
 
@@ -94,9 +98,11 @@ function getLineChart(data, countryList) {
         .domain([0, d3.max(arr)])
         .range([line_height, 0]);
 
-    line_svg.append("g")
+    line_y_axis = line_svg.append("g")
         .attr("class", "myYaxis")
         .call(d3.axisLeft(line_y));
+
+    // line_y_axis.tickFormat(function(d) { return (f(d)) });
 
     line_svg.selectAll(".myXaxis")
         .transition()
@@ -252,21 +258,21 @@ function getLineChart(data, countryList) {
 
         console.log(domainResult)
 
-        var color = d3.scaleOrdinal()
-            .domain(sumstat)
-            .range(['#e41a1c', '#377eb8', '#4daf4a', '#984ea3', '#ff7f00', '#ffff33', '#a65628', '#f781bf', '#999999', "#a6cee3",
-                "#1f78b4",
-                "#b2df8a",
-                "#33a02c",
-                "#fb9a99",
-                "#e31a1c",
-                "#fdbf6f",
-                "#ff7f00",
-                "#cab2d6",
-                "#6a3d9a",
-                "#ffff99",
-                "#b15928"
-            ])
+        // var color = d3.scaleOrdinal()
+        //     .domain(sumstat)
+        //     .range(['#e41a1c', '#377eb8', '#4daf4a', '#984ea3', '#ff7f00', '#ffff33', '#a65628', '#f781bf', '#999999', "#a6cee3",
+        //         "#1f78b4",
+        //         "#b2df8a",
+        //         "#33a02c",
+        //         "#fb9a99",
+        //         "#e31a1c",
+        //         "#fdbf6f",
+        //         "#ff7f00",
+        //         "#cab2d6",
+        //         "#6a3d9a",
+        //         "#ffff99",
+        //         "#b15928"
+        //     ])
 
         var line_y = d3.scaleLinear()
             .domain(domainResult)
@@ -277,10 +283,21 @@ function getLineChart(data, countryList) {
             .domain(unique_years.sort(d3.ascending))
             .range([0, line_width]);
 
-        line_svg.selectAll(".myYaxis")
+        var LineyAxis = d3.axisLeft(line_y)
+
+        line_y_axis = line_svg.selectAll(".myYaxis")
             .transition()
             .duration(500)
-            .call(d3.axisLeft(line_y))
+            .call(LineyAxis)
+
+
+
+        console.log(f(10000000))
+
+        LineyAxis.tickFormat(function(d) {
+            console.log(d)
+            return f(d)
+        });
 
 
         line_svg.selectAll(".myXaxis")
@@ -332,27 +349,27 @@ function getLineChart(data, countryList) {
 
             text = []
 
-            tooltip
-                .style("opacity", 1)
-                .style("left", (d3.mouse(this)[0] + 90) + "px") // It is important to put the +90: other wise the tooltip is exactly where the point is an it creates a weird effect
-                .style("top", (d3.mouse(this)[1]) + "px")
-                .html(function() {
-                    var selected = d3.selectAll(".cl" + d)
-                    selected._groups.forEach(nodeList => {
-                        nodeList.forEach(d => {
-                            if (d.nodeName == "circle") {
-                                text.push({
-                                    country: d.__data__.country,
-                                    value: d.__data__.value,
-                                    year: d.__data__.year
-                                })
-                            } else {}
-                        })
-                    })
-                    bar_update(text)
-                    getMap(text)
-                    return JSON.stringify(text)
-                })
+            // tooltip
+            //     .style("opacity", 1)
+            //     .style("left", (d3.mouse(this)[0] + 100) + "px") // It is important to put the +90: other wise the tooltip is exactly where the point is an it creates a weird effect
+            //     .style("top", (d3.mouse(this)[1]) + "px")
+            //     .html(function() {
+            //         var selected = d3.selectAll(".cl" + d)
+            //         selected._groups.forEach(nodeList => {
+            //             nodeList.forEach(d => {
+            //                 if (d.nodeName == "circle") {
+            //                     text.push({
+            //                         country: d.__data__.country,
+            //                         value: d.__data__.value,
+            //                         year: d.__data__.year
+            //                     })
+            //                 } else {}
+            //             })
+            //         })
+            //         bar_update(text)
+            //         getMap(text)
+            //         return JSON.stringify(text)
+            //     })
         }
 
         var mousemove = function(d) {
@@ -365,7 +382,7 @@ function getLineChart(data, countryList) {
 
             tooltip
                 .style("opacity", 1)
-                .style("left", (d3.mouse(this)[0] + 90) + "px") // It is important to put the +90: other wise the tooltip is exactly where the point is an it creates a weird effect
+                .style("left", (d3.mouse(this)[0] + 100) + "px") // It is important to put the +90: other wise the tooltip is exactly where the point is an it creates a weird effect
                 .style("top", (d3.mouse(this)[1]) + "px")
                 .html(function() {
                     var yearPlaceholder = document.getElementById('yearPlaceholder')
@@ -394,7 +411,7 @@ function getLineChart(data, countryList) {
 
                                 text.push({
                                     country: d.__data__.country,
-                                    value: d.__data__.value,
+                                    value: f(d.__data__.value),
                                     year: d.__data__.year
                                 })
                             } else {}

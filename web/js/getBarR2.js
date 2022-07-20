@@ -1,6 +1,6 @@
 // set the dimensions and margins of the graph
 var bar_margin = { top: 30, right: 30, bottom: 70, left: 60 },
-    bar_width = 460 - bar_margin.left - bar_margin.right,
+    bar_width = d3.select("#bar_block").node().getBoundingClientRect().width - bar_margin.left - bar_margin.right,
     bar_height = 400 - bar_margin.top - bar_margin.bottom;
 
 // append the svg object to the body of the page
@@ -22,7 +22,8 @@ var bar_xAxis = bar_svg.append("g")
 
 // Initialize the Y axis
 var bar_x = d3.scaleLinear()
-    .range([0, bar_width]);
+    .range([0, bar_width])
+
 
 var bar_yAxis = bar_svg.append("g")
     .attr("class", "myYaxis")
@@ -102,7 +103,7 @@ function bar_update(data) {
         .data(data)
 
     // console.log(labels)
-
+    var f = d3.format(".2s")
     labels
         .enter()
         .append("text")
@@ -114,7 +115,7 @@ function bar_update(data) {
         .attr("x", (function(d) { return bar_x(d.value); }))
         .attr("y", function(d) { return bar_y(d.country) + (bar_y.bandwidth() / 2) + 3; })
         .attr("dy", ".75em")
-        .text(function(d) { return d.value; });
+        .text(function(d) { return f(+d.value) });
 
     labels
         .exit()
