@@ -1,3 +1,18 @@
+@media (max-width: 474px) {
+    #main_grid {
+        display: block !important;
+    }
+    #selectorsGrid {
+        display: block !important;
+    }
+    #goalsSelector {
+        width: 98vw !important;
+        margin-left: 1vw !important;
+        margin-right: 1vw !important;
+        height: fit-content !important;
+    }
+}
+
 #yearPlaceholder h3 {
     margin-left: 45vw;
 }
@@ -126,7 +141,8 @@
 
 #goalsSelector {
     width: 70vw;
-    height: 50px;
+    height: fit-content;
+    margin-bottom: 1vw;
     grid-row: 1;
     grid-column: 1;
 }
@@ -136,11 +152,13 @@
     height: 50px;
     grid-row: 2;
     grid-column: 1;
+    border-radius: 5px;
+    border: 1px solid #ccc;
 }
 
 #indicatorsList {
     border-radius: 5px;
-    margin-bottom: 1vw;
+    border: 1px solid #ccc;
     width: 70vw;
     height: 2vw;
     grid-row: 3;
@@ -149,20 +167,20 @@
 
 #seriesSelector {
     border-radius: 5px;
-    margin-bottom: 1vw;
     width: 70vw;
     height: 2vw;
     grid-row: 4;
     grid-column: 1;
+    border: 1px solid #ccc;
 }
 
 #dimention_block {
     border-radius: 5px;
-    margin-bottom: 1vw;
     width: 70vw;
     height: 2vw;
     grid-row: 5;
     grid-column: 1;
+    border: 1px solid #ccc;
 }
 
 #selectedButtons {

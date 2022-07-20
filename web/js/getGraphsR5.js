@@ -145,7 +145,7 @@ function getLineChart(data, countryList) {
 
     function filteredData() {
 
-        console.log("filteredData()")
+        // console.log("filteredData()")
 
         var circles = line_svg.selectAll("circle")
 
@@ -184,7 +184,7 @@ function getLineChart(data, countryList) {
             })
         })
 
-        console.log(actualParameters)
+        // console.log(actualParameters)
 
 
 
@@ -236,6 +236,21 @@ function getLineChart(data, countryList) {
             arr.push(+d.value)
         })
 
+        // console.log(d3.min(arr))
+        // console.log(d3.max(arr))
+
+        function domainRes(arr) {
+            if (d3.min(arr) > 0) {
+                // console.log(d3.min(arr))
+                return [0, d3.max(arr)]
+            } else {
+                return [d3.min(arr), d3.max(arr)]
+            }
+        }
+
+        domainResult = domainRes(arr)
+
+        console.log(domainResult)
 
         var color = d3.scaleOrdinal()
             .domain(sumstat)
@@ -254,7 +269,7 @@ function getLineChart(data, countryList) {
             ])
 
         var line_y = d3.scaleLinear()
-            .domain([0, d3.max(arr)])
+            .domain(domainResult)
             .range([line_height, 0]);
 
 
@@ -386,7 +401,7 @@ function getLineChart(data, countryList) {
                         })
                     })
                     bar_update(barData)
-                    console.log(barData)
+                        // console.log(barData)
                     getMap(barData)
 
                     // text = JSON.stringify(text)
@@ -455,7 +470,7 @@ function getLineChart(data, countryList) {
             .exit()
             .remove()
 
-        console.log(vLines)
+        // console.log(vLines)
 
         var vLines = line_svg.selectAll("rect")
         vLines
@@ -486,8 +501,108 @@ function getLineChart(data, countryList) {
             return d.year
         })
         yearPlaceholder.appendChild(year)
+
+
+        function exportToCsv(filename, rows) {
+            var processRow = function(row) {
+                var finalVal = '';
+                for (var j = 0; j < row.length; j++) {
+                    var innerValue = row[j] === null ? '' : row[j].toString();
+                    if (row[j] instanceof Date) {
+                        innerValue = row[j].toLocaleString();
+                    };
+                    var result = innerValue.replace(/"/g, '""');
+                    if (result.search(/("|,|\n)/g) >= 0)
+                        result = '"' + result + '"';
+                    if (j > 0)
+                        finalVal += ',';
+                    finalVal += result;
+                }
+                return finalVal + '\n';
+            };
+
+            var csvFile = '';
+            for (var i = 0; i < rows.length; i++) {
+                csvFile += processRow(rows[i]);
+            }
+
+            var blob = new Blob([csvFile], { type: 'text/csv;charset=utf-8;' });
+            if (navigator.msSaveBlob) { // IE 10+
+                navigator.msSaveBlob(blob, filename);
+            } else {
+                var link = document.createElement("a");
+                if (link.download !== undefined) { // feature detection
+                    // Browsers that support HTML5 download attribute
+                    var url = URL.createObjectURL(blob);
+                    link.setAttribute("href", url);
+                    link.setAttribute("download", filename);
+                    link.style.visibility = 'hidden';
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                }
+            }
+        }
+
+        dataForDownload = []
+        head = []
+        dataFiltered[0]
+
+        for (const [key, value] of Object.entries(dataFiltered[0])) {
+            head.push(key)
+            if (key == 'dimensions') {
+                for (const [key, value] of Object.entries(dataFiltered[0].dimensions)) {
+                    head.push(key)
+                }
+            }
+        }
+
+        dataForDownload.push(head)
+
+        dataFiltered.forEach(elem => {
+            row = []
+            console.log(elem)
+            for (const [key, value] of Object.entries(elem)) {
+                if (key == 'dimensions') {
+                    for (const [key, value] of Object.entries(elem.dimensions)) {
+                        row.push(value)
+                    }
+                } else { row.push(value) }
+
+            }
+            dataForDownload.push(row)
+        })
+
+
+
+        // exportToCsv(dataFiltered[0].seriesDescription, dataForDownload)
+
+
+        var downloadButtonDiv = document.getElementById("downloadButtonDiv");
+
+        try {
+            while (downloadButtonDiv.firstChild) {
+                downloadButtonDiv.removeChild(downloadButtonDiv.lastChild);
+            }
+        } catch {}
+
+        downloadButton = document.createElement('input');
+        downloadButton.type = "button"
+        downloadButton.value = "Download data"
+        downloadButton.id = "downloadButton"
+        downloadButtonDiv.appendChild(downloadButton)
+
+
+        var listener = function() {
+            console.log(dataForDownload)
+            exportToCsv(dataFiltered[0].seriesDescription.slice(0, 150), dataForDownload)
+        }
+
+        downloadButton.addEventListener('click', listener)
     }
     filteredData()
+
+
 
     d3.select("#dimention_block").on("click", function(d) {
         filteredData()

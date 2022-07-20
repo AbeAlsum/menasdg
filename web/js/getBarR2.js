@@ -34,17 +34,37 @@ function bar_update(data) {
         return a.value - b.value;
     });
 
+    var arr = []
+    data.forEach(function(d) {
+        arr.push(+d.value)
+    })
 
-    // console.log(data)
+    function domainRes(arr) {
+        if (d3.min(arr) > 0) {
+            // console.log(d3.min(arr))
+            return [0, d3.max(arr)]
+        } else {
+            return [d3.min(arr), d3.max(arr)]
+        }
+    }
+
+    domainResult = domainRes(arr)
+    console.log(domainResult)
+
+
+    console.log(data)
 
     // Update the X axis
-    bar_y.domain(data.map(function(d) {
-        return d.country;
-    }))
+    bar_y
+        .domain(data.map(function(d) {
+            return d.country;
+        }))
+
     bar_yAxis.call(d3.axisLeft(bar_y))
 
+
     // Update the Y axis
-    bar_x.domain([0, d3.max(data, function(d) { return +d.value })]);
+    bar_x.domain(domainResult)
     bar_xAxis.transition().duration(1).call(d3.axisBottom(bar_x));
 
     bar_xAxis.attr('class', 'bottomAxis')
@@ -62,10 +82,15 @@ function bar_update(data) {
         .merge(bar_u) // get the already existing elements as well
         .transition() // and apply changes to all of them
         .duration(1)
-        .attr("x", 0)
+        // .attr("x", 0)
+        .attr("x", function(d) {
+            // console.log(bar_x(Math.min(0, d.value)))
+            return bar_x(Math.min(0, d.value));
+        })
         .attr("y", function(d) { return bar_y(d.country); })
         .attr("height", bar_y.bandwidth())
-        .attr("width", function(d) { return bar_x(d.value); })
+        // .attr("width", function(d) { return bar_x(d.value); })
+        .attr("width", function(d) { return Math.abs(bar_x(d.value) - bar_x(0)); })
         .attr("fill", "#69b3a2")
 
     // If less group in the new dataset, I delete the ones not in use anymore

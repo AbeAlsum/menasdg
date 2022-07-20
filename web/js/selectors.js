@@ -30,11 +30,15 @@ function downloadData() {
         var countryList = []
         var countryUnique = []
 
-
+        console.log(json)
 
         json.data.forEach(function(d) {
-            if (d.value != "NaN" || d.value != 0) {
+            if (d.value == "NaN" || d.value == 0 || d.value == Boolean || d.value == null || d.value == undefined || Number.isNaN(d.value)) {
 
+            } else {
+                d.value = d.value.replace('<', '')
+                d.value = d.value.replace('>', '')
+                d.value = +d.value
                 if (countryUnique.includes(d.geoAreaName)) {} else {
                     countryUnique.push(d.geoAreaName)
                     geoAreaName = d.geoAreaName.replace('(', '')
@@ -81,7 +85,7 @@ function downloadData() {
                         listed: dimentionsList
                     })
                 }
-            } else {}
+            }
         })
 
         console.log(dimentionsDict_2)
@@ -276,7 +280,7 @@ function listOfGoals() {
         })
 
         goalsSelector = new CustomSelect('#goalsSelector', {
-            name: GoalsList[0][0],
+            name: GoalsList[7][0],
             targetValue: GoalsList[0][0],
             options: GoalsList,
         });

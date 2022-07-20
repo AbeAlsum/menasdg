@@ -30,9 +30,9 @@
     </h1>
     <div id="selectorsGrid">
         <!-- Документация на селектор по ссылке https://itchief.ru/javascript/custom-select -->
+
         <div id="goalsSelector">
         </div>
-
         <select id="targetsSelector">
             <option>loading...</option>
         </select>
@@ -59,11 +59,13 @@
         <div id='legend_block'></div>
         <div id='line_block'></div>
     </div>
+    <div id='downloadButtonDiv'>
+        <input type="button" value="Download data" id="downloadButton" />
+    </div>
 
     <script src="js/getGraphsR5.js"></script>
     <script src="js/getMap.js"></script>
     <script src="js/getBarR2.js"></script>
-    <script src="js/downloadDataR2.js"></script>
     <script src="js/selectors.js"></script>
 
     <script type="text/javascript">
@@ -100,19 +102,6 @@
             }
         }
     </script>
-    <!-- <script>
-        $('.dropdown__header').on('click', function() {
-            let dropdown = $(this).parents('.dropdown');
-            dropdown.toggleClass('open');
-        });
-        $('.dropdown__body > div').on('click', function() {
-            let dropdown = $(this).parents('.dropdown');
-            let name = $(this).data('name');
-            let text = $(this).text();
-            dropdown.children('.dropdown__header').data('value', name);
-            dropdown.children('.dropdown__header').text(text);
-        });
-    </script> -->
 </body>
 
 </html>
