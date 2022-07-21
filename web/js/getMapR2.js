@@ -18,6 +18,7 @@ returnTopo().then(topo => {
 
     // Map and projection
     var map_path = d3.geoPath();
+
     var map_projection = d3.geoMercator()
         .scale(110)
         .center([0, 40])
@@ -29,7 +30,9 @@ returnTopo().then(topo => {
         .domain([100000, 1000000, 10000000, 30000000, 100000000, 500000000])
         .range(d3.schemeBlues[7]);
 
-    map_svg.append("g")
+    map_g = map_svg.append("g")
+
+    map_g
         .selectAll("path")
         .data(topo.features)
         .enter()
@@ -47,6 +50,23 @@ returnTopo().then(topo => {
         .attr("id", function(d) { return d.properties.name.replace(/\s/g, '') + "Map" })
         .attr("class", function(d) { return d.properties.name + " countryL" })
         .style("opacity", .8)
+
+
+    var zoom = d3.zoom()
+        .scaleExtent([1, 8])
+        .on('zoom', function() {
+            map_g.selectAll('path')
+                .attr('transform', d3.event.transform);
+        });
+
+    map_svg.call(zoom);
+
+    map_svg
+        .append("text")
+        .attr('x', 0)
+        .attr('y', map_height)
+        .text('You can zoom and pan map')
+
 });
 
 

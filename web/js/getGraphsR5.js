@@ -1,6 +1,6 @@
 var line_margin = { top: 10, right: 50, bottom: 30, left: 100 },
     line_width = d3.select("#line_block").node().getBoundingClientRect().width - line_margin.left - line_margin.right,
-    line_height = 400 - line_margin.top - line_margin.bottom;
+    line_height = d3.select("#line_block").node().getBoundingClientRect().height - line_margin.top - line_margin.bottom;
 
 var line_svg = d3.select("#line_block")
     .append("svg")
@@ -56,19 +56,70 @@ function getLineChart(data, countryList) {
 
     var color = d3.scaleOrdinal()
         .domain(res)
-        .range(['#e41a1c', '#377eb8', '#4daf4a', '#984ea3', '#ff7f00', '#ffff33', '#a65628', '#f781bf', '#999999', "#a6cee3",
+        .range(['#e41a1c', "#BE6E61", '#377eb8', "#BEB461", "#6179BE", '#4daf4a', '#984ea3', "#B861BE", '#ff7f00', '#ffff33', '#a65628', '#f781bf', '#999999', "#a6cee3",
             "#1f78b4",
             "#b2df8a",
             "#33a02c",
+            "#7361BE",
             "#fb9a99",
+            '#2CA568',
+            '#30A868',
+            '#34AA67',
+            '#38AD67',
             "#e31a1c",
             "#fdbf6f",
             "#ff7f00",
             "#cab2d6",
             "#6a3d9a",
+            "#BE619A",
             "#ffff99",
-            "#b15928"
+            "#b15928",
+            '#094F68'
         ])
+        // .range([
+        //     "#61BE93",
+        //     "#61BE85",
+        //     "#61BEA1",
+        //     "#61BE77",
+        //     "#61BEAF",
+        //     "#61BE69",
+
+    //     "#61BEBD",
+    //     "#67BE61",
+    //     "#61B1BE",
+    //     "#61A3BE",
+    //     "#75BE61",
+    //     "#83BE61",
+    //     "#6195BE",
+    //     "#6187BE",
+
+    //     "#91BE61",
+    //     "#9FBE61",
+    //     "#616BBE",
+    //     "#6561BE",
+    //     "#ADBE61",
+    //     "#BBBE61",
+
+    //     "#8061BE",
+    //     "#8E61BE",
+    //     "#9C61BE",
+    //     "#AA61BE",
+
+    //     "#BE61B6",
+    //     "#BE61A8",
+    //     "#BE619A",
+    //     "#BE618C",
+    //     "#BE617E",
+    //     "#BE6170",
+    //     "#BE6162",
+
+    //     "#BE7C61",
+    //     "#BE8A61",
+    //     "#BE9861",
+    //     "#BEA661"
+
+    // ])
+
 
 
     // .range([
@@ -78,7 +129,7 @@ function getLineChart(data, countryList) {
     //     '#073F60',
     //     '#084463',
     //     '#084A65',
-    //     '#094F68',
+    //     
     //     '#0A556B',
     //     '#0B5A6E',
     //     '#0C6071',
@@ -101,10 +152,7 @@ function getLineChart(data, countryList) {
     //     '#219D6B',
     //     '#25A06A',
     //     '#28A269',
-    //     '#2CA568',
-    //     '#30A868',
-    //     '#34AA67',
-    //     '#38AD67',
+    //     '
     //     '#3CAF66',
     //     '#40B266',
     //     '#44B466',
@@ -503,8 +551,8 @@ function getLineChart(data, countryList) {
                             yearPlaceholder.removeChild(yearPlaceholder.lastChild);
                         }
                     } catch {}
-
-                    year = document.createElement('h3');
+                    series =
+                        year = document.createElement('h3');
                     year.innerHTML = "Year: " + d
                     yearPlaceholder.appendChild(year)
 
@@ -521,9 +569,15 @@ function getLineChart(data, countryList) {
                                     year: d.__data__.year
                                 })
 
+                                if (d.__data__.value < 1.0) {
+                                    var val = +d.__data__.value
+                                } else {
+                                    var val = f(+d.__data__.value)
+                                }
+
                                 text.push({
                                     country: d.__data__.country,
-                                    value: f(d.__data__.value),
+                                    value: val,
                                     year: d.__data__.year
                                 })
                             } else {}
@@ -728,6 +782,9 @@ function getLineChart(data, countryList) {
         }
 
         downloadButton.addEventListener('click', listener)
+
+
+
     }
     filteredData()
 

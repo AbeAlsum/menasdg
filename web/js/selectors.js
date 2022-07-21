@@ -46,6 +46,9 @@ function downloadData() {
                         geoAreaName = geoAreaName.replace(')', '')
                         geoAreaName = geoAreaName.replace(',', '')
                         geoAreaName = geoAreaName.replace('Iran Islamic Republic of', 'Iran')
+                        geoAreaName = geoAreaName.replace('United States of America', 'USA')
+                        geoAreaName = geoAreaName.replace('Syrian Arab Republic', 'Syria')
+
                         countryList.push({
                             geoAreaName: geoAreaName,
                             geoAreaCode: d.geoAreaCode
@@ -212,7 +215,19 @@ function listOfIndicators(option) {
             })
 
             console.log(list.firstChild.value)
+
+            seriesPlaceHolder = document.getElementById('seriesPlaceHolder')
+            try {
+                while (seriesPlaceHolder.firstChild) {
+                    seriesPlaceHolder.removeChild(seriesPlaceHolder.lastChild);
+                }
+            } catch {}
+            series = document.createElement('h4')
+            series.innerHTML = list.firstChild.text
+            seriesPlaceHolder.appendChild(series)
+
             listOfSeries(list.firstChild.value)
+
         });
     }
     update(option)

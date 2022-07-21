@@ -26,21 +26,28 @@
 </head>
 
 <body>
-    <h1>
-        This is a text!
-    </h1>
     <div id="selectorsGrid">
         <!-- Документация на селектор по ссылке https://itchief.ru/javascript/custom-select -->
-
-        <div id="goalsSelector">
+        <div id='goalsSelectorWrapper'>
+            <p>Select a goal:</p>
+            <div id="goalsSelector">
+            </div>
         </div>
-        <select id="targetsSelector">
+        <div id='targetsSelectorWrapper'>
+            <p>Select a target:</p>
+            <select id="targetsSelector">
             <option>loading...</option>
         </select>
-        <select id='indicatorsList'>
+        </div>
+        <div id='indicatorsListWrapper'>
+            <p> Select an indicator:</p>
+            <select id='indicatorsList'>
         <option>loading...</option></select>
-        <select id='seriesSelector'>
-        <option>loading...</option></select>
+        </div>
+        <div id='seriesSelectorWrapper'>
+            <p>Select a Series</p>
+            <select id='seriesSelector'>
+        <option>loading...</option></select></div>
 
         <div id='selectedButtons'>
             <input type="button" onclick='selects()' value="Select All" id="selectAllButton" class="selectButtons" />
@@ -48,11 +55,16 @@
             <input type="button" onclick='menaSelect()' value="Select MENA" id="menaSelectButton" class="selectButtons" /></div>
         <div id='countriesSelector'> loading...</div>
 
-
-        <select id="dimention_block"><option>loading...</option></select>
+        <div id='dimention_blockWrapper'>
+            <p>Select a Dimention</p>
+            <select id="dimention_block"><option>loading...</option></select>
+        </div>
     </div>
-    <div id='yearPlaceholder'>
-        <H3>Year: </H3>
+    <div id='infoPlaceHolder'>
+        <div id='yearPlaceholder'>
+            <H3>Year: </H3>
+        </div>
+        <div id='seriesPlaceHolder'></div>
     </div>
     <div id='main_grid'>
         <div id='map_block'></div>

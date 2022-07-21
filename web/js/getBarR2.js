@@ -124,7 +124,14 @@ function bar_update(data) {
         .attr("x", (function(d) { return bar_x(d.value); }))
         .attr("y", function(d) { return bar_y(d.country) + (bar_y.bandwidth() / 2) + 3; })
         .attr("dy", ".75em")
-        .text(function(d) { return f(+d.value) });
+        .text(function(d) {
+            console.log(d)
+            if (d.value < 1.0) {
+                return d.value
+            } else {
+                return f(d.value)
+            }
+        });
 
     labels
         .exit()
