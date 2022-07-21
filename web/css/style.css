@@ -53,6 +53,17 @@
     }
 }
 
+@media (max-width: 1439px) {
+    #selectedButtons {
+        display: block !important;
+    }
+    .selectButtons {
+        display: block;
+        margin-bottom: 1vh !important;
+        width: 15vw !important;
+    }
+}
+
 #yearPlaceholder h3 {
     margin-left: 45vw;
 }
@@ -326,11 +337,12 @@
 
 .selectButtons {
     background-color: #fff;
-    width: 5vw;
+    width: 7vw;
     height: 2vw;
     margin-left: 1vw;
     margin-right: 1vw;
     border-radius: 5px;
+    border: solid 1px #ccc;
 }
 
 .selectButtons:active {
