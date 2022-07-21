@@ -1,5 +1,5 @@
 function downloadData() {
-    console.log('downloadData()')
+    // console.log('downloadData()')
     var indicator = d3.select("#seriesSelector").property("value")
     var url = 'https://unstats.un.org/SDGAPI/v1/sdg/Series/Data?seriesCode=' + indicator + '&pageSize=100&areaCode=12&areaCode=48&areaCode=262&areaCode=818&areaCode=364&areaCode=368&areaCode=400&areaCode=414&areaCode=422&areaCode=434&areaCode=478&areaCode=504&areaCode=275&areaCode=634&areaCode=682&areaCode=706&areaCode=729&areaCode=760&areaCode=788&areaCode=732&areaCode=887&areaCode=15&areaCode=2&areaCode=1&areaCode=145&areaCode=840&areaCode=156' // заглушка із регіоном
 
@@ -31,7 +31,7 @@ function downloadData() {
             var countryList = []
             var countryUnique = []
 
-            console.log(json)
+            // console.log(json)
 
             json.data.forEach(function(d) {
                 if (d.value == "NaN" || d.value == 0 || d.value == Boolean || d.value == null || d.value == undefined || Number.isNaN(d.value)) {
@@ -93,7 +93,7 @@ function downloadData() {
                 }
             })
 
-            console.log(dimentionsDict_2)
+            // console.log(dimentionsDict_2)
 
 
             menaCountries = [12, 48, 262, 818, 364, 368, 400, 414, 422, 434, 478, 504, 275, 634, 682, 706, 729, 760, 788]

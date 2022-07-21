@@ -1,5 +1,5 @@
 // set the dimensions and margins of the graph
-var bar_margin = { top: 10, right: 100, bottom: 10, left: 50 },
+var bar_margin = { top: 10, right: 50, bottom: 10, left: 100 },
     bar_width = d3.select("#bar_block").node().getBoundingClientRect().width - bar_margin.left - bar_margin.right,
     bar_height = d3.select("#bar_block").node().getBoundingClientRect().height - bar_margin.top - bar_margin.bottom;
 
@@ -52,10 +52,10 @@ function bar_update(data) {
     }
 
     domainResult = domainRes(arr)
-    console.log(domainResult)
+        // console.log(domainResult)
 
 
-    console.log(data)
+    // console.log(data)
 
     // Update the X axis
     bar_y
@@ -125,7 +125,7 @@ function bar_update(data) {
         .attr("y", function(d) { return bar_y(d.country) + (bar_y.bandwidth() / 2) + 3; })
         .attr("dy", ".75em")
         .text(function(d) {
-            console.log(d)
+            // console.log(d)
             if (d.value < 1.0) {
                 return d.value
             } else {

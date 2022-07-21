@@ -473,7 +473,7 @@ function getLineChart(data, countryList) {
 
             })
 
-        console.log(f(10000000))
+        // console.log(f(10000000))
 
         LineyAxis.tickFormat(function(d) {
             console.log(d)

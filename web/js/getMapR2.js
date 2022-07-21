@@ -119,9 +119,9 @@ function getMap(text) {
     text.forEach(element => {
         try {
             // countries = document.getElementsByClassName(element.country)
-            console.log(element.country.replace(/\s/g, '') + "Map")
+            // console.log(element.country.replace(/\s/g, '') + "Map")
             item = document.getElementById(element.country.replace(/\s/g, '') + "Map")
-            console.log(item)
+                // console.log(item)
             item.style.fill = map_colorScale(element.value)
             item.__data__.properties.value = element.value
 
