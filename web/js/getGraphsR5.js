@@ -531,6 +531,9 @@ function getLineChart(data, countryList) {
             .style("border-width", "1px")
             .style("border-radius", "5px")
             .style("padding", "10px")
+            .style("font", "14px 'sansBold'")
+            .style("color", "#444444")
+
 
 
         var mouseover = function(d) {
@@ -699,8 +702,7 @@ function getLineChart(data, countryList) {
             })
         })
 
-        bar_update(barData)
-        getMap(barData)
+        bar_update(barData) getMap(barData)
 
         var yearPlaceholder = document.getElementById('yearPlaceholder')
         try {
@@ -712,8 +714,7 @@ function getLineChart(data, countryList) {
         year = document.createElement('h3');
         year.innerHTML = "Year: " + d3.max(dataFiltered, function(d) {
             return d.year
-        })
-        yearPlaceholder.appendChild(year)
+        }) yearPlaceholder.appendChild(year)
 
 
         function exportToCsv(filename, rows) {
@@ -757,9 +758,7 @@ function getLineChart(data, countryList) {
             }
         }
 
-        dataForDownload = []
-        head = []
-        dataFiltered[0]
+        dataForDownload = [] head = [] dataFiltered[0]
 
         for (const [key, value] of Object.entries(dataFiltered[0])) {
             head.push(key)
