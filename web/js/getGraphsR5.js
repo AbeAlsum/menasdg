@@ -1,4 +1,4 @@
-var line_margin = { top: 10, right: 50, bottom: 30, left: 100 },
+var line_margin = { top: 10, right: 50, bottom: 40, left: 100 },
     line_width = d3.select("#line_block").node().getBoundingClientRect().width - line_margin.left - line_margin.right,
     line_height = d3.select("#line_block").node().getBoundingClientRect().height - line_margin.top - line_margin.bottom;
 
@@ -468,10 +468,17 @@ function getLineChart(data, countryList) {
         });
 
 
-        line_svg.selectAll(".myXaxis")
+        lineXaxis = line_svg.selectAll(".myXaxis")
             .transition()
             .duration(500)
             .call(d3.axisBottom(line_x));
+
+        lineXaxis
+            .selectAll("text")
+            .style("text-anchor", "end")
+            .attr("dx", "-.8em")
+            .attr("dy", ".15em")
+            .attr("transform", "rotate(-80)")
 
 
         line_svg.selectAll(".group")
