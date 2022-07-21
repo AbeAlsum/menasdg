@@ -38,6 +38,14 @@ line_y_axis = line_svg.append("g")
 
 var f = d3.format(".2s")
 
+
+explainer = line_svg.append('text')
+
+explainer
+    .text('Hover mouse on the line to the diving in the data ')
+    .attr("x", "0")
+    .attr("y", 10)
+
 // line_y_axis.tickFormat(function(d) { return (f(d)) });
 
 
@@ -288,7 +296,7 @@ function getLineChart(data, countryList) {
     if (countryList.length >= 32) {
         legend_block.style.cssText = "display: grid; grid-template-columns: repeat(" + Math.round(countryList.length / 4) + ", 1fr); grid-gap: 5px; grid-auto-flow: row; margin-bottom 1vh;"
     } else if (countryList.length >= 15) {
-        legend_block.style.cssText = "display: grid; grid-template-columns: repeat(" + Math.round(countryList.length / 3) + ", 1fr); grid-gap: 5px; grid-auto-flow: row; margin-bottom 1vh;"
+        legend_block.style.cssText = "display: grid; grid-template-columns: repeat(" + Math.round(countryList.length / 2) + ", 1fr); grid-gap: 5px; grid-auto-flow: row; margin-bottom 1vh;"
     } else if (countryList.length >= 10) {
         legend_block.style.cssText = "display: grid; grid-template-columns: repeat(" + Math.round(countryList.length / 2) + ", 1fr); grid-gap: 5px; grid-auto-flow: row; margin-bottom 1vh;"
     } else {
