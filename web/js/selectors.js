@@ -45,6 +45,7 @@ function downloadData() {
                         geoAreaName = d.geoAreaName.replace('(', '')
                         geoAreaName = geoAreaName.replace(')', '')
                         geoAreaName = geoAreaName.replace(',', '')
+                        geoAreaName = geoAreaName.replace('Iran Islamic Republic of', 'Iran')
                         countryList.push({
                             geoAreaName: geoAreaName,
                             geoAreaCode: d.geoAreaCode
@@ -106,13 +107,13 @@ function downloadData() {
                 } else {
                     opt.classList.add('benchmark')
                 }
-
+                opt.classList.add('custom-checkbox')
                 opt.type = "checkbox"
                 opt.name = "ck"
                 ids = d.geoAreaName.toString()
                 cids = ids.replace(/\s/g, '')
                 opt.id = cids
-                lab.for = d.geoAreaCode
+                lab.for = d.geoAreaName
                 lab.innerHTML = d.geoAreaName
                 list.appendChild(dv)
                 dv.appendChild(lab)

@@ -70,6 +70,109 @@ function getLineChart(data, countryList) {
             "#b15928"
         ])
 
+
+    // .range([
+    //     '#053156',
+    //     '#063559',
+    //     '#063A5D',
+    //     '#073F60',
+    //     '#084463',
+    //     '#084A65',
+    //     '#094F68',
+    //     '#0A556B',
+    //     '#0B5A6E',
+    //     '#0C6071',
+    //     '#0C6674',
+    //     '#0D6C76',
+    //     '#0E7279',
+    //     '#0F787C',
+    //     '#107F7E',
+    //     '#11817D',
+    //     '#12847C',
+    //     '#13867B',
+    //     '#148979',
+    //     '#168C78',
+    //     '#178E76',
+    //     '#189074',
+    //     '#199372',
+    //     '#1A9570',
+    //     '#1C986E',
+    //     '#1D9A6C',
+    //     '#219D6B',
+    //     '#25A06A',
+    //     '#28A269',
+    //     '#2CA568',
+    //     '#30A868',
+    //     '#34AA67',
+    //     '#38AD67',
+    //     '#3CAF66',
+    //     '#40B266',
+    //     '#44B466',
+    //     '#48B766',
+    //     '#4CB966',
+    //     '#51BC66',
+    //     '#55BE66',
+    //     '#59C067',
+    //     '#5DC367',
+    //     '#61C568',
+    //     '#66C769',
+    //     '#6AC96A',
+    //     '#72CB6E',
+    //     '#79CE73',
+    //     '#80D077',
+    //     '#87D27C',
+    //     '#8ED480',
+    //     '#95D685'
+    // ])
+
+    // .range(['#88cc33',
+    //     '#8BCD37',
+    //     '#8ECE3B',
+    //     '#91CF3F',
+    //     '#94D043',
+    //     '#97D147',
+    //     '#9AD24C',
+    //     '#9DD350',
+    //     '#9FD454',
+    //     '#A2D558',
+    //     '#A5D65C',
+    //     '#A8D760',
+    //     '#AAD864',
+    //     '#ADD968',
+    //     '#B0DA6C',
+    //     '#B2DB70',
+    //     '#B5DC74',
+    //     '#B8DD78',
+    //     '#BADE7C',
+    //     '#BDDF81',
+    //     '#BFE085',
+    //     '#C2E189',
+    //     '#C4E28D',
+    //     '#C7E491',
+    //     '#C9E595',
+    //     '#CCE699',
+    //     '#CEE79D',
+    //     '#D0E8A1',
+    //     '#D3E9A5',
+    //     '#D5EAA9',
+    //     '#D7EBAD',
+    //     '#D9ECB2',
+    //     '#DCEDB6',
+    //     '#DEEEBA',
+    //     '#E0EFBE',
+    //     '#E2F0C2',
+    //     '#E4F1C6',
+    //     '#E6F2CA',
+    //     '#E8F3CE',
+    //     '#EAF4D2',
+    //     '#ECF5D6'
+    // ])
+
+
+
+    // 
+
+
     var testFilter = data.filter(function(d) { return d.country == res[0] });
 
     var line_group = line_svg.selectAll(".group")
@@ -134,15 +237,24 @@ function getLineChart(data, countryList) {
         }
     } catch {}
 
+    if (countryList.length >= 32) {
+        legend_block.style.cssText = "display: grid; grid-template-columns: repeat(" + Math.round(countryList.length / 4) + ", 1fr); grid-gap: 5px; grid-auto-flow: row; margin-bottom 1vh;"
+    } else if (countryList.length >= 15) {
+        legend_block.style.cssText = "display: grid; grid-template-columns: repeat(" + Math.round(countryList.length / 3) + ", 1fr); grid-gap: 5px; grid-auto-flow: row; margin-bottom 1vh;"
+    } else if (countryList.length >= 10) {
+        legend_block.style.cssText = "display: grid; grid-template-columns: repeat(" + Math.round(countryList.length / 2) + ", 1fr); grid-gap: 5px; grid-auto-flow: row; margin-bottom 1vh;"
+    } else {
+        legend_block.style.cssText = "display: grid; grid-template-columns: repeat(" + countryList.length + ", 1fr); grid-gap: 5px; grid-auto-flow: row; margin-bottom 1vh;"
+    }
+
 
     countryList.forEach(country => {
         legendElement = document.createElement('div');
         colorSquare = document.createElement('div');
         legendText = document.createElement('p');
         legendText.innerHTML = country.geoAreaName
-        colorSquare.style.cssText = "height: 10px; width: 10px; background-color:" + color(country.geoAreaName) + ";"
-        legendElement.style.cssText = "display: grid; grid-template-columns: 1fr 95%; align-items: center;"
-        legend_block.style.cssText = "display: grid; grid-template-columns: repeat(" + countryList.length + ", 1fr); grid-gap: 10px;"
+        colorSquare.style.cssText = "height: 10px; width: 10px; background-color:" + color(country.geoAreaName) + "; height: 12px;"
+        legendElement.style.cssText = "display: grid; grid-template-columns: 1fr 95%; align-items: center; height: 12px;"
         legend_block.appendChild(legendElement)
         legendElement.appendChild(colorSquare)
         legendElement.appendChild(legendText)
@@ -327,7 +439,7 @@ function getLineChart(data, countryList) {
             .style("stroke", function(d) {
                 return color(d.key);
             })
-            .style("stroke-width", "4px")
+            .style("stroke-width", "2px")
 
 
 

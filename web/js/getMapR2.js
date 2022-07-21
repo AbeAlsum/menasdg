@@ -44,7 +44,7 @@ returnTopo().then(topo => {
             return map_colorScale(d.total);
         })
         .style("stroke", "#ccc")
-        .attr("id", function(d) { return d.properties.name + "Map" })
+        .attr("id", function(d) { return d.properties.name.replace(/\s/g, '') + "Map" })
         .attr("class", function(d) { return d.properties.name + " countryL" })
         .style("opacity", .8)
 });
@@ -75,10 +75,10 @@ function getMap(text) {
     map_svg = d3.select("#map_block")
     var map_colorScale = d3.scaleThreshold()
         .domain(values_list)
-        .range(d3.schemeBlues[7]);
+        .range(d3.schemeGnBu[9]);
 
     var callTooltip = function(volData) {
-        console.log(volData)
+        // console.log(volData)
         mapTooltip = document.getElementById('mapTooltip')
 
         try {
@@ -93,34 +93,19 @@ function getMap(text) {
         opt.style.cssText = "position: absolute; margin-left:" + volData[0].coords.left + ";"
 
         mapTooltip.appendChild(opt)
-
-        // console.log(volData)
-        // var tooltip = d3.select("#map_block")
-        //     .append("div")
-        //     .data(volData)
-        //     .style("opacity", 1)
-        //     .attr("id", "tooltip")
-        //     .style("background-color", "white")
-        //     .style("border", "solid")
-        //     .style("border-width", "1px")
-        //     .style("border-radius", "5px")
-        //     .style("padding", "10px")
-        //     .text(function(d) {
-        //         return d.name + " : " + d.value
-        //     })
-        //     .style("left", function(d) { return d.coords.left + "px" })
-        //     .style("top", function(d) { return d.coords.top / 2 + "px" })
     }
     text.forEach(element => {
-        countries = document.getElementsByClassName(element.country)
-            // console.log(countries)
-        for (let item of countries) {
+        try {
+            // countries = document.getElementsByClassName(element.country)
+            console.log(element.country.replace(/\s/g, '') + "Map")
+            item = document.getElementById(element.country.replace(/\s/g, '') + "Map")
+            console.log(item)
             item.style.fill = map_colorScale(element.value)
             item.__data__.properties.value = element.value
 
             function getCoords(elem) { // кроме IE8-
                 var box = elem.getBoundingClientRect();
-                console.log(box)
+                // console.log(box)
 
                 return {
                     top: box.y + scrollY,
@@ -151,7 +136,7 @@ function getMap(text) {
                     }
                 } catch {}
             }
-        }
+        } catch {}
     })
 
 

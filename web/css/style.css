@@ -1,4 +1,4 @@
-@media (max-width: 474px) {
+@media (max-width: 1023px) {
     #main_grid {
         display: block !important;
     }
@@ -38,6 +38,8 @@
     }
     #map_block {
         width: 100vw !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
     }
     #bar_block {
         width: 99vw !important;
@@ -100,6 +102,8 @@
 }
 
 #line_block {
+    position: relative;
+    margin-top: 20px;
     grid-row: 6;
     grid-column-start: 1;
     grid-column-end: -1;
@@ -111,7 +115,8 @@
 }
 
 #line_block .tooltip {
-    pointer-events: none
+    pointer-events: none;
+    position: absolute;
 }
 
 #line_block .line {
@@ -340,15 +345,6 @@
     position: absolute;
 }
 
-#line_block {
-    position: relative;
-}
-
-#line_block .tooltip {
-    position: absolute;
-    pointer-events: none;
-}
-
 .bottomAxis {
     fill: #fff;
     color: #fff;
@@ -363,4 +359,22 @@
 
 .bottomAxis .tick {
     opacity: 0;
+}
+
+#downloadButtonDiv {
+    display: grid;
+    grid-template-columns: auto;
+}
+
+#downloadButton {
+    background-color: #fff;
+    width: 15vw;
+    height: 5vh;
+    margin-left: 40;
+    border-radius: 5px;
+    border: solid 1px #ccc;
+}
+
+#downloadButton:active {
+    background-color: #88cc33;
 }

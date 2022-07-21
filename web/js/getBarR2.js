@@ -94,12 +94,19 @@ function bar_update(data) {
         .attr("height", bar_y.bandwidth())
         // .attr("width", function(d) { return bar_x(d.value); })
         .attr("width", function(d) { return Math.abs(bar_x(d.value) - bar_x(0)); })
-        .attr("fill", "#69b3a2")
+        .attr("fill", "#88cc33")
+
+
 
     // If less group in the new dataset, I delete the ones not in use anymore
+
     bar_u
+
         .exit()
-        .remove()
+
+    .remove()
+
+
 
     var labels = bar_svg.selectAll(".label")
         .data(data)
