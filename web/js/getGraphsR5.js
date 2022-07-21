@@ -1,4 +1,4 @@
-var line_margin = { top: 10, right: 50, bottom: 40, left: 100 },
+var line_margin = { top: 10, right: 30, bottom: 40, left: 30 },
     line_width = d3.select("#line_block").node().getBoundingClientRect().width - line_margin.left - line_margin.right,
     line_height = d3.select("#line_block").node().getBoundingClientRect().height - line_margin.top - line_margin.bottom;
 
@@ -45,6 +45,8 @@ explainer
     .text('Hover mouse on the line to the diving in the data ')
     .attr("x", "0")
     .attr("y", 10)
+    .style('font', '14px "serifRegular"')
+    .style('color', '#444444')
 
 // line_y_axis.tickFormat(function(d) { return (f(d)) });
 
@@ -458,7 +460,18 @@ function getLineChart(data, countryList) {
             .duration(500)
             .call(LineyAxis)
 
+        line_y_axis
+            .selectAll("text")
+            .style('font', '12px "serifRegular"')
+            .style('color', '#444444')
+            .text(function(d) {
+                if (d < 1.0) {
+                    return d
+                } else {
+                    return f(+d)
+                }
 
+            })
 
         console.log(f(10000000))
 
@@ -479,6 +492,8 @@ function getLineChart(data, countryList) {
             .attr("dx", "-.8em")
             .attr("dy", ".15em")
             .attr("transform", "rotate(-80)")
+            .style('font', '12px "serifRegular"')
+            .style('color', '#444444')
 
 
         line_svg.selectAll(".group")

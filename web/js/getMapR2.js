@@ -66,6 +66,8 @@ returnTopo().then(topo => {
         .attr('x', 0)
         .attr('y', map_height)
         .text('You can zoom and pan map')
+        .style('font', '14px "serifRegular"')
+        .style('color', '#444444')
 
 });
 
