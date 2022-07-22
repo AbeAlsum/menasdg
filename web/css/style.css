@@ -67,6 +67,9 @@
     #line_block {
         margin-top: 5vh !important;
     }
+}
+
+@media (max-width: 1023px) {
     #main_grid {
         display: block !important;
     }
@@ -132,9 +135,6 @@
         grid-auto-flow: row !important;
     }
 }
-
-
-/* @media (max-width: 1023px) {} */
 
 @media (min-width: 1024px) and (max-width: 1439px) {
     #selectedButtons {
