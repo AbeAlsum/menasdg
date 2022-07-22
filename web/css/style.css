@@ -81,7 +81,7 @@
         display: block !important;
     }
     #goalsSelector {
-        width: 98vw !important;
+        width: 90vw !important;
         margin-left: 1vw !important;
         margin-right: 1vw !important;
         height: fit-content !important;
@@ -91,7 +91,7 @@
     #seriesSelector,
     #dimention_block {
         height: 5% !important;
-        width: 98vw !important;
+        width: 90vw !important;
         margin-left: 1vw;
         margin-right: 1vw;
     }
@@ -162,6 +162,10 @@
     #seriesSelector {
         width: 50vw !important;
     } */
+}
+
+#mainDiv {
+    margin-right: 15px;
 }
 
 html {
