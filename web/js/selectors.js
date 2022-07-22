@@ -295,7 +295,7 @@ function listOfGoals() {
         json.forEach(function(d) {
             var goal = []
             goal.push(d.code)
-            goal.push(d.description)
+            goal.push("Goal " + d.code + ". " + d.title)
             GoalsList.push(goal)
         })
 
