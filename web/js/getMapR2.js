@@ -112,7 +112,7 @@ function getMap(text) {
 
         opt = document.createElement('p');
         opt.innerHTML = volData[0].name + ": " + volData[0].value
-        opt.style.cssText = "position: absolute; margin-left:" + volData[0].coords.left + ";"
+        opt.style.cssText = "position: absolute;"
 
         mapTooltip.appendChild(opt)
     }
@@ -125,24 +125,32 @@ function getMap(text) {
             item.style.fill = map_colorScale(element.value)
             item.__data__.properties.value = element.value
 
-            function getCoords(elem) { // кроме IE8-
-                var box = elem.getBoundingClientRect();
-                // console.log(box)
+            // function getCoords(elem) { // кроме IE8-
+            //     var box = elem.getBoundingClientRect();
+            //     // console.log(box)
 
-                return {
-                    top: box.y + scrollY,
-                    left: box.x + scrollX
-                };
+            //     return {
+            //         top: box.y + scrollY,
+            //         left: box.x + scrollX
+            //     };
 
-            }
-            coords = getCoords(item)
+            // }
+            // coords = getCoords(item)
 
             item.onmouseover = function(event) {
-                console.log(item.__data__.properties.name + " : " + item.__data__.properties.value)
+                console.log(this.__data__)
+                var box = this.getBoundingClientRect()
+                console.log(box)
+                coords = []
+                coords.push = ({
+                    top: box.y + scrollY,
+                    left: box.x + scrollX
+                })
+                console.log(this.__data__.properties.name + " : " + this.__data__.properties.value)
                 volData = []
                 volData.push({
-                        name: item.__data__.properties.name,
-                        value: item.__data__.properties.value,
+                        name: this.__data__.properties.name,
+                        value: this.__data__.properties.value,
                         coords: coords,
                     })
                     // console.log(volData)

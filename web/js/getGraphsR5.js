@@ -1,4 +1,4 @@
-var line_margin = { top: 10, right: 30, bottom: 40, left: 30 },
+var line_margin = { top: 30, right: 30, bottom: 40, left: 30 },
     line_width = d3.select("#line_block").node().getBoundingClientRect().width - line_margin.left - line_margin.right,
     line_height = d3.select("#line_block").node().getBoundingClientRect().height - line_margin.top - line_margin.bottom;
 
@@ -43,8 +43,8 @@ explainer = line_svg.append('text')
 
 explainer
     .text('Hover mouse on the line to the diving in the data ')
-    .attr("x", "0")
-    .attr("y", 10)
+    .attr("x", 0)
+    .attr("y", -10)
     .style('font', '14px "serifRegular"')
     .style('color', '#444444')
 

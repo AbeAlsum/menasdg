@@ -146,6 +146,16 @@ function downloadData() {
 
 
 d3.select("#seriesSelector").on("change.download", function(d) {
+    // selectedOption = d3.select(this).property("text")
+    // seriesPlaceHolder = document.getElementById('seriesPlaceHolder')
+    // try {
+    //     while (seriesPlaceHolder.firstChild) {
+    //         seriesPlaceHolder.removeChild(seriesPlaceHolder.lastChild);
+    //     }
+    // } catch {}
+    // series = document.createElement('h4')
+    // series.innerHTML = selectedOption
+    // seriesPlaceHolder.appendChild(series)
     downloadData()
 })
 
@@ -216,15 +226,7 @@ function listOfIndicators(option) {
 
             console.log(list.firstChild.value)
 
-            seriesPlaceHolder = document.getElementById('seriesPlaceHolder')
-            try {
-                while (seriesPlaceHolder.firstChild) {
-                    seriesPlaceHolder.removeChild(seriesPlaceHolder.lastChild);
-                }
-            } catch {}
-            series = document.createElement('h4')
-            series.innerHTML = list.firstChild.text
-            seriesPlaceHolder.appendChild(series)
+
 
             listOfSeries(list.firstChild.value)
 
