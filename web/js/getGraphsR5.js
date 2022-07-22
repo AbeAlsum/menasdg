@@ -777,7 +777,7 @@ function getLineChart(data, countryList) {
 
         dataFiltered.forEach(elem => {
             row = []
-            console.log(elem)
+                // console.log(elem)
             for (const [key, value] of Object.entries(elem)) {
                 if (key == 'dimensions') {
                     for (const [key, value] of Object.entries(elem.dimensions)) {
