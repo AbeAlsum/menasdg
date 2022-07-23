@@ -765,12 +765,11 @@ function getLineChart(data, countryList) {
         dataFiltered[0]
 
         for (const [key, value] of Object.entries(dataFiltered[0])) {
-            head.push(key)
             if (key == 'dimensions') {
                 for (const [key, value] of Object.entries(dataFiltered[0].dimensions)) {
                     head.push(key)
                 }
-            }
+            } else { head.push(key) }
         }
 
         dataForDownload.push(head)
