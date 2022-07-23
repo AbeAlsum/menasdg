@@ -324,7 +324,7 @@
     
     #targetsSelector {
         width: 50vw;
-        height: 5%;
+        height: 5vh;
         grid-column: 2;
         border-radius: 5px;
         border: 1px solid #ccc;
@@ -349,7 +349,7 @@
         border-radius: 5px;
         border: 1px solid #ccc;
         width: 50vw;
-        height: 5%;
+        height: 5vh;
         grid-column: 2;
     }
     
@@ -371,7 +371,7 @@
     #seriesSelector {
         border-radius: 5px;
         width: 50vw;
-        height: 5%;
+        height: 5vh;
         grid-column: 2;
         border: 1px solid #ccc;
     }
@@ -394,7 +394,7 @@
     #dimention_block {
         border-radius: 5px;
         width: 50vw;
-        height: 5%;
+        height: 5vh;
         grid-column: 2;
         border: 1px solid #ccc;
     }
