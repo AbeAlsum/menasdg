@@ -522,3 +522,7 @@
     #downloadButton:active {
         background-color: #88cc33;
     }
+    
+    #downloadButton:hover {
+        background-color: #88cc33;
+    }
