@@ -21,9 +21,6 @@
             display: grid;
             grid-template-columns: repeat(2, 50%) !important;
         }
-        #selectedButtons {
-            margin-top: 1%;
-        }
         #downloadButton {
             width: 50vw !important;
         }
@@ -33,36 +30,12 @@
         #line_block svg g g g text {
             font-size: 10px !important;
         }
-    }
-    
-    #legend_block {
-        grid-template-columns: repeat(6, 16%) !important;
-        height: fit-content;
-        gap: 10px !important;
-        align-items: center;
-        display: grid;
-    }
-    
-    #legend_block div {
-        margin-left: 5px !important;
-    }
-    
-    #countriesSelector {
-        display: grid;
-        grid-template-columns: repeat(2, 50%) !important;
-    }
-    
-    #selectedButtons {
-        margin-top: 1%;
-    }
-    
-    #countriesSelector {
-        display: grid;
-        grid-template-columns: repeat(3, 30%);
-    }
-    
-    #selectedButtons {
-        margin-top: 1%;
+        #targetsSelectorWrapper,
+        #indicatorsListWrapper,
+        #seriesSelectorWrapper,
+        #dimention_blockWrapper {
+            display: block !important;
+        }
     }
     
     #line_block {
@@ -77,63 +50,38 @@
         display: block !important;
     }
     
-    #indicatorsList,
-    #targetsSelector,
-    #seriesSelector,
-    #dimention_block {
-        height: 5% !important;
-        width: 90vw !important;
-        margin-left: 1vw;
-        margin-right: 1vw;
-    }
-    
-    #targetsSelectorWrapper,
-    #indicatorsListWrapper,
-    #seriesSelectorWrapper,
-    #dimention_blockWrapper {
-        display: block !important;
-    }
-    
-    #countriesSelector {
-        width: 98vw !important;
-        margin-left: 1vw !important;
-        margin-right: 1vw !important;
-        height: 15% !important;
-        max-height: 15% !important;
-        display: grid;
-        grid-template-columns: repeat(4, 25%);
-    }
-    
     #selectedButtons {
-        display: block !important;
+        display: grid;
+        margin-top: 1%;
+        grid-template-columns: repeat(3, 33%);
+    }
+    
+    #selectedButtons input {
+        font: 14px 'sansBold';
+        color: #444444;
     }
     
     .selectButtons {
-        width: 50vw !important;
-        margin-left: 25vw !important;
-        height: 5% !important;
+        background-color: #fff;
+        height: 30px;
+        margin-left: 1vw;
+        margin-right: 1vw;
+        border-radius: 5px;
+        border: solid 1px #ccc;
         margin-bottom: 1% !important;
     }
     
+    .selectButtons:active {
+        background-color: #88cc33;
+    }
+    
     #map_block {
+        position: relative;
         width: 100vw !important;
         margin-left: 0 !important;
         margin-right: 0 !important;
         display: block !important;
         height: 50% !important;
-    }
-    
-    #bar_block {
-        width: 99vw !important;
-        display: block !important;
-        position: relative;
-    }
-    
-    #legend_block {
-        /* display: block !important; */
-        max-width: 99vw !important;
-        height: fit-content !important;
-        grid-auto-flow: row !important;
     }
     
     html {
@@ -165,13 +113,16 @@
     }
     
     #bar_block {
-        grid-row-start: 2;
-        grid-row-end: 4;
-        grid-column: 2;
         height: 420px;
+        width: 99vw;
+        display: block;
+        position: relative;
+        margin-bottom: 25px;
+        margin-top: 25px;
     }
     
     #mapTooltip {
+        margin-bottom: 50px;
         align-content: center;
         height: 5%;
         grid-row: 3;
@@ -181,26 +132,13 @@
     }
     
     #mapTooltip p {
+        position: relative;
         margin-left: 25vw;
         border: 1px solid #ccc;
         border-radius: 5px;
         width: fit-content;
         height: fit-content;
         padding: 2px;
-    }
-    
-    #legend_block {
-        width: fit-content;
-        align-self: center;
-        grid-auto-flow: column;
-        align-items: center;
-        grid-row: 5;
-        grid-column-start: 1;
-        grid-column-end: -1;
-    }
-    
-    #legend_block div p {
-        font: 14px 'serifRegular';
     }
     
     #line_block {
@@ -279,6 +217,8 @@
         margin-bottom: 1vh;
         margin-left: 1vw !important;
         margin-right: 1vw !important;
+        border-radius: 5px;
+        border: 1px solid #ccc;
     }
     
     #goalImage {
@@ -305,8 +245,9 @@
     }
     
     #targetsSelector {
-        width: 50vw;
-        height: 5vh;
+        width: 80vw;
+        height: fit-content;
+        min-height: 25px;
         grid-column: 2;
         border-radius: 5px;
         border: 1px solid #ccc;
@@ -330,8 +271,9 @@
     #indicatorsList {
         border-radius: 5px;
         border: 1px solid #ccc;
-        width: 50vw;
-        height: 5vh;
+        width: 80vw;
+        height: fit-content;
+        min-height: 25px;
         grid-column: 2;
     }
     
@@ -352,16 +294,15 @@
     
     #seriesSelector {
         border-radius: 5px;
-        width: 50vw;
-        height: 5vh;
+        width: 80vw;
+        height: fit-content;
+        min-height: 25px;
         grid-column: 2;
         border: 1px solid #ccc;
     }
     
     #dimention_blockWrapper {
         display: grid;
-        grid-column: 1;
-        grid-row: 5;
         align-items: center;
         grid-template-columns: 15% 85%;
     }
@@ -375,29 +316,79 @@
     
     #dimention_block {
         border-radius: 5px;
-        width: 50vw;
-        height: 5vh;
+        width: 80vw;
+        height: fit-content;
+        min-height: 25px;
         grid-column: 2;
         border: 1px solid #ccc;
     }
     
-    #selectedButtons {
+    #countriesSelectorWrapper {
         display: grid;
-        grid-template-columns: 30% 30% 30%;
-        grid-column-start: 2;
-        grid-row-start: 1;
+        align-items: center;
+        grid-template-columns: 15% 85%;
     }
     
-    #selectedButtons input {
+    #countriesSelectorWrapper p {
         font: 14px 'sansBold';
         color: #444444;
     }
     
-    #countriesSelector {
+    #forAfter {
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        width: 80vw;
+        margin-top: 5px;
+    }
+    
+    .dropbtn {
+        background-color: white;
+        font: 14px 'serifRegular';
+        color: #444444;
+        font-size: 16px;
+        cursor: pointer;
+        width: 80vw;
+        height: 5vh;
+        border: none;
+        border-radius: 0.3125rem;
+        justify-content: space-between;
+        text-align: start;
+    }
+    /* .dropdown {
+        position: relative;
+        display: inline-block;
+    } */
+    
+    .dropdown-content {
         margin-left: 1vw;
-        max-height: 200px;
-        height: 200px;
-        width: 20vw;
+        display: none;
+        position: absolute;
+        background-color: #ffffff;
+        min-width: 160px;
+        overflow: auto;
+        box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+        z-index: 1;
+        width: 80vw;
+    }
+    
+    .show {
+        display: block;
+    }
+    
+    #checkSvg {
+        position: absolute;
+        height: 12px;
+        margin-top: 15px;
+        margin-left: -25px;
+    }
+    
+    #countriesSelector {
+        display: grid;
+        grid-template-columns: repeat(2, 50%);
+        margin-left: 1vw;
+        max-height: 250px;
+        height: 250px;
+        width: 80vw;
         overflow: scroll;
         overflow-y: scroll;
         overflow-x: hidden;
@@ -411,79 +402,6 @@
     #countriesSelector div label {
         font: 14px 'serifRegular';
         color: #444444;
-    }
-    
-    .dropdown {
-        position: relative;
-        width: 150px;
-        border: 1px solid #3f3f3f;
-        color: #3f3f3f;
-        border-radius: 2px;
-        display: inline-block;
-        grid-column-start: 2;
-        grid-row-start: 1;
-        grid-row-end: 4;
-    }
-    
-    .dropdown__header {
-        position: relative;
-        cursor: pointer;
-        padding: 0.25em 1.25em 0.25em 0.5em;
-    }
-    
-    .dropdown__header:after {
-        content: "▼";
-        position: absolute;
-        top: 0;
-        right: 0;
-        height: 100%;
-        font-size: 0.575rem;
-        display: flex;
-        align-items: center;
-        padding: 0 0.5em;
-    }
-    
-    .dropdown__body {
-        position: absolute;
-        top: 100%;
-        left: -1px;
-        background: #fff;
-        border: 1px solid #3f3f3f;
-        border-radius: 2px;
-        z-index: 2;
-        padding: 0.25em 0;
-        transition: all 0.15s linear;
-        visibility: hidden;
-        height: 0;
-    }
-    
-    .dropdown.open .dropdown__body {
-        visibility: visible;
-        height: fit-content;
-    }
-    
-    .dropdown__body>div {
-        cursor: pointer;
-        height: fit-content;
-        padding: 0.05em 0.5em;
-    }
-    
-    .dropdown__body>div:hover {
-        background: #afafaf;
-    }
-    
-    .selectButtons {
-        background-color: #fff;
-        width: 7vw;
-        height: 2vw;
-        margin-left: 1vw;
-        margin-right: 1vw;
-        border-radius: 5px;
-        border: solid 1px #ccc;
-    }
-    
-    .selectButtons:active {
-        background-color: #88cc33;
     }
     
     #map_block {
@@ -512,6 +430,26 @@
     
     .bottomAxis .tick {
         opacity: 0;
+    }
+    
+    #legend_block {
+        height: fit-content;
+        align-items: center;
+        display: grid;
+        max-width: 99vw !important;
+        grid-auto-flow: row !important;
+        width: fit-content;
+        align-self: center;
+        /* grid-row: 5;
+        grid-column-start: 1;
+        grid-column-end: -1; */
+        margin-left: 5px;
+    }
+    
+    #legend_block div p {
+        font: 14px 'serifRegular';
+        height: fit-content;
+        margin-right: 1px;
     }
     
     #downloadButtonDiv {

@@ -36,34 +36,55 @@
                 <div id="goalsSelector">
                 </div>
             </div>
-            <img id='goalImage' src='/pic/E Inverted Icons_WEB-01.png'>
+            <img id='goalImage' src='/pic/E Inverted Icons_WEB-08.png'>
         </div>
         <div id='targetsSelectorWrapper'>
             <p>Select a target:</p>
-            <select id="targetsSelector">
-            <option>loading...</option>
-        </select>
+            <!-- <select id="targetsSelector">
+            <option>loading...</option> </select>-->
+            <div id="targetsSelectorBlock">
+                <div id="targetsSelector">loading...</div>
+            </div>
         </div>
         <div id='indicatorsListWrapper'>
             <p> Select an indicator:</p>
-            <select id='indicatorsList'>
-        <option>loading...</option></select>
+            <div id='indicatorsListBlock'>
+                <div id='indicatorsList'>loading...</div>
+            </div>
+            <!-- <select id='indicatorsList'>
+        <option>loading...</option></select> -->
         </div>
         <div id='seriesSelectorWrapper'>
-            <p>Select a Series</p>
-            <select id='seriesSelector'>
-        <option>loading...</option></select></div>
-
-        <div id='selectedButtons'>
-            <input type="button" onclick='selects()' value="Select All" id="selectAllButton" class="selectButtons" />
-            <input type="button" onclick='deSelect()' value="Deselect All" id="deSelectAllButton" class="selectButtons" />
-            <input type="button" onclick='menaSelect()' value="Select MENA" id="menaSelectButton" class="selectButtons" /></div>
-        <div id='countriesSelector'> loading...</div>
-
+            <p>Select a series:</p>
+            <div id='seriesSelectorBlock'>
+                <div id='seriesSelector'>loading...</div>
+            </div>
+        </div>
+        <div id='countriesSelectorWrapper'>
+            <p style='grid-row:1; grid-column: 1;'>Select a country:</p>
+            <div style='grid-row:1; grid-column: 2;'>
+                <div id='forAfter'>
+                    <button onclick="myFunction()" class="dropbtn">Country selector</button>
+                    <img id='checkSvg' src="/pic/check.svg">
+                </div>
+                <div id="myDropdown" class="dropdown-content">
+                    <div id='selectedButtons'>
+                        <input type="button" onclick='selects()' value="Select All" id="selectAllButton" class="selectButtons" />
+                        <input type="button" onclick='deSelect()' value="Deselect All" id="deSelectAllButton" class="selectButtons" />
+                        <input type="button" onclick='menaSelect()' value="Select MENA" id="menaSelectButton" class="selectButtons" />
+                    </div>
+                    <div id='countriesSelector'> loading...</div>
+                </div>
+            </div>
+        </div>
         <div id='dimention_blockWrapper'>
             <p>Select a Dimention</p>
-            <select id="dimention_block"><option>loading...</option></select>
+            <!-- <select id="dimention_block"><option>loading...</option></select> -->
+            <div id="dimentionSelectorBlock">
+                <div id="dimention_block">loading...</div>
+            </div>
         </div>
+    </div>
     </div>
     <div id='infoPlaceHolder'>
         <div id='yearPlaceholder'>
@@ -73,8 +94,10 @@
     </div>
     <div id='main_grid'>
         <div id='map_block'></div>
+        <div id="mapTooltip">
+            <p>You can zoom and pan map, hover mouse on map to recieve more data</p>
+        </div>
         <div id='bar_block'> </div>
-        <div id="mapTooltip"></div>
         <div id='line_block'></div>
         <div id='legend_block'></div>
     </div>
@@ -118,6 +141,27 @@
                 if (selec[i].type == 'checkbox')
                     selec[i].checked = false;
 
+            }
+        }
+    </script>
+    <script>
+        /* When the user clicks on the button, 
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                        toggle between hiding and showing the dropdown content */
+        function myFunction() {
+            document.getElementById("myDropdown").classList.toggle("show");
+        }
+
+        // Close the dropdown if the user clicks outside of it
+        window.onclick = function(event) {
+            if (!event.target.matches('.dropbtn')) {
+                var dropdowns = document.getElementsByClassName("dropdown-content");
+                var i;
+                for (i = 0; i < dropdowns.length; i++) {
+                    var openDropdown = dropdowns[i];
+                    if (openDropdown.classList.contains('show')) {
+                        openDropdown.classList.remove('show');
+                    }
+                }
             }
         }
     </script>

@@ -94,7 +94,7 @@ function bar_update(data) {
         .attr("height", bar_y.bandwidth())
         // .attr("width", function(d) { return bar_x(d.value); })
         .attr("width", function(d) { return Math.abs(bar_x(d.value) - bar_x(0)); })
-        .attr("fill", "#88cc33")
+        .attr("fill", "#a7cc33")
 
 
 

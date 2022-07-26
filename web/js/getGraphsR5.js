@@ -44,7 +44,7 @@ explainer = line_svg.append('text')
 explainer
     .text('Hover mouse on the line to the diving in the data ')
     .attr("x", 0)
-    .attr("y", -10)
+    .attr("y", -20)
     .style('font', '14px "serifRegular"')
     .style('color', '#444444')
 
@@ -295,15 +295,17 @@ function getLineChart(data, countryList) {
         }
     } catch {}
 
-    if (countryList.length >= 32) {
-        legend_block.style.cssText = "display: grid; grid-template-columns: repeat(" + Math.round(countryList.length / 4) + ", 1fr); grid-gap: 5px; grid-auto-flow: row; margin-bottom 1vh;"
-    } else if (countryList.length >= 15) {
-        legend_block.style.cssText = "display: grid; grid-template-columns: repeat(" + Math.round(countryList.length / 2) + ", 1fr); grid-gap: 5px; grid-auto-flow: row; margin-bottom 1vh;"
-    } else if (countryList.length >= 10) {
-        legend_block.style.cssText = "display: grid; grid-template-columns: repeat(" + Math.round(countryList.length / 2) + ", 1fr); grid-gap: 5px; grid-auto-flow: row; margin-bottom 1vh;"
-    } else {
-        legend_block.style.cssText = "display: grid; grid-template-columns: repeat(" + countryList.length + ", 1fr); grid-gap: 5px; grid-auto-flow: row; margin-bottom 1vh;"
-    }
+    legend_block.style.cssText = "display: grid; grid-template-columns: repeat(9, 1fr);  grid-auto-flow: row; margin-bottom 1vh; grid-template-rows: auto 1fr;" //grid-gap: 5px;
+
+    // if (countryList.length >= 32) {
+    //     legend_block.style.cssText = "display: grid; grid-template-columns: repeat(" + Math.round(countryList.length / 4) + ", 1fr); grid-gap: 5px; grid-auto-flow: row; margin-bottom 1vh; grid-template-rows: auto 1fr;"
+    // } else if (countryList.length >= 15) {
+    //     legend_block.style.cssText = "display: grid; grid-template-columns: repeat(" + Math.round(countryList.length / 2) + ", 1fr); grid-gap: 5px; grid-auto-flow: row; margin-bottom 1vh; grid-template-rows: auto 1fr;"
+    // } else if (countryList.length >= 10) {
+    //     legend_block.style.cssText = "display: grid; grid-template-columns: repeat(" + Math.round(countryList.length / 2) + ", 1fr); grid-gap: 5px; grid-auto-flow: row; margin-bottom 1vh; grid-template-rows: auto 1fr;"
+    // } else {
+    //     legend_block.style.cssText = "display: grid; grid-template-columns: repeat(" + countryList.length + ", 1fr); grid-gap: 5px; grid-auto-flow: row; margin-bottom 1vh; grid-template-rows: auto 1fr;"
+    // }
 
 
     countryList.forEach(country => {
@@ -312,7 +314,7 @@ function getLineChart(data, countryList) {
         legendText = document.createElement('p');
         legendText.innerHTML = country.geoAreaName
         colorSquare.style.cssText = "height: 10px; width: 10px; background-color:" + color(country.geoAreaName) + "; height: 12px;"
-        legendElement.style.cssText = "display: grid; grid-template-columns: 1fr 95%; align-items: center; height: 12px;"
+        legendElement.style.cssText = "display: grid; grid-template-columns: 1fr 95%; align-items: center; height: fit-content; min-height: 12px;"
         legend_block.appendChild(legendElement)
         legendElement.appendChild(colorSquare)
         legendElement.appendChild(legendText)
@@ -346,9 +348,11 @@ function getLineChart(data, countryList) {
                 countries.filter((n) => { return n != cbb.value.toString() })
             }
         })
-
-        var select = document.getElementById('dimention_block');
-        var selectedOption = select.options[select.selectedIndex].text;
+        var btn = document.querySelector("#dimention_block").querySelector('.select__toggle');
+        console.log(btn.value)
+        var selectedOption = btn.value
+            // var select = document.getElementById('dimention_block');
+            // var selectedOption = select.options[select.selectedIndex].text;
         console.log(selectedOption)
         listOfValues = selectedOption.split(', ')
         actualParameters = []

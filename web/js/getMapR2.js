@@ -61,13 +61,13 @@ returnTopo().then(topo => {
 
     map_svg.call(zoom);
 
-    map_svg
-        .append("text")
-        .attr('x', 0)
-        .attr('y', map_height)
-        .text('You can zoom and pan map')
-        .style('font', '14px "serifRegular"')
-        .style('color', '#444444')
+    // map_svg
+    //     .append("text")
+    //     .attr('x', 0)
+    //     .attr('y', map_height)
+    //     .text('You can zoom and pan map')
+    //     .style('font', '14px "serifRegular"')
+    //     .style('color', '#444444')
 
 });
 
@@ -99,8 +99,27 @@ function getMap(text) {
         .domain(values_list)
         .range(d3.schemeGnBu[9]);
 
+    // var callTooltip = function(volData) {
+    //     // console.log(volData)
+    //     mapTooltip = document.getElementById('mapTooltip')
+
+    //     try {
+    //         while (mapTooltip.firstChild) {
+    //             mapTooltip.removeChild(mapTooltip.lastChild);
+    //         }
+    //     } catch {}
+
+
+    //     opt = document.createElement('p');
+    //     opt.innerHTML = volData[0].name + ": " + volData[0].value
+    //     opt.style.cssText = "position: absolute;"
+
+    //     mapTooltip.appendChild(opt)
+    // }
+
+
     var callTooltip = function(volData) {
-        // console.log(volData)
+        console.log(volData)
         mapTooltip = document.getElementById('mapTooltip')
 
         try {
@@ -112,10 +131,32 @@ function getMap(text) {
 
         opt = document.createElement('p');
         opt.innerHTML = volData[0].name + ": " + volData[0].value
-        opt.style.cssText = "position: absolute;"
+        opt.style.cssText = "position: relative;"
 
         mapTooltip.appendChild(opt)
+            // console.log(volData[0].coords[0])
+
+        // var tooltip = d3.select("#map_block")
+        //     .append("div")
+        //     .data(volData)
+        //     .style("opacity", 1)
+        //     .attr("id", "mapTooltip")
+        //     .attr("class", "tooltip")
+        //     .style("x", function(d) { return d.coords[0].top + "px" })
+        //     .style("y", function(d) { return d.coords[0].left + "px" })
+        //     .style("background-color", "white")
+        //     .style("border", "solid")
+        //     .style("border-width", "1px")
+        //     .style("border-radius", "5px")
+        //     .style("padding", "10px")
+        //     .style("font", "14px 'sansBold'")
+        //     .style("color", "#444444")
+        //     .text(function(d) {
+        //         return volData[0].name + ": " + volData[0].value
+        //     })
     }
+
+
     text.forEach(element => {
         try {
             // countries = document.getElementsByClassName(element.country)
@@ -139,12 +180,13 @@ function getMap(text) {
 
             item.onmouseover = function(event) {
                 console.log(this.__data__)
-                var box = this.getBoundingClientRect()
-                console.log(box)
+                    // var box = this.getBoundingClientRect()
+                    // var coordinates = d3.mouse(this);
+                    // console.log(box)
                 coords = []
-                coords.push = ({
-                    top: box.y + scrollY,
-                    left: box.x + scrollX
+                coords.push({
+                    top: event.pageX,
+                    left: event.pageY
                 })
                 console.log(this.__data__.properties.name + " : " + this.__data__.properties.value)
                 volData = []
@@ -160,11 +202,16 @@ function getMap(text) {
 
             item.onmouseleave = function(event) {
                 mapTooltip = document.getElementById("mapTooltip")
+                    // mapTooltip.remove()
                 try {
                     while (mapTooltip.firstChild) {
                         mapTooltip.removeChild(mapTooltip.lastChild);
                     }
                 } catch {}
+
+                opt = document.createElement('p');
+                opt.innerHTML = "You can zoom and pan map, hover mouse on map to recieve more data"
+                mapTooltip.appendChild(opt)
             }
         } catch {}
     })
