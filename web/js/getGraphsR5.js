@@ -466,7 +466,7 @@ function getLineChart(data, countryList) {
 
         line_y_axis
             .selectAll("text")
-            .style('font', '12px "serifRegular"')
+            .style('font', '10px "serifRegular"')
             .style('color', '#444444')
             .text(function(d) {
                 if (d < 1.0) {
@@ -496,7 +496,7 @@ function getLineChart(data, countryList) {
             .attr("dx", "-.8em")
             .attr("dy", ".15em")
             .attr("transform", "rotate(-80)")
-            .style('font', '12px "serifRegular"')
+            .style('font', '10px "serifRegular"')
             .style('color', '#444444')
 
 
