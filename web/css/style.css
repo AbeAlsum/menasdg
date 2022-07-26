@@ -348,7 +348,7 @@
         font-size: 16px;
         cursor: pointer;
         width: 80vw;
-        height: 5vh;
+        height: 30px;
         border: none;
         border-radius: 0.3125rem;
         justify-content: space-between;
@@ -378,7 +378,7 @@
     #checkSvg {
         position: absolute;
         height: 12px;
-        margin-top: 15px;
+        margin-top: 10px;
         margin-left: -25px;
     }
     
@@ -414,6 +414,9 @@
     
     #mapTooltip p {
         background-color: #fff;
+        font: 14px 'serifRegular';
+        color: #444444;
+        justify-content: center;
     }
     
     .bottomAxis {
