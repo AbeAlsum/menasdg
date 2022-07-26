@@ -34,6 +34,10 @@
     color: #444444;
 }
 
+.select__toggle:hover {
+    background-color: #88cc33;
+}
+
 .select__toggle::after {
     content: '';
     width: 0.75rem;
