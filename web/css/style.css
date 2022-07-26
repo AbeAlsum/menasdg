@@ -37,6 +37,9 @@
         #countriesSelectorWrapper {
             display: block !important;
         }
+        #goalImage {
+            display: none;
+        }
     }
     
     #line_block {
