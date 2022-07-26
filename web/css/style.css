@@ -1,7 +1,7 @@
-    @font-face {
+    /* @font-face {
         font-family: 'serifRegular';
         src: URL('https://github.com/HubashovD/UNSDG/blob/main/web/fonts/PTSerif-Regular.ttf?raw=true') format('truetype');
-    }
+    } */
     
     @font-face {
         font-family: 'sansBold';
@@ -57,8 +57,11 @@
     }
     
     #selectedButtons input {
-        font: 14px 'sansBold';
+        /* font: 14px 'sansBold'; */
         color: #444444;
+        font-size: 14px;
+        font-weight: bold;
+        font-family: 'Montserrat', sans-serif;
     }
     
     .selectButtons {
@@ -90,15 +93,21 @@
     
     #yearPlaceholder h3 {
         margin-left: 45vw;
-        font: 24px 'sansBold';
+        /* font: 24px 'sansBold'; */
         color: #444444;
+        font-size: 24px;
+        font-weight: bold;
+        font-family: 'Montserrat', sans-serif;
     }
     
     #seriesPlaceHolder h4 {
         align-items: center;
         justify-content: center;
-        font: 18px 'sansBold';
+        /* font: 18px 'sansBold'; */
         color: #444444;
+        font-size: 18px;
+        font-weight: bold;
+        font-family: 'Montserrat', sans-serif;
     }
     
     #main_grid {
@@ -214,8 +223,11 @@
     #goalsSelectorWrapper p {
         grid-column: 1;
         grid-row: 1;
-        font: 14px 'sansBold';
+        /* font: 14px 'sansBold'; */
         color: #444444;
+        font-size: 14px;
+        font-weight: bold;
+        font-family: 'Montserrat', sans-serif;
     }
     
     #goalsSelector {
@@ -247,8 +259,11 @@
     #targetsSelectorWrapper p {
         grid-column: 1;
         grid-row: 1;
-        font: 14px 'sansBold';
+        /* font: 14px 'sansBold'; */
         color: #444444;
+        font-size: 14px;
+        font-weight: bold;
+        font-family: 'Montserrat', sans-serif;
     }
     
     #targetsSelector {
@@ -271,8 +286,11 @@
     #indicatorsListWrapper p {
         grid-column: 1;
         grid-row: 1;
-        font: 14px 'sansBold';
+        /* font: 14px 'sansBold'; */
         color: #444444;
+        font-size: 14px;
+        font-weight: bold;
+        font-family: 'Montserrat', sans-serif;
     }
     
     #indicatorsList {
@@ -295,8 +313,11 @@
     #seriesSelectorWrapper p {
         grid-column: 1;
         grid-row: 1;
-        font: 14px 'sansBold';
+        /* font: 14px 'sansBold'; */
         color: #444444;
+        font-size: 14px;
+        font-weight: bold;
+        font-family: 'Montserrat', sans-serif;
     }
     
     #seriesSelector {
@@ -317,8 +338,11 @@
     #dimention_blockWrapper p {
         grid-column: 1;
         grid-row: 1;
-        font: 14px 'sansBold';
+        /* font: 14px 'sansBold'; */
         color: #444444;
+        font-size: 14px;
+        font-weight: bold;
+        font-family: 'Montserrat', sans-serif;
     }
     
     #dimention_block {
@@ -337,8 +361,11 @@
     }
     
     #countriesSelectorWrapper p {
-        font: 14px 'sansBold';
+        /* font: 14px 'sansBold'; */
         color: #444444;
+        font-size: 14px;
+        font-weight: bold;
+        font-family: 'Montserrat', sans-serif;
     }
     
     #forAfter {
