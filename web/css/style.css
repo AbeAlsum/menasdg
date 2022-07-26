@@ -29,10 +29,12 @@
         #line_block svg g g g text {
             font-size: 10px !important;
         }
+        #goalsSelectorWrapper,
         #targetsSelectorWrapper,
         #indicatorsListWrapper,
         #seriesSelectorWrapper,
-        #dimention_blockWrapper {
+        #dimention_blockWrapper,
+        #countriesSelectorWrapper {
             display: block !important;
         }
     }
