@@ -2,11 +2,10 @@
         font-family: 'serifRegular';
         src: URL('https://github.com/HubashovD/UNSDG/blob/main/web/fonts/PTSerif-Regular.ttf?raw=true') format('truetype');
     } */
-    
-    @font-face {
+    /* @font-face {
         font-family: 'sansBold';
         src: URL('https://github.com/HubashovD/UNSDG/blob/main/web/fonts/PTSans-Bold.ttf?raw=true') format('truetype');
-    }
+    } */
     
     @media (max-width: 400px) {
         #legend_block {
