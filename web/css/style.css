@@ -128,7 +128,9 @@
         grid-row: 3;
         grid-column-start: 1;
         grid-column-end: 2;
-        font: 14px 'serifRegular';
+        /* font: 14px 'serifRegular'; */
+        font-size: 14px;
+        font-family: 'Montserrat', sans-serif;
     }
     
     #mapTooltip p {
@@ -173,13 +175,18 @@
     /* Блок із селекторами та інтерактивними елементами */
     
     option {
-        font: 14px 'serifRegular';
+        /* font: 14px 'serifRegular'; */
         color: #444444;
+        font-size: 14px;
+        font-family: 'Montserrat', sans-serif;
     }
     
     select {
-        font: 14px 'serifRegular';
+        /* font-size: 14px;
+        font-family: 'Montserrat', sans-serif; */
         color: #444444;
+        font-size: 14px;
+        font-family: 'Montserrat', sans-serif;
     }
     
     #selectorsGrid {
@@ -343,7 +350,9 @@
     
     .dropbtn {
         background-color: white;
-        font: 14px 'serifRegular';
+        /* font: 14px 'serifRegular'; */
+        font-size: 14px;
+        font-family: 'Montserrat', sans-serif;
         color: #444444;
         font-size: 16px;
         cursor: pointer;
@@ -395,13 +404,17 @@
         grid-column: 2;
         grid-row-start: 2;
         grid-row-end: 6;
-        font: 14px 'serifRegular';
+        /* font: 14px 'serifRegular'; */
         color: #444444;
+        font-size: 14px;
+        font-family: 'Montserrat', sans-serif;
     }
     
     #countriesSelector div label {
-        font: 14px 'serifRegular';
+        /* font: 14px 'serifRegular'; */
         color: #444444;
+        font-size: 14px;
+        font-family: 'Montserrat', sans-serif;
     }
     
     #map_block {
@@ -414,7 +427,8 @@
     
     #mapTooltip p {
         background-color: #fff;
-        font: 14px 'serifRegular';
+        font: 14px;
+        font-family: 'Montserrat', sans-serif;
         color: #444444;
         justify-content: center;
     }
@@ -450,9 +464,11 @@
     }
     
     #legend_block div p {
-        font: 14px 'serifRegular';
+        /* font: 14px 'serifRegular'; */
         height: fit-content;
         margin-right: 1px;
+        font-size: 14px;
+        font-family: 'Montserrat', sans-serif;
     }
     
     #downloadButtonDiv {
