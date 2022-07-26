@@ -164,7 +164,7 @@ function getMap(text) {
             item = document.getElementById(element.country.replace(/\s/g, '') + "Map")
                 // console.log(item)
             item.style.fill = map_colorScale(element.value)
-            item.style.cursor = 'pointer'
+            item.style.cssText = 'cursor: pointer;'
             item.__data__.properties.value = element.value
 
             // function getCoords(elem) { // кроме IE8-
