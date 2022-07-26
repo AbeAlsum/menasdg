@@ -163,8 +163,8 @@ function getMap(text) {
             // console.log(element.country.replace(/\s/g, '') + "Map")
             item = document.getElementById(element.country.replace(/\s/g, '') + "Map")
                 // console.log(item)
-                // item.style.fill = map_colorScale(element.value)
-            item.style.cssText = 'cursor: pointer; fill: ' + map_colorScale(element.value) + ';'
+            item.style.fill = map_colorScale(element.value)
+                // item.style.cssText = 'cursor: pointer; fill: ' + map_colorScale(element.value) + ';'
             item.__data__.properties.value = element.value
 
             // function getCoords(elem) { // кроме IE8-
