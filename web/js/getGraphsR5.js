@@ -579,7 +579,7 @@ function getLineChart(data, countryList) {
 
             tooltip
                 .style("opacity", 1)
-                .style("left", (d3.mouse(this)[0] + 100) + "px") // It is important to put the +90: other wise the tooltip is exactly where the point is an it creates a weird effect
+                .style("left", (d3.mouse(this)[0] + 50) + "px") // It is important to put the +90: other wise the tooltip is exactly where the point is an it creates a weird effect
                 .style("top", (d3.mouse(this)[1]) + "px")
                 .html(function() {
                     var yearPlaceholder = document.getElementById('yearPlaceholder')
