@@ -7,7 +7,7 @@
         src: URL('https://github.com/HubashovD/UNSDG/blob/main/web/fonts/PTSans-Bold.ttf?raw=true') format('truetype');
     } */
     
-    @media (max-width: 400px) {
+    @media (max-width: 700px) {
         #legend_block {
             grid-template-columns: repeat(3, 30%) !important;
             height: fit-content;
