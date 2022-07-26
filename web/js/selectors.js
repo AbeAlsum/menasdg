@@ -345,7 +345,7 @@ function listOfTargets(option) {
         const text = selected ? selected.textContent : '';
         // console.log(`Выбранный текст опции: ${text}`);
         goalImage = document.getElementById('goalImage')
-        goalImage.src = '/pic/E Inverted Icons_WEB-0' + btn.value + '.png'
+        goalImage.src = 'https://raw.githubusercontent.com/HubashovD/UNSDG/main/web/pic/E%20Inverted%20Icons_WEB-0' + btn.value + '.png'
         update(btn.value)
     });
 }
