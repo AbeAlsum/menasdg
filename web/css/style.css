@@ -74,7 +74,7 @@
     }
     
     .selectButtons:active {
-        background-color: #88cc33;
+        background-color: #a7cc33;
     }
     
     #map_block {
@@ -388,6 +388,10 @@
         justify-content: space-between;
         text-align: start;
     }
+    
+    .dropbtn:hover {
+        background-color: #a7cc33;
+    }
     /* .dropdown {
         position: relative;
         display: inline-block;
@@ -520,9 +524,9 @@
     }
     
     #downloadButton:active {
-        background-color: #88cc33;
+        background-color: #a7cc33;
     }
     
     #downloadButton:hover {
-        background-color: #88cc33;
+        background-color: #a7cc33;
     }
